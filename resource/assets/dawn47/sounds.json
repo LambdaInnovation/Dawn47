@@ -1,0 +1,6 @@
+{
+"entities.drown_death": {"category": "master", "sounds": [{"name": "entities/drown_death", "stream": false}]},
+"entities.drown_howl": {"category": "master", "sounds": [{"name": "entities/drown_howl", "stream": false}]},
+"entities.medshot": {"category": "master", "sounds": [{"name": "entities/medshot", "stream": false}]},
+
+}
