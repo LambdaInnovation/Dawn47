@@ -14,16 +14,14 @@
 package cn.dawn47.core.item;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import cn.dawn47.DawnMod;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
+import cn.dawn47.DawnMod;
 
 /**
  * @author WeAthFolD
@@ -34,8 +32,8 @@ public class DWMobSpawner extends DWGenericItem {
 	protected Class<? extends Entity> spawnEntity = EntityCreeper.class;
 	private Constructor<? extends Entity> constructor;
 	
-	public DWMobSpawner(int par1) {
-		super(par1);
+	public DWMobSpawner() {
+		super();
 		try {
 			constructor = EntityCreeper.class.getConstructor(World.class);
 		} catch (NoSuchMethodException e) {
@@ -48,8 +46,8 @@ public class DWMobSpawner extends DWGenericItem {
 	/**
 	 * @param par1
 	 */
-	public DWMobSpawner(int par1, Class<? extends Entity> entityToSpawn, String name) {
-		super(par1);
+	public DWMobSpawner(Class<? extends Entity> entityToSpawn, String name) {
+		super();
 		this.setIAndU(name);
 		spawnEntity = entityToSpawn;
 		try {
@@ -86,7 +84,7 @@ public class DWMobSpawner extends DWGenericItem {
 					e.setPositionAndRotation(posX, posY, posZ, player.rotationYaw, player.rotationPitch);
 					world.spawnEntityInWorld(e);
 				} catch (Exception e) {
-					DawnMod.log.severe("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
+					DawnMod.log.info("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
 					e.printStackTrace();
 				}
     			

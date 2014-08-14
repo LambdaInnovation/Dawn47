@@ -30,8 +30,8 @@ public class DWAmmo extends DWGenericItem {
 	/**
 	 * @param par1
 	 */
-	public DWAmmo(int par1) {
-		super(par1);
+	public DWAmmo() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	

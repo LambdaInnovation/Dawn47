@@ -13,16 +13,13 @@
  */
 package cn.dawn47;
 
-import cn.dawn47.core.register.DWItems;
-import cn.dawn47.hud.DWHudDrawer;
-import cn.dawn47.weapon.wpn.Weapon_SniperRifle;
-import cn.weaponmod.api.information.InformationBullet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.ForgeSubscribe;
+import cn.dawn47.hud.DWHudDrawer;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,19 +29,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class DWEventHandler {
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderGameOverlay(RenderGameOverlayEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack curItem = player.getCurrentEquippedItem();
 		boolean drawScope = false;
-		if(curItem != null && curItem.itemID == DWItems.sniper_rifle.itemID) {
-			InformationBullet inf = (InformationBullet) DWItems.sniper_rifle.loadInformation(curItem, player);
-			boolean isZooming = ((Weapon_SniperRifle)DWItems.sniper_rifle).isItemZooming(curItem, null, player);
-			if(inf != null && isZooming && inf.getDeltaTick(false) > 10) {
-				drawScope = true;
-			}
-		}
+		//TODO:Determine if the scope can be draw
 		
 		if(!drawScope) {
 			if(event.type != ElementType.ALL) {

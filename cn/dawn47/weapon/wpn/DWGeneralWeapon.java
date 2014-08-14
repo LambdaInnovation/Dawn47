@@ -15,16 +15,20 @@ package cn.dawn47.weapon.wpn;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cn.dawn47.DawnMod;
-import cn.dawn47.core.util.DWGenericUtils;
+import cn.dawn47.action.ActionButtAttack;
 import cn.weaponmod.api.WeaponHelper;
-import cn.weaponmod.api.information.InformationBullet;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.client.render.IWpnRenderInfProvider;
+import cn.weaponmod.api.information.InfUtils;
+import cn.weaponmod.api.information.InfWeapon;
 import cn.weaponmod.api.weapon.WeaponGeneralBullet;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,75 +37,32 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author WeAthFolD
  * 
  */
-public abstract class DWGeneralWeapon extends WeaponGeneralBullet implements IDWAmmoInfProvider {
+public abstract class DWGeneralWeapon extends WeaponGeneralBullet implements IDWAmmoInfProvider, IWpnRenderInfProvider {
 
-	public String iconName = "none";
 
 	/**
-	 * @param par1
 	 * @param par2ammoID
 	 */
-	public DWGeneralWeapon(int par1, int par2ammoID) {
-		super(par1, par2ammoID);
+	public DWGeneralWeapon(Item ammo) {
+		super(ammo);
 		setCreativeTab(DawnMod.cct);
 	}
 	
 	public DWGeneralWeapon setIAndU(String name) {
-		iconName = name;
+		setTextureName("dawn47:" + name);
 		setUnlocalizedName(name);
 		return this;
 	}
 	
-    /**
-     * Returns the damage against a given entity.
-     *
-	@Override
-    public int getDamageVsEntity(Entity par1Entity)
-    {
-        return 3;
-    }
-	*/
-	
-	public abstract int getDamageVsEntity();
+	protected Action action_buttAttack = new ActionButtAttack(getSoundButtHit(), getButtDamage());
 	
 	@Override
-	public void onItemClick(World world, EntityPlayer player, ItemStack stack,
-			boolean left) {
-		InformationBullet information = (InformationBullet) loadInformation(stack, player);
-		if (left) {
-			super.onItemClick(world, player, stack, left);
-			information.setLastTick_Shoot(true);
-		} else {
-			//右键特殊：枪托攻击
-			if(information.getDeltaTick(false) > 10) {
-				player.playSound(this.getSoundHit(left), 0.5F, 1.0F);
-				DWGenericUtils.doPlayerAttack(player, getDamageVsEntity());
-				player.swingItem();
-				information.setLastTick_Shoot(false);
-			}
-		}
-		return;
-	}
-	
-	public void superOnItemClick(World world, EntityPlayer player, ItemStack stack,
-			boolean left) {
-		super.onItemClick(world, player, stack, left);
-	}
-	
-	@Override
-	public boolean doesAbortAnim(ItemStack itemStack, EntityLivingBase player) {
-		if(player instanceof EntityPlayer) {
-			InformationBullet inf = (InformationBullet) loadInformation(itemStack, (EntityPlayer) player);
-			if(inf != null) {
-				return inf.getDeltaTick(true) < inf.getDeltaTick(false);
-			} else return false;
-		}
-		return true;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister ir) {
-		this.itemIcon = ir.registerIcon("dawn47:" + iconName);
+	public void onItemClick(World world, EntityPlayer player, ItemStack stack, int keyid) {
+		if(keyid == 1) {
+			InfWeapon inf = this.loadInformation(stack, player);
+			inf.executeAction(player, getActionButt());
+		} else
+			super.onItemClick(world, player, stack, keyid);
 	}
 
 	/*
@@ -117,67 +78,24 @@ public abstract class DWGeneralWeapon extends WeaponGeneralBullet implements IDW
 			Entity par3Entity, int par4, boolean par5) {
 		this.onWpnUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getDamage(boolean)
-	 */
-	@Override
-	public int getWeaponDamage(boolean left) {
-		return 10;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getOffset(boolean)
-	 */
-	@Override
-	public int getOffset(boolean left) {
-		return 0;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#doWeaponUplift()
-	 */
-	@Override
-	public boolean doWeaponUplift() {
-		return true;
-	}
 	
 	
 	/**
 	 * Get the shoot sound path corresponding to the mode.
-	 * 
 	 * @param mode
 	 * @return sound path
 	 */
-	public String getSoundShoot(boolean left) {
+	public String getSoundButtHit() {
 		return "";
 	}
 	
 	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
+	 * 获取枪托攻击的伤害。
 	 */
-	public String getSoundHit(boolean left) {
-		return "dawn47:weapons.melee_swing";
-	}
+	public abstract float getButtDamage();
 	
-
-	/**
-	 * Get the gun jamming sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	public String getSoundJam(boolean left) {
-		return "dawn47:weapons.weapon_fire_empty";
+	public final Action getActionButt() {
+		return new ActionButtAttack(getSoundButtHit(), getButtDamage());
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -189,12 +107,27 @@ public abstract class DWGeneralWeapon extends WeaponGeneralBullet implements IDW
 	
 	@Override
 	public String getAmmo(EntityPlayer player, ItemStack stack) {
-		if(this.getMaxDamage() == 0) {
-			return String.valueOf(WeaponHelper.getAmmoCapacity(ammoID, player.inventory));
-		} else {
-			String str = String.valueOf(stack.getMaxDamage() - getWpnStackDamage(stack) - 1) + "|" + WeaponHelper.getAmmoCapacity(ammoID, player.inventory);
-			return str;
+		return getAmmo(stack) + "|" + getMaxDamage();
+	}
+	
+	public boolean isReloadingRender(EntityPlayer player, ItemStack stack, InfWeapon inf) {
+		return inf.isActionPresent(this.name_reload);
+	}
+	
+	public float getReloadRotationProgress(EntityPlayer player, ItemStack stack, InfWeapon inf) {
+		ActionReload act = (ActionReload) inf.getAction(this.name_reload);
+		if(act != null) {
+			return (float) (act.maxTick - act.tickLeft) / act.maxTick;
 		}
+		return 0F;
+	} 
+	
+	public int getShootDeltaTick(EntityPlayer player, ItemStack stack, InfWeapon inf) {
+		return InfUtils.getDeltaTick(inf, "shoot");
+	}
+	
+	public int getMuzzleConsistentTick() {
+		return 3;
 	}
 
 }

@@ -13,9 +13,9 @@
  */
 package cn.dawn47.core.register;
 
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.config.Configuration;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.core.item.DWMobSpawner;
 import cn.dawn47.equipment.entities.EntityMedkit;
@@ -23,9 +23,6 @@ import cn.dawn47.equipment.items.ItemEntityPlacer;
 import cn.dawn47.equipment.items.ItemSuperDrink;
 import cn.dawn47.mob.entity.EntityDroneBase;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
-import cn.dawn47.weapon.dual.DWGeneralDualWield;
-import cn.dawn47.weapon.dual.Dual_Handgun;
-import cn.dawn47.weapon.dual.Dual_Uzi;
 import cn.dawn47.weapon.wpn.DWGeneralWeapon;
 import cn.dawn47.weapon.wpn.Weapon_AK;
 import cn.dawn47.weapon.wpn.Weapon_AssaultRifle;
@@ -33,7 +30,6 @@ import cn.dawn47.weapon.wpn.Weapon_Handgun;
 import cn.dawn47.weapon.wpn.Weapon_LaserRifle;
 import cn.dawn47.weapon.wpn.Weapon_RadiationLauncher;
 import cn.dawn47.weapon.wpn.Weapon_Shotgun;
-import cn.dawn47.weapon.wpn.Weapon_SniperRifle;
 import cn.dawn47.weapon.wpn.Weapon_Uzi;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -48,7 +44,7 @@ public class DWItems {
 
 	public static DWGeneralWeapon handgun, assault_rifle, laser_rifle, radiation_launcher, shotgun, sniper_rifle, ak47, uzi;
 	
-	public static DWGeneralDualWield dual_handgun, dual_uzi;
+	//public static DWGeneralDualWield dual_handgun, dual_uzi;
 	
 	public static Item handgun_ammo, ar_ammo, laser_ammo, radiation_ammo, sg_ammo, sn_ammo, ak_ammo, uzi_ammo;
 	
@@ -70,36 +66,52 @@ public class DWItems {
 	 * 实际加载，在主mod中被调用
 	 * @param conf
 	 */
-	public static void init(Config conf) {
+	public static void init(Configuration conf) {
 		
-		handgun_ammo = new DWAmmo(GeneralRegistry.getItemId("handgun_ammo", 0)).setStackAndDamage(1, 9).setIAndU("handgun_ammo");
-		ar_ammo = new DWAmmo(GeneralRegistry.getItemId("ar_ammo", 0)).setStackAndDamage(1, 26).setIAndU("ar_ammo");
-		laser_ammo = new DWAmmo(GeneralRegistry.getItemId("laser_ammo", 0)).setStackAndDamage(1, 40).setIAndU("laser_ammo");
-		radiation_ammo = new DWAmmo(GeneralRegistry.getItemId("radiation_ammo", 0)).setStackAndDamage(1, 21).setIAndU("radiation_ammo");
-		sg_ammo = new DWAmmo(GeneralRegistry.getItemId("shotgun_ammo", 0)).setStackAndDamage(64, 1).setIAndU("shotgun_ammo");
-		sn_ammo = new DWAmmo(GeneralRegistry.getItemId("sn_ammo", 0)).setStackAndDamage(64, 1).setIAndU("sn_ammo");
-		ak_ammo = new DWAmmo(GeneralRegistry.getItemId("ak_ammo", 0)).setStackAndDamage(1, 31).setIAndU("ak_ammo");
-		uzi_ammo = new DWAmmo(GeneralRegistry.getItemId("uzi_ammo", 0)).setStackAndDamage(1, 21).setIAndU("uzi_ammo");
+		handgun_ammo = new DWAmmo().setStackAndDamage(1, 9).setIAndU("handgun_ammo");
+		ar_ammo = new DWAmmo().setStackAndDamage(1, 26).setIAndU("ar_ammo");
+		laser_ammo = new DWAmmo().setStackAndDamage(1, 40).setIAndU("laser_ammo");
+		radiation_ammo = new DWAmmo().setStackAndDamage(1, 21).setIAndU("radiation_ammo");
+		sg_ammo = new DWAmmo().setStackAndDamage(64, 1).setIAndU("shotgun_ammo");
+		sn_ammo = new DWAmmo().setStackAndDamage(64, 1).setIAndU("sn_ammo");
+		ak_ammo = new DWAmmo().setStackAndDamage(1, 31).setIAndU("ak_ammo");
+		uzi_ammo = new DWAmmo().setStackAndDamage(1, 21).setIAndU("uzi_ammo");
 		
-		handgun = new Weapon_Handgun(GeneralRegistry.getItemId("handgun", 1));
-		assault_rifle = new Weapon_AssaultRifle(GeneralRegistry.getItemId("assault_rifle", 1));
-		laser_rifle = new Weapon_LaserRifle(GeneralRegistry.getItemId("laser_rifle", 1));
-		radiation_launcher = new Weapon_RadiationLauncher(GeneralRegistry.getItemId("radiation_launcher", 1));
-		shotgun = new Weapon_Shotgun(GeneralRegistry.getItemId("shotgun", 1));
-		sniper_rifle = new Weapon_SniperRifle(GeneralRegistry.getItemId("sniper", 1));
-		ak47 = new Weapon_AK(GeneralRegistry.getItemId("ak47", 1));
-		uzi = new Weapon_Uzi(GeneralRegistry.getItemId("uzi", 1));
+		handgun = new Weapon_Handgun();
+		assault_rifle = new Weapon_AssaultRifle();
+		laser_rifle = new Weapon_LaserRifle();
+		radiation_launcher = new Weapon_RadiationLauncher();
+		shotgun = new Weapon_Shotgun();
+		ak47 = new Weapon_AK();
+		uzi = new Weapon_Uzi();
 		
-		dual_handgun = new Dual_Handgun(GeneralRegistry.getItemId("dual_handgun", 1));
-		dual_uzi = new Dual_Uzi(GeneralRegistry.getItemId("dual_uzi", 1));
+		medkit = new ItemEntityPlacer(EntityMedkit.class).setIAndU("medkit");
+		superdrink = new ItemSuperDrink();
 		
-		medkit = new ItemEntityPlacer(GeneralRegistry.getItemId("medkit", 2), EntityMedkit.class).setIAndU("medkit");
-		superdrink = new ItemSuperDrink(GeneralRegistry.getItemId("superdrink", 2));
-		
-		spw_rotten_creeper = new DWMobSpawner(GeneralRegistry.getItemId("spawner_rotten_creeper", 3), EntityRottenCreeper.class, "spw_rotten_creeper");
-		spw_drone = new DWMobSpawner(GeneralRegistry.getItemId("spawner_drone", 3), EntityDroneBase.class, "spw_drone_test");
+		spw_rotten_creeper = new DWMobSpawner(EntityRottenCreeper.class, "spw_rotten_creeper");
+		spw_drone = new DWMobSpawner(EntityDroneBase.class, "spw_drone_test");
 		
 		addLanguages();
+		
+		GameRegistry.registerItem(handgun_ammo, "hg_ammo");
+		GameRegistry.registerItem(ar_ammo, "ar_ammo");
+		GameRegistry.registerItem(laser_ammo, "laser_ammo");
+		GameRegistry.registerItem(radiation_ammo, "radiation_ammo");
+		GameRegistry.registerItem(sg_ammo, "sg_ammo");
+		GameRegistry.registerItem(sn_ammo, "sn_ammo");
+		GameRegistry.registerItem(ak_ammo, "ak_ammo");
+		GameRegistry.registerItem(uzi_ammo, "uzi_ammo");
+		GameRegistry.registerItem(handgun, "dw_handgun");
+		GameRegistry.registerItem(assault_rifle, "assault_rifle");
+		GameRegistry.registerItem(laser_rifle, "laser_rifle");
+		GameRegistry.registerItem(radiation_launcher, "radiation_launcher");
+		GameRegistry.registerItem(shotgun, "dw_shotgun");
+		GameRegistry.registerItem(ak47, "dw_ak47");
+		GameRegistry.registerItem(uzi, "dw_uzi");
+		GameRegistry.registerItem(medkit, "dw_medkit");
+		GameRegistry.registerItem(superdrink, "dw_superdrink");
+		GameRegistry.registerItem(spw_rotten_creeper, "spw_rotten_creeper");
+		GameRegistry.registerItem(spw_drone, "spw_drone");
 	}
 	
 	private static void addLanguages() {
@@ -118,12 +130,9 @@ public class DWItems {
 		instance.addNameForObject(laser_rifle, "zh_CN", "激光步枪");
 		instance.addNameForObject(radiation_launcher, "zh_CN", "辐射枪");
 		instance.addNameForObject(shotgun, "zh_CN", "粗水管");
-		instance.addNameForObject(sniper_rifle, "zh_CN", "审判者狙击枪");
+		//instance.addNameForObject(sniper_rifle, "zh_CN", "审判者狙击枪");
 		instance.addNameForObject(ak47, "zh_CN", "新AK-47");
 		instance.addNameForObject(uzi, "zh_CN", "乌兹冲锋枪");
-		
-		instance.addNameForObject(dual_handgun, "zh_CN", "双持塔尔手枪");
-		instance.addNameForObject(dual_uzi, "zh_CN", "双持乌兹冲锋枪");
 		
 		instance.addNameForObject(medkit, "zh_CN", "医疗包");
 		instance.addNameForObject(superdrink, "zh_CN", "超能饮料");
@@ -152,10 +161,8 @@ public class DWItems {
 		instance.addNameForObject(laser_rifle, "en_US", "Laser Rifle");
 		instance.addNameForObject(radiation_launcher, "en_US", "Radiation Launcher");
 		instance.addNameForObject(shotgun, "en_US", "Thick Pipe Shotgun");
-		instance.addNameForObject(sniper_rifle, "en_US", "Judger Sniper Rifle");
+		//instance.addNameForObject(sniper_rifle, "en_US", "Judger Sniper Rifle");
 		instance.addNameForObject(ak47, "en_US", "New AK-47");
-		
-		instance.addNameForObject(dual_handgun, "en_US", "Tar Handgun (Dual Wield)");
 		
 		instance.addNameForObject(medkit, "en_US", "Medkit");
 		instance.addNameForObject(superdrink, "en_US", "Super Drink");
@@ -168,8 +175,6 @@ public class DWItems {
 	}
 	
 	public static void addRecipes() {
-		GameRegistry.addShapelessRecipe(new ItemStack(dual_handgun), handgun, handgun);
-		GameRegistry.addShapelessRecipe(new ItemStack(handgun, 2), dual_handgun);
 	}
 
 }

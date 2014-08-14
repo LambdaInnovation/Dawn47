@@ -23,6 +23,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import cn.dawn47.core.register.DWItems;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
@@ -34,74 +38,30 @@ public class Weapon_AK extends DWGeneralWeapon {
 	 * @param par1
 	 * @param par2ammoID
 	 */
-	public Weapon_AK(int par1) {
-		super(par1, DWItems.ak_ammo.itemID);
+	public Weapon_AK() {
+		super(DWItems.ak_ammo);
 		this.setMaxDamage(31);
-		this.setLiftProps(4, 0.2F);
-		this.reloadTime = 30;
 	}
 	
     /**
      * Returns the damage against a given entity.
      **/
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
         return 4;
     }
-    
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getOffset(boolean)
-	 */
-	@Override
-	public int getOffset(boolean left) {
-		return 3;
+	public Action getActionUplift() {
+		return new ActionUplift(4F, .5F, .3F, 16F);
 	}
 	
-	@Override
-	public int getWeaponDamage(boolean left) {
-		return 5;
+	public Action getActionAutomaticShoot() {
+		return new ActionAutomaticShoot(300, 3, 5, 3, "weapons.ak.fire");
 	}
 	
-	/**
-	 * Get the shoot time corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return shoot time
-	 */
-	@Override
-	public int getShootTime(boolean left) {
-		return 3;
-	}
-	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.ak.fire" ;
-	}
-	
-	/**
-	 * Get the reload sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundReload() {
-		return "dawn47:weapons.ak.magout";
-	}
-	
-	@Override
-	public String getSoundReloadFinish() {
-		return "dawn47:weapons.ak.magin";
+	public Action getActionReload() {
+		return new ActionReload(30, "weapons.ak.magout", "weapons.ak.magin");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -111,5 +71,7 @@ public class Weapon_AK extends DWGeneralWeapon {
 		par3List.add(EnumChatFormatting.RED + StatCollector.translateToLocal("classicalwpn.name"));
 		super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
 	}
+
+	
 
 }

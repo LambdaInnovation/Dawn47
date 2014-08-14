@@ -80,10 +80,10 @@ public class EntityLaser extends Entity {
 	public void onUpdate() {
 		if(motion == null)
 			motion = new Motion3D(this);
-		MovingObjectPosition trace = this.worldObj.clip(motion
-				.asVec3(this.worldObj),
-				motion.move(100.0F).asVec3(this.worldObj));
-		Vec3 end = (trace == null) ? motion.asVec3(this.worldObj) : trace.hitVec;
+		MovingObjectPosition trace = this.worldObj.rayTraceBlocks(motion
+				.getPosVec(worldObj),
+				motion.move(100.0F).getPosVec(this.worldObj));
+		Vec3 end = (trace == null) ? motion.getPosVec(this.worldObj) : trace.hitVec;
 		double dx = end.xCoord - this.posX;
 		double dy = end.yCoord - this.posY;
 		double dz = end.zCoord - this.posZ;

@@ -15,6 +15,10 @@ package cn.dawn47.weapon.wpn;
 
 import net.minecraft.entity.Entity;
 import cn.dawn47.core.register.DWItems;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
@@ -26,72 +30,31 @@ public class Weapon_AssaultRifle extends DWGeneralWeapon {
 	 * @param par1
 	 * @param par2ammoID
 	 */
-	public Weapon_AssaultRifle(int par1) {
-		super(par1, DWItems.ar_ammo.itemID);
+	public Weapon_AssaultRifle() {
+		super(DWItems.ar_ammo);
 		setIAndU("assault_rifle");
 		setMaxDamage(26);
-		setLiftProps(5F, 0.35F);
-		this.reloadTime = 20;
 	}
 	
     /**
      * Returns the damage against a given entity.
      */
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
-        return 3;
+        return 3F;
     }
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getOffset(boolean)
-	 */
-	@Override
-	public int getOffset(boolean left) {
-		return 4;
+	public Action getActionUplift() {
+		return new ActionUplift(5F, .6F, .3F, 15F);
 	}
 	
-	@Override
-	public int getWeaponDamage(boolean left) {
-		return 4;
+	public Action getActionAutomaticShoot() {
+		return new ActionAutomaticShoot(300, 3, 4, 4, "weapons.ar.ar_fire");
 	}
 	
-	/**
-	 * Get the shoot time corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return shoot time
-	 */
-	public int getShootTime(boolean left) {
-		return 3;
-	}
-	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.ar.ar_fire" ;
-	}
-	
-	/**
-	 * Get the reload sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundReload() {
-		return "dawn47:weapons.ar.ar_magout";
-	}
-	
-	@Override
-	public String getSoundReloadFinish() {
-		return "dawn47:weapons.ar.ar_magin";
+	public Action getActionReload() {
+		return new ActionReload(20, "weapons.ar.ar_magout", "weapons.ar.ar_magin");
 	}
 
 }

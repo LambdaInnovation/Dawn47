@@ -1,31 +1,20 @@
 package cn.dawn47.core.item;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import cn.dawn47.DawnMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class DWGenericItem extends Item {
 
-	public String iconName = "none";
-
-	public DWGenericItem(int par1) {
-		super(par1);
+	public DWGenericItem() {
+		super();
 		setCreativeTab(DawnMod.cct);
 	}
 
-	public DWGenericItem setIconName(String name) {
-		iconName = name;
-		return this;
-	}
-
 	public DWGenericItem setIAndU(String name) {
-		iconName = name;
+		setTextureName("dawn47:" + name);
 		setUnlocalizedName(name);
 		return this;
 	}
@@ -34,12 +23,6 @@ public class DWGenericItem extends Item {
 		setMaxStackSize(stack);
 		setMaxDamage(damage);
 		return this;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		this.itemIcon = par1IconRegister.registerIcon("dawn47:" + iconName);
 	}
 	
 

@@ -15,61 +15,61 @@ package cn.dawn47.weapon.wpn;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.weapon.EntityRadiationBall;
+import cn.liutils.api.entity.EntityBullet;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionShoot;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
  *
  */
 public class Weapon_RadiationLauncher extends DWGeneralWeapon {
-
+	
 	/**
 	 * @param par1
 	 * @param par2ammoID
 	 */
-	public Weapon_RadiationLauncher(int par1) {
-		super(par1, DWItems.radiation_ammo.itemID);
+	public Weapon_RadiationLauncher() {
+		super(DWItems.radiation_ammo);
 		setIAndU("radiation_launcher");
 		setMaxDamage(21);
-		this.reloadTime = 20;
+	}
+	
+	@Override
+	public boolean useAutomaticShoot() {
+		return false;
+	}
+
+	public static class Shoot extends ActionShoot {
+
+		public Shoot() {
+			super(0, 0, "weapons.rad.launch");
+			setShootRate(20);
+		}
+		
+		protected Entity getProjectileEntity(World world, EntityPlayer player) {
+			return world.isRemote ? null : new EntityRadiationBall(world, player);
+		}
+		
+	}
+	
+	public Action getActionUplift() {
+		return new ActionUplift(5F, .5F, .3F, 25F);
 	}
 	
     /**
      * Returns the damage against a given entity.
      */
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
         return 7;
     }
-	
-	@Override
-	protected Entity getBulletEntity(ItemStack is, World world,
-			EntityPlayer player, boolean left) {
-		return world.isRemote ? null : new EntityRadiationBall(world, player);
-	}
-	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.rad.launch";
-	}
-	
-	/**
-	 * Get the shoot time corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return shoot time
-	 */
-	public int getShootTime(boolean left) {
-		return 20;
-	}
 
 }

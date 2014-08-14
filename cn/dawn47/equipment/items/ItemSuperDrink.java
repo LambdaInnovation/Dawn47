@@ -30,8 +30,8 @@ public class ItemSuperDrink extends DWGenericItem {
 	/**
 	 * @param par1
 	 */
-	public ItemSuperDrink(int par1) {
-		super(par1);
+	public ItemSuperDrink() {
+		super();
 		setIAndU("superdrink");
 	}
 	

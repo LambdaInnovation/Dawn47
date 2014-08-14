@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import cn.dawn47.core.util.DWGenericUtils;
+import cn.liutils.api.util.GenericUtils;
 
 /**
  * @author WeAthFolD
@@ -69,7 +69,7 @@ public class EntityMedkit extends Entity {
 
 		AxisAlignedBB box = AxisAlignedBB.getBoundingBox(posX - 0.15,
 				posY - 0.3, posZ - 0.15, posX + 0.15, posY + 0.3, posZ + 0.15);
-		List<EntityPlayer> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, box, DWGenericUtils.selectorPlayer);
+		List<EntityPlayer> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, box, GenericUtils.selectorPlayer);
 		if (list == null || list.size() == 0)
 			return;
 		EntityPlayer player = list.get(0);

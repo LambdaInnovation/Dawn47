@@ -15,6 +15,10 @@ package cn.dawn47.weapon.wpn;
 
 import net.minecraft.entity.Entity;
 import cn.dawn47.core.register.DWItems;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
@@ -22,74 +26,31 @@ import cn.dawn47.core.register.DWItems;
  */
 public class Weapon_Uzi extends DWGeneralWeapon {
 
-	public Weapon_Uzi(int par1) {
-		super(par1, DWItems.uzi_ammo.itemID);
+	public Weapon_Uzi() {
+		super(DWItems.uzi_ammo);
 		this.setMaxDamage(31);
 		this.setUnlocalizedName("weapon_uzi");
-		this.setLiftProps(4, 0.2F);
-		this.reloadTime = 30;
 	}
 	
     /**
      * Returns the damage against a given entity.
      **/
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
-        return 4;
+        return 4F;
     }
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getOffset(boolean)
-	 */
-	@Override
-	public int getOffset(boolean left) {
-		return 4;
+	public Action getActionUplift() {
+		return new ActionUplift(2F, .4F, .3F, 14F);
 	}
 	
-	@Override
-	public int getWeaponDamage(boolean left) {
-		return 3;
+	public Action getActionAutomaticShoot() {
+		return new ActionAutomaticShoot(300, 3, 5, 4, "weapons.uzi.fire");
 	}
 	
-	/**
-	 * Get the shoot time corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return shoot time
-	 */
-	@Override
-	public int getShootTime(boolean left) {
-		return 3;
-	}
-	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.uzi.fire" ;
-	}
-	
-	/**
-	 * Get the reload sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundReload() {
-		return "dawn47:weapons.uzi.magout";
-	}
-	
-	@Override
-	public String getSoundReloadFinish() {
-		return "dawn47:weapons.uzi.magin";
+	public Action getActionReload() {
+		return new ActionReload(30, "weapons.uzi.magout", "weapons.uzi.magin");
 	}
 
 }

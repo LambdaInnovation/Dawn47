@@ -21,52 +21,66 @@ import cn.dawn47.core.register.DWItems;
 import cn.dawn47.weapon.EntityLaser;
 import cn.liutils.api.entity.EntityBullet;
 import cn.liutils.api.util.Motion3D;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.action.ActionShoot;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
  *
  */
 public class Weapon_LaserRifle extends DWGeneralWeapon {
+	
+	public class Action_Ray extends ActionShoot {
+
+		public Action_Ray() {
+			super(10, 2, "weapons.laser.laser");
+		}
+		
+		protected Entity getProjectileEntity(World world, EntityPlayer player) {
+			if(world.isRemote)
+				return new EntityLaser(new Motion3D(player, true), world);
+			else return new EntityBullet(world, player, 10, 2F);
+		}
+		
+	}
 
 	/**
 	 * @param par1
 	 * @param par2ammoID
 	 */
-	public Weapon_LaserRifle(int par1) {
-		super(par1, DWItems.laser_ammo.itemID);
+	public Weapon_LaserRifle() {
+		super(DWItems.laser_ammo);
 		setIAndU("laser_rifle");
 		setMaxDamage(11);
-		this.reloadTime = 20;
+	}
+	
+	@Override
+	public boolean useAutomaticShoot() {
+		return false;
 	}
 	
     /**
      * Returns the damage against a given entity.
-     ***/
+     */
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
-        return 4;
+        return 4F;
     }
 	
-	/**
-	 * 获取射击动作所用的发射实体。【参考EntityBullet】
-	 */
-	@Override
-	protected Entity getBulletEntity(ItemStack is, World world,
-			EntityPlayer player, boolean left) {
-		if(world.isRemote)
-			return new EntityLaser(new Motion3D(player, true), world);
-		else return new EntityBullet(world, player, this.getWeaponDamage(left));
+	public Action getActionUplift() {
+		return new ActionUplift(3F, .4F, .3F, 15F);
 	}
 	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.laser.laser";
+	public Action getActionShoot() {
+		return new Action_Ray();
+	}
+	
+	public Action getActionReload() {
+		return new ActionReload(20, "weapons.glock.glock_magout", "weapons.glock.glock_magin");
 	}
 	
 	/**

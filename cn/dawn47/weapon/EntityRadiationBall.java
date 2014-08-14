@@ -1,12 +1,11 @@
 package cn.dawn47.weapon;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cn.dawn47.core.client.DWParticleHelper;
 import cn.liutils.api.entity.EntityBullet;
 import cn.weaponmod.api.WeaponHelper;
@@ -50,7 +49,7 @@ public class EntityRadiationBall extends EntityBullet {
 			double posX = result.hitVec.xCoord ,
 			posY = result.hitVec.yCoord,
 			posZ = result.hitVec.zCoord;
-			if (result.typeOfHit == EnumMovingObjectType.TILE) {
+			if (result.typeOfHit == MovingObjectType.BLOCK) {
 				ForgeDirection dir = ForgeDirection.values()[result.sideHit];
 				if (dir.offsetX != 0) {
 					moX *= dir.offsetX * 0.3;
@@ -76,10 +75,6 @@ public class EntityRadiationBall extends EntityBullet {
 					result.hitVec.xCoord, result.hitVec.yCoord, result.hitVec.zCoord,
 					moX, moY, moZ);
 		}
-	}
-
-	public int getBulletDamage(int mode) {
-		return damage;
 	}
 
 	@Override

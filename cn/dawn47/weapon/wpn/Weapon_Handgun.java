@@ -15,6 +15,10 @@ package cn.dawn47.weapon.wpn;
 
 import net.minecraft.entity.Entity;
 import cn.dawn47.core.register.DWItems;
+import cn.weaponmod.api.action.Action;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import cn.weaponmod.api.action.ActionReload;
+import cn.weaponmod.api.action.ActionUplift;
 
 /**
  * @author WeAthFolD
@@ -26,75 +30,30 @@ public class Weapon_Handgun extends DWGeneralWeapon {
 	 * @param par1
 	 * @param par2ammoID
 	 */
-	public Weapon_Handgun(int par1) {
-		super(par1, DWItems.handgun_ammo.itemID);
+	public Weapon_Handgun() {
+		super(DWItems.handgun_ammo);
 		setIAndU("handgun");
 		setMaxDamage(9);
-		setLiftProps(3F, 0.35F);
-		this.reloadTime = 30;
-		this.isAutomatic = false;
 	}
 	
     /**
      * Returns the damage against a given entity.
-     **/
+     */
 	@Override
-    public int getDamageVsEntity()
+    public float getButtDamage()
     {
-        return 2;
+        return 4F;
     }
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.weaponmod.api.weapon.WeaponGeneral#getOffset(boolean)
-	 */
-	@Override
-	public int getOffset(boolean left) {
-		return 4;
+	public Action getActionUplift() {
+		return new ActionUplift(3F, .4F, .3F, 15F);
 	}
 	
-	@Override
-	public int getWeaponDamage(boolean left) {
-		return 4;
+	public Action getActionAutomaticShoot() {
+		return new ActionAutomaticShoot(300, 3, 4, 4, "weapons.glock.glock_fire");
 	}
 	
-	/**
-	 * Get the shoot time corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return shoot time
-	 */
-	@Override
-	public int getShootTime(boolean left) {
-		return 4;
+	public Action getActionReload() {
+		return new ActionReload(30, "weapons.glock.glock_magout", "weapons.glock.glock_magin");
 	}
-	
-	/**
-	 * Get the shoot sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundShoot(boolean left) {
-		return "dawn47:weapons.glock.glock_fire" ;
-	}
-	
-	/**
-	 * Get the reload sound path corresponding to the mode.
-	 * 
-	 * @param mode
-	 * @return sound path
-	 */
-	@Override
-	public String getSoundReload() {
-		return "dawn47:weapons.glock.glock_magout";
-	}
-	
-	@Override
-	public String getSoundReloadFinish() {
-		return "dawn47:weapons.glock.glock_magin";
-	}
-
 }

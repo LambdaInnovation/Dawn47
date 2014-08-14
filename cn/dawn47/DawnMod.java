@@ -13,78 +13,66 @@
  */
 package cn.dawn47;
 
-import java.util.logging.Logger;
 
 import net.minecraft.command.CommandHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.Logger;
+
 import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWCommonProxy;
-import cn.dawn47.core.proxy.DWGeneralProps;
-import cn.dawn47.core.register.Config;
 import cn.dawn47.core.register.DWItems;
-import cn.dawn47.core.register.DWPacketHandler;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.mob.entity.EntityDroneBase;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.weapon.EntityRadiationBall;
-import cn.weaponmod.WeaponMod;
+import cn.weaponmod.core.WeaponMod;
+import cn.weaponmod.core.proxy.WMGeneralProps;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
-import cpw.mods.fml.common.Mod.ServerStarting;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * @author WeAthFolD
  *
  */
 @Mod(modid = "Dawn47", name = "Dawn47 the Assistance Mod", version = DawnMod.VERSION, dependencies = WeaponMod.DEPENDENCY)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, 
-clientPacketHandlerSpec = @SidedPacketHandler(channels = { DWGeneralProps.NET_CHANNEL_CLIENT }, packetHandler = DWPacketHandler.class), 
-serverPacketHandlerSpec = @SidedPacketHandler(channels = { DWGeneralProps.NET_CHANNEL_SERVER }, packetHandler = DWPacketHandler.class))
 public class DawnMod {
 
-	public static final String VERSION = "0.0.0.1dev";
+	public static final String VERSION = "0.0.2dev";
 	
 	@SidedProxy(serverSide = "cn.dawn47.core.proxy.DWCommonProxy", clientSide = "cn.dawn47.core.proxy.DWClientProxy")
 	public static DWCommonProxy proxy;
 	
-	public static CreativeTabs cct = new DWCreativeTab("Dawn47");
+	public static CreativeTabs cct = new DWCreativeTab("dawn47");
 	
 	/**
 	 * 日志
 	 */
-	public static Logger log = Logger.getLogger("Dawn47");
+	public static Logger log = FMLLog.getLogger();
 	
-	public static Config config;
+	public static Configuration config;
 	
-	private int nextEntityID = 0;
+	public static SimpleNetworkWrapper netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(WMGeneralProps.NET_CHANNEL);
 	
-	/**
-	 * 预加载（设置、世界生成、注册Event）
-	 * 
-	 * @param event
-	 */
-	@PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
-		config = new Config(event.getSuggestedConfigurationFile());
+		config = new Configuration(event.getSuggestedConfigurationFile());
 		
-		log.setParent(FMLLog.getLogger());
 		log.info("Starting Dawn47 " + VERSION);
-		log.info("Copyright (c) Lambda Innovation & Power Mill, 2013");
+		log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2014");
 		log.info("http://www.lambdacraft.cn");
 		
 		DWItems.init(config);
@@ -98,9 +86,8 @@ public class DawnMod {
 	 * 
 	 * @param Init
 	 */
-	@Init
+	@EventHandler
 	public void init(FMLInitializationEvent Init) {
-		LanguageRegistry.instance().addStringLocalization("itemGroup.Dawn47", "Dawn 47");
 		
 		//-----Entity Registry--------
 		
@@ -112,8 +99,8 @@ public class DawnMod {
 		//-----------------------
 		proxy.init();
 	}
-	
 	 
+	private int nextEntityID = -1;
 	
 	protected void registerEntity(Class<? extends Entity> entClass, String entName) {
 		EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, 48, 3, true);
@@ -123,22 +110,17 @@ public class DawnMod {
 		EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, trackingRange, updateFreq, velUpdate);
 	}
 	
-	/**
-	 * 加载后（保存设置）
-	 * 
-	 * @param Init
-	 */
-	@PostInit
+	private static int nextId = 0;
+	public static int getNextNetID() {
+		return nextId++;
+	}
+	
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent Init) {
 		
 	}
 	
-	/**
-	 * 服务器加载（注册指令）
-	 * 
-	 * @param event
-	 */
-	@ServerStarting
+	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		CommandHandler commandManager = (CommandHandler) event.getServer()
 				.getCommandManager();

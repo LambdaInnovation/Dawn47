@@ -30,8 +30,8 @@ public class ItemEntityPlacer extends DWGenericItem {
 	/**
 	 * @param par1
 	 */
-	public ItemEntityPlacer(int par1, Class<? extends Entity> entity) {
-		super(par1);
+	public ItemEntityPlacer(Class<? extends Entity> entity) {
+		super();
 		entityClass = entity;
 	}
 	

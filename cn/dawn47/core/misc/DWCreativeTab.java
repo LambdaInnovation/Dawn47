@@ -14,6 +14,7 @@
 package cn.dawn47.core.misc;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import cn.dawn47.core.register.DWItems;
 
 /**
@@ -27,12 +28,11 @@ public class DWCreativeTab extends CreativeTabs {
 	 */
 	public DWCreativeTab(String label) {
 		super(label);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public int getTabIconItemIndex() {
-		return DWItems.handgun.itemID;
+	public Item getTabIconItem() {
+		return DWItems.ak47;
 	}
 
 }
