@@ -90,9 +90,9 @@ public class DWClientProxy extends DWCommonProxy {
 			.setInvOffset(-2.9F, -1.846F).setInvScale(0.568F).setInvRotation(-42.818F, -60.998F, -12.588F).setOffset(0.0F, 0.25F, 0.0F).setEquipOffset(0.898, 0.058, 0.334).setStdRotation(0F, 180F, 0F).setInventorySpin(false);
 		RenderModelItem shotgun_render = new RenderModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_SHOTGUN), DWItems.shotgun, 
 			DWClientProps.SHOTGUN_TEXTURE_PATH[0], DWClientProps.SG_MUZZLEFLASH)
-			.setMuzzleflashOffset(.38F, .05F, .11F).setStdRotation(0F, -90F, 0F).setOffset(.0F, .25F, 0F)
-			.setEquipOffset(.7F, 0F, 0F).setInventorySpin(false).setInvScale(-0.806F)
-			.setInvOffset(-0.842F, 0.646F).setInvRotation(498.012F, -49.81F, -2.13F);
+			.setMuzzleflashOffset(.38F, .05F, .11F).setStdRotation(0F, -90F, 0F).setOffset(.894F, -.567F, 1.116F)
+			.setEquipOffset(.60F, -.17F, -0.026F).setInventorySpin(false).setInvScale(-0.798F).setScale(-.391)
+			.setEquipRotation(-2.329F, 1.54F, -9.20F).setInvOffset(2.27F, 3.95F).setInvRotation(498.078F, -46.724F, 26.35F);
 		RenderModelItem superdrink_render = new RenderModelItem(new ModelSuperDrink(true), DWClientProps.SOFT_DRINK_TEXTURE_PATH)
 			.setEquipOffset(.40F, 0.25F, -.35F).setInvOffset(0.0F, 1.5F).setOffset(0.0F, 0.0F, .0F)
 			.setInvScale(1.5F).setInventorySpin(true);//.disableInvRotation();
