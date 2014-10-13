@@ -24,11 +24,12 @@ import org.apache.logging.log4j.Logger;
 
 import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWCommonProxy;
+import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.mob.entity.EntityDroneBase;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
-import cn.dawn47.weapon.EntityRadiationBall;
+import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.weaponmod.core.WeaponMod;
 import cn.weaponmod.core.proxy.WMGeneralProps;
 import cpw.mods.fml.common.FMLLog;
@@ -64,7 +65,7 @@ public class DawnMod {
 	
 	public static Configuration config;
 	
-	public static SimpleNetworkWrapper netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(WMGeneralProps.NET_CHANNEL);
+	public static SimpleNetworkWrapper netHandler;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -76,7 +77,8 @@ public class DawnMod {
 		log.info("http://www.lambdacraft.cn");
 		
 		DWItems.init(config);
-		MinecraftForge.EVENT_BUS.register(new DWEventHandler());
+		
+		netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
 		
 		proxy.preInit();
 	}

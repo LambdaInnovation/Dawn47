@@ -1,0 +1,28 @@
+/**
+ * 
+ */
+package cn.dawn47.weapon.item;
+
+import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.register.DWItems;
+import cn.weaponmod.api.action.ActionAutomaticShoot;
+import net.minecraft.item.Item;
+
+/**
+ * @author WeathFolD
+ *
+ */
+public class WeaponAR extends DWGeneralWeapon {
+
+	public WeaponAR() {
+		super(DWItems.ammoAR);
+		actionShoot = new ActionAutomaticShoot(300, 4, 5, "dawn47:weapons.ar.ar_fire")
+			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH).setMuzOffset(.0, .07, .15);
+	}
+
+	@Override
+	public float getButtDamage() {
+		return 3;
+	}
+
+}

@@ -11,23 +11,18 @@ public class DWClientProps {
 			TEX_ENTITIES = "dawn47:textures/entities/",
 			TEX_BLOCKS = "dawn47:textures/blocks/",
 			TEX_ITEMS = "dawn47:textures/items/",
-			TEX_MUZZLE = "dawn47:textures/m/",
+			TEX_MUZZLE = "dawn47:textures/muz/",
 			TEX_HUD = "dawn47:textures/hud/",
 			TEX_MODELS = "dawn47:textures/models/";
 	
 	//muzzleflash
 	public static final ResourceLocation 
-			GLOCK_MUZZLEFLASH [] = { src(TEX_MUZZLE + "m_glock1.png"), src(TEX_MUZZLE + "m_glock2.png"), src(TEX_MUZZLE + "m_glock3.png") },
-			AR_MUZZLEFLASH[] = { src(TEX_MUZZLE + "m_ar1.png"), src(TEX_MUZZLE +  "m_ar2.png"), src(TEX_MUZZLE + "m_ar3.png") },
-			SG_MUZZLEFLASH[] = { src(TEX_MUZZLE + "m_sg1.png"), src(TEX_MUZZLE + "m_sg2.png"), src(TEX_MUZZLE + "m_sg3.png") },
-			LASER_MUZZLEFLASH[] = { src(TEX_MUZZLE + "m_laser1.png"), src(TEX_MUZZLE + "m_laser2.png"), src(TEX_MUZZLE + "m_laser3.png") },
-			RADIATION_MUZZLEFLASH[] = { src(TEX_MUZZLE + "m_splash1.png"), src(TEX_MUZZLE + "m_splash2.png"), src(TEX_MUZZLE + "m_splash3.png") };
+			GLOCK_MUZZLEFLASH [] = { src(TEX_MUZZLE + "muz_handgun.png") };
 
 	//weapon&equipments
 	public static final ResourceLocation 
 			MEDKIT_TEXTURE_PATH = src(TEX_ENTITIES + "medkit.png"),
 			SOFT_DRINK_TEXTURE_PATH = src(TEX_ENTITIES + "softdrink.png"),
-			LASERRAY_TEXTURE_PATH = src(TEX_ENTITIES + "laser_ray.png"),
 			SNIPER_RIFLE_TEXTURE_PATH = src(TEX_ENTITIES + "sniper_rifle.png"),
 			SN_BULLET_TEXTURE_PATH = src(TEX_ENTITIES + "sn_bullet.png"),
 			SNIPER_RIFLE_SCOPE = src(TEX_HUD + "rifle.png"),
@@ -36,7 +31,12 @@ public class DWClientProps {
 			DRONE_PATH[] = { src(TEX_ENTITIES + "spider.png"), src(TEX_ENTITIES + "spider2.png"), src(TEX_ENTITIES + "spider3.png") };
 	
 	//effects
-	public static final ResourceLocation EFFECT_SPIT = src(TEX_ENTITIES + "tinyspit.png");
+	public static final ResourceLocation 
+		EFFECT_SPIT = src(TEX_ENTITIES + "tinyspit.png"),
+		EFFECT_LASER = src(TEX_ENTITIES + "laser.png"),
+		EFFECT_LASERHIT = src(TEX_ENTITIES + "laser_hit.png"),
+		EFFECT_RADBALL = src(TEX_ENTITIES + "radiation_ball.png"),
+		BLANK = src(TEX_ENTITIES + "blank.png");
 	
 	//mobs
 	public static final ResourceLocation ROTTEN_CREEPER_MOB = src(TEX_ENTITIES + "rotten_creeper.png");
@@ -61,7 +61,7 @@ public class DWClientProps {
 		RADIATION_TEXTURE_PATH = src(TEX_MODELS + "radiation_launcher.png"),
 		LASER_TEXTURE_PATH[] = { src(TEX_MODELS + "laser_rifle.png"), src(TEX_MODELS + "laser_rifle1") },
 		SHOTGUN_TEXTURE_PATH[] = { src(TEX_MODELS + "shotgun.png"), src(TEX_MODELS + "shotgun1.png") },
-		SUPER_AR_TEX_PATH = src(TEX_MODELS + "gabirel_rifle.png"),
+		SUPER_AR_TEX_PATH = src(TEX_MODELS + "super_ar.png"),
 		SCOUT_ROBOT_TEX = src(TEX_MODELS + "scout_robot.png");
 	
 	public static ResourceLocation NUMBERS[] = new ResourceLocation[10];

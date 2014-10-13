@@ -24,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import cn.dawn47.core.proxy.DWClientProps;
-import cn.dawn47.weapon.wpn.IDWAmmoInfProvider;
+import cn.dawn47.weapon.item.IDWAmmoInfProvider;
 import cn.liutils.api.client.util.HudUtils;
 import cn.liutils.api.client.util.RenderUtils;
 
@@ -68,7 +68,7 @@ public class DWHudDrawer {
 			IDWAmmoInfProvider prv = (IDWAmmoInfProvider) st.getItem();
 			RenderUtils.loadTexture(DWClientProps.HUD_AMMO);
 			HudUtils.drawTexturedModalRect(i - 64, j - 37, 64, 16);
-			String str = prv.getAmmo(player, st);
+			String str = prv.getAmmoForHud(player, st);
 			drawString(str, i - 5 - getStrLen(str, DEFAULT_FONT_SIZE), j - 21);
 		}
 		GL11.glDisable(GL11.GL_BLEND);

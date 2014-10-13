@@ -13,11 +13,10 @@
  */
 package cn.dawn47.core.client;
 
-import cn.dawn47.weapon.client.entity.fx.EntitySpitFX;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 /**
  * @author WeAthFolD
  *
@@ -32,7 +31,7 @@ public class DWParticleHelper {
 	 public static void spawnParticle(World world, String particleName, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
 		 EntityFX e = null;
 		 if(particleName == "spit") {
-			 e = new EntitySpitFX(world, posX, posY, posZ, motionX, motionY, motionZ);
+			// e = new EntitySpitFX(world, posX, posY, posZ, motionX, motionY, motionZ);
 		 }
 		 if(e != null)
 			 world.spawnEntityInWorld(e);
