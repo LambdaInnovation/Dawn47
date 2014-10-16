@@ -34,7 +34,8 @@ public class WeaponLaserRifle extends DWGeneralWeapon {
 
 	public WeaponLaserRifle() {
 		super(DWItems.ammoLaser);
-		setIAndU("laser");
+		this.setIAndU("laser_rifle");
+		this.setMaxDamage(35);
 		this.actionShoot = new ActionLaser();
 	}
 

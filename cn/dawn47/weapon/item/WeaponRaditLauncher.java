@@ -14,10 +14,10 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 /**
+ * 辐射球发射器~
  * @author WeathFolD
- *
  */
-public class WeaponRadioactiveLauncher extends DWGeneralWeapon {
+public class WeaponRaditLauncher extends DWGeneralWeapon {
 
 	private static class ActionBallGen extends ActionShoot {
 
@@ -32,9 +32,10 @@ public class WeaponRadioactiveLauncher extends DWGeneralWeapon {
 		
 	}
 	
-	public WeaponRadioactiveLauncher() {
+	public WeaponRaditLauncher() {
 		super(DWItems.ammoRadit);
-		setIAndU("rad_launcher");
+		this.setIAndU("radit_launcher");
+		this.setMaxDamage(4);
 		initAction();
 	}
 	

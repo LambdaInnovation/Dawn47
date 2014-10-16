@@ -21,8 +21,7 @@ public class DWClientProps {
 
 	//weapon&equipments
 	public static final ResourceLocation 
-			MEDKIT_TEXTURE_PATH = src(TEX_ENTITIES + "medkit.png"),
-			SOFT_DRINK_TEXTURE_PATH = src(TEX_ENTITIES + "softdrink.png"),
+			SUPER_DRINK_TEXTURE_PATH = src(TEX_MODELS + "superdrink.png"),
 			SNIPER_RIFLE_TEXTURE_PATH = src(TEX_ENTITIES + "sniper_rifle.png"),
 			SN_BULLET_TEXTURE_PATH = src(TEX_ENTITIES + "sn_bullet.png"),
 			SNIPER_RIFLE_SCOPE = src(TEX_HUD + "rifle.png"),
@@ -52,7 +51,8 @@ public class DWClientProps {
 		MDL_LASER_RIFLE =  AdvancedModelLoader.loadModel(src("dawn47:models/laser_rifle.obj")),
 		MDL_RAD_LAUNCHER =  AdvancedModelLoader.loadModel(src("dawn47:models/radiation_launcher.obj")),
 		MDL_SCOUT_ROBOT =  AdvancedModelLoader.loadModel(src("dawn47:models/scout_robot.obj")),
-		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj"));
+		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj")),
+		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj"));
 	
 	//model textures
 	public static final ResourceLocation

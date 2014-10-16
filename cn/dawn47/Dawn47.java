@@ -17,7 +17,6 @@ package cn.dawn47;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Logger;
@@ -26,15 +25,14 @@ import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
-import cn.dawn47.equipment.entities.EntityMedkit;
-import cn.dawn47.mob.entity.EntityDroneBase;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
+import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.weaponmod.core.WeaponMod;
-import cn.weaponmod.core.proxy.WMGeneralProps;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -48,13 +46,18 @@ import cpw.mods.fml.common.registry.EntityRegistry;
  * @author WeAthFolD
  *
  */
-@Mod(modid = "Dawn47", name = "Dawn47 the Assistance Mod", version = DawnMod.VERSION, dependencies = WeaponMod.DEPENDENCY)
-public class DawnMod {
+@Mod(modid = "dawn47", name = "Dawn47", version = Dawn47.VERSION, dependencies = WeaponMod.DEPENDENCY)
+public class Dawn47 {
 
-	public static final String VERSION = "0.0.2dev";
+	public static final String VERSION = "0.8";
 	
-	@SidedProxy(serverSide = "cn.dawn47.core.proxy.DWCommonProxy", clientSide = "cn.dawn47.core.proxy.DWClientProxy")
+	@SidedProxy(
+		serverSide = "cn.dawn47.core.proxy.DWCommonProxy",
+		clientSide = "cn.dawn47.core.proxy.DWClientProxy")
 	public static DWCommonProxy proxy;
+	
+	@Instance("dawn47")
+	public static Dawn47 INSTANCE;
 	
 	public static CreativeTabs cct = new DWCreativeTab("dawn47");
 	
@@ -93,10 +96,9 @@ public class DawnMod {
 		
 		//-----Entity Registry--------
 		
-		registerEntity(EntityMedkit.class, "medkit");
-		registerEntity(EntityRadiationBall.class, "radiation_ball");
-		registerEntity(EntityRottenCreeper.class, "rotten_creeper");
-		registerEntity(EntityDroneBase.class, "drone_test");
+		registerEntity(EntityRadiationBall.class, "dw_radiation_ball");
+		registerEntity(EntityScoutRobot.class, "dw_scout_robot");
+		registerEntity(EntityRottenCreeper.class, "dw_rotten_creeper");
 		
 		//-----------------------
 		proxy.init();

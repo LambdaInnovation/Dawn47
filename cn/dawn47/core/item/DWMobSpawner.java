@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cn.dawn47.DawnMod;
+import cn.dawn47.Dawn47;
 
 /**
  * @author WeAthFolD
@@ -84,7 +84,7 @@ public class DWMobSpawner extends DWGenericItem {
 					e.setPositionAndRotation(posX, posY, posZ, player.rotationYaw, player.rotationPitch);
 					world.spawnEntityInWorld(e);
 				} catch (Exception e) {
-					DawnMod.log.info("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
+					Dawn47.log.info("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
 					e.printStackTrace();
 				}
     			

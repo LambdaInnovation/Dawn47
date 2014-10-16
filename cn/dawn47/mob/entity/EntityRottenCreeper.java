@@ -15,15 +15,27 @@ package cn.dawn47.mob.entity;
 
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.liutils.api.entity.LIEntityMob;
+import cn.liutils.api.util.Motion3D;
+import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author WeAthFolD
  *
  */
 public class EntityRottenCreeper extends LIEntityMob {
+	
+	int JUDGE_JUMP_TIME = 40;
+	
+	boolean jumped;
+	int lastJumpTick;
 
 	/**
 	 * @param par1World
@@ -32,6 +44,29 @@ public class EntityRottenCreeper extends LIEntityMob {
 		super(par1World);
 		
 	}
+	
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		if(ticksExisted - lastJumpTick > JUDGE_JUMP_TIME)
+			jumped = false;
+		
+		if(this.worldObj.isRemote && (!this.worldObj.blockExists((int)this.posX, 0, (int)this.posZ) || 
+				!this.worldObj.getChunkFromBlockCoords((int)this.posX, (int)this.posZ).isChunkLoaded)) {	
+			
+		} else if(!this.handleWaterMovement() && !this.handleLavaMovement() && !this.onGround && jumped){
+			this.motionY += 0.07D;
+		}
+	}
+	
+    protected void jump()
+    {
+    	this.motionY = 0.14;
+        this.isAirBorne = true;
+        ForgeHooks.onLivingJump(this);
+        jumped = true;
+        lastJumpTick = ticksExisted;
+    }
 
 	/* (non-Javadoc)
 	 * @see net.minecraft.entity.EntityLiving#getMaxHealth()

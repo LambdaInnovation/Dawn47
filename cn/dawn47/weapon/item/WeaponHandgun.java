@@ -16,7 +16,8 @@ public class WeaponHandgun extends DWGeneralWeapon {
 
 	public WeaponHandgun() {
 		super(DWItems.ammoHandgun);
-		this.setMaxDamage(9);
+		this.setMaxDamage(6);
+		this.setIAndU("handgun");
 		initActions();
 	}
 	

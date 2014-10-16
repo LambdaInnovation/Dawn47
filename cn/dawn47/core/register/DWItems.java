@@ -15,12 +15,19 @@ package cn.dawn47.core.register;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
-import cn.dawn47.core.item.*;
-import cn.dawn47.equipment.entities.EntityMedkit;
-import cn.dawn47.equipment.item.*;
-import cn.dawn47.mob.entity.EntityDroneBase;
+import cn.dawn47.Dawn47;
+import cn.dawn47.core.item.DWAmmo;
+import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
-import cn.dawn47.weapon.item.*;
+import cn.dawn47.mob.entity.EntityScoutRobot;
+import cn.dawn47.weapon.item.DWGeneralWeapon;
+import cn.dawn47.weapon.item.WeaponAR;
+import cn.dawn47.weapon.item.WeaponHandgun;
+import cn.dawn47.weapon.item.WeaponLaserRifle;
+import cn.dawn47.weapon.item.WeaponRaditLauncher;
+import cn.dawn47.weapon.item.WeaponSAR;
+import cn.dawn47.weapon.item.WeaponShotgun;
+import cn.liutils.api.item.LIMobSpawner;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -45,21 +52,21 @@ public class DWItems {
 		ammoAR,
 		ammoLaser,
 		ammoRadit,
-		ammoShotgun,
-		sn_ammo,
-		ammoSAR,
-		ammoUzi;
+		ammoShotgun;
+		//sn_ammo,
+		//ammoUzi;
 	//------------------------------
 	
 	//---------Equipments---------------
 	
-	public static Item medkit, superdrink;
+	public static Item superdrink;
 	
 	//-------------------------------
 	
 	//---------Mobs-------------------
-	
-	public static Item spw_rotten_creeper, spw_drone;
+	public static Item
+		spawnerScoutRobot,
+		spawnerRottenCreeper;
 	
 	//------------------------------
 	
@@ -69,51 +76,49 @@ public class DWItems {
 	 */
 	public static void init(Configuration conf) {
 		
-		ammoHandgun = new DWAmmo().setStackAndDamage(1, 9).setIAndU("handgun_ammo");
-		ammoAR = new DWAmmo().setStackAndDamage(1, 25).setIAndU("ar_ammo");
-		ammoLaser = new DWAmmo().setStackAndDamage(1, 40).setIAndU("laser_ammo");
-		ammoRadit = new DWAmmo().setStackAndDamage(1, 20).setIAndU("radiation_ammo");
-		ammoShotgun = new DWAmmo().setStackAndDamage(64, 1).setIAndU("shotgun_ammo");
-		sn_ammo = new DWAmmo().setStackAndDamage(64, 1).setIAndU("sn_ammo");
-		ammoSAR = new DWAmmo().setStackAndDamage(1, 30).setIAndU("sar_ammo");
-		ammoUzi = new DWAmmo().setStackAndDamage(1, 20).setIAndU("uzi_ammo");
+		ammoHandgun = new DWAmmo().setStackAndDamage(1, 9).setIAndU("ammo_handgun");
+		ammoAR = new DWAmmo().setStackAndDamage(1, 25).setIAndU("ammo_ar");
+		ammoLaser = new DWAmmo().setStackAndDamage(1, 40).setIAndU("ammo_laser");
+		ammoRadit = new DWAmmo().setStackAndDamage(1, 20).setIAndU("ammo_radit");
+		ammoShotgun = new DWAmmo().setStackAndDamage(64, 1).setIAndU("ammo_shotgun");
+		//sn_ammo = new DWAmmo().setStackAndDamage(64, 1).setIAndU("sn_ammo");
+		//ammoUzi = new DWAmmo().setStackAndDamage(1, 20).setIAndU("uzi_ammo");
 		
 		handgun = new WeaponHandgun();
 		sar = new WeaponSAR();
-		raditLauncher = new WeaponRadioactiveLauncher();
+		raditLauncher = new WeaponRaditLauncher();
 		laserRifle = new WeaponLaserRifle();
 		assaultRifle = new WeaponAR();
+		shotgun = new WeaponShotgun();
 		
-		medkit = new ItemEntityPlacer(EntityMedkit.class).setIAndU("medkit");
 		superdrink = new ItemSuperDrink();
 		
-		spw_rotten_creeper = new DWMobSpawner(EntityRottenCreeper.class, "spw_rotten_creeper");
-		spw_drone = new DWMobSpawner(EntityDroneBase.class, "spw_drone_test");
+		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct);
+		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class).setCreativeTab(Dawn47.cct)
+				.setTextureName("dawn47:rotten_creeper").setUnlocalizedName("dw_rotten_creeper");
 		
 		GameRegistry.registerItem(ammoHandgun, "hg_ammo");
 		GameRegistry.registerItem(ammoAR, "ar_ammo");
 		GameRegistry.registerItem(ammoLaser, "laser_ammo");
 		GameRegistry.registerItem(ammoRadit, "radiation_ammo");
 		GameRegistry.registerItem(ammoShotgun, "sg_ammo");
-		GameRegistry.registerItem(sn_ammo, "sn_ammo");
-		GameRegistry.registerItem(ammoSAR, "ak_ammo");
-		GameRegistry.registerItem(ammoUzi, "uzi_ammo");
+		//GameRegistry.registerItem(ammoSAR, "ak_ammo");
+		//GameRegistry.registerItem(ammoUzi, "uzi_ammo");
 		
 		GameRegistry.registerItem(handgun, "dw_handgun");
 		GameRegistry.registerItem(sar, "dw_superassaultrifleiknowthisisalongname");
 		GameRegistry.registerItem(raditLauncher, "dw_niconiconi");
 		GameRegistry.registerItem(laserRifle, "dw_laser");
 		GameRegistry.registerItem(assaultRifle, "dw_assault_rifle");
+		GameRegistry.registerItem(shotgun, "dw_shotgun");
+		GameRegistry.registerItem(spawnerScoutRobot, "dw_spawner_robot");
+		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
 		
 		/*
-		GameRegistry.registerItem(shotgun, "dw_shotgun");
 		GameRegistry.registerItem(ak47, "dw_ak47");
-		GameRegistry.registerItem(uzi, "dw_uzi");*/
-		
-		GameRegistry.registerItem(medkit, "dw_medkit");
+		GameRegistry.registerItem(uzi, "dw_uzi");
+		*/
 		GameRegistry.registerItem(superdrink, "dw_superdrink");
-		GameRegistry.registerItem(spw_rotten_creeper, "spw_rotten_creeper");
-		GameRegistry.registerItem(spw_drone, "spw_drone");
 	}
 	
 	public static void addRecipes() {

@@ -15,9 +15,9 @@ import net.minecraft.item.Item;
 public class WeaponSAR extends DWGeneralWeapon {
 
 	public WeaponSAR() {
-		super(DWItems.ammoSAR);
-		setIAndU("sar");
-		setMaxDamage(30);
+		super(DWItems.ammoAR);
+		this.setIAndU("sar");
+		this.setMaxDamage(25);
 		initAction();
 	}
 	

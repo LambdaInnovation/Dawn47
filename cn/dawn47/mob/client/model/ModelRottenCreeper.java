@@ -102,6 +102,7 @@ public class ModelRottenCreeper extends ModelBase {
 		float legRotation = MathHelper.cos(f * 1.0F) * 0.7F * f1;
 		legl.rotateAngleX = -0.27F + legRotation;
 		legr.rotateAngleX = -0.27F + MathHelper.cos(f * 1F + 0.002F) * 0.7F * f1;
+		feet.rotateAngleX = legRotation * 0.2F;
 	}
 
 }
