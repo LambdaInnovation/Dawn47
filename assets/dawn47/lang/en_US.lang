@@ -1,0 +1,32 @@
+################################
+# Dawn47 Mod Language Settings #
+################################
+# Language: English            #
+# Author: KSkun                #
+# Update: 17 Oct, 2014         #
+################################
+
+#Items
+item.ammo_handgun.name=Handgun Ammo
+item.ammo_ar.name=Assault Rifle Ammo
+item.ammo_laser.name=Laser Rifle Ammo
+item.ammo_radit.name=Radit Launcher Ammo
+item.ammo_shotgun.name=Shotgun Ammo
+item.handgun.name=Handgun
+item.sar.name=Super Assault Rifle
+item.radit_launcher.name=Radit Launcher
+item.laser_rifle.name=Laser Rifle
+item.assault_rifle.name=Assault Rifle
+item.shotgun.name=Shotgun
+item.dw_scout_robot.name=Spawn Scout Robot
+item.dw_rotten_creeper.name=Spawn Rotten Creeper
+item.superdrink.name=Super Drink
+
+#Blocks
+#(Non-block)
+
+#ItemGroups
+itemGroup.dawn47=Dawn 47
+
+#Others
+ammocap.name=Ammo

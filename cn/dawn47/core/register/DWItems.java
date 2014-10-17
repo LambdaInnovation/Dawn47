@@ -93,7 +93,8 @@ public class DWItems {
 		
 		superdrink = new ItemSuperDrink();
 		
-		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct);
+		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct)
+				.setUnlocalizedName("dw_scout_robot");
 		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class).setCreativeTab(Dawn47.cct)
 				.setTextureName("dawn47:rotten_creeper").setUnlocalizedName("dw_rotten_creeper");
 		
