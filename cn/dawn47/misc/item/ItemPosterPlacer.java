@@ -30,10 +30,9 @@ public class ItemPosterPlacer extends Item {
     		World world, int x, int y, int z, int side, float a, float b, float c)
     {
 		
-		if(!world.isRemote) {
+		if(!world.isRemote && side != 0 && side != 1) {
 			EntityPoster poster = EntityPoster.createEntity(world, x, y, z, side, id);
 			if(poster != null) {
-				System.out.println("Spawned in server");
 				world.spawnEntityInWorld(poster);
 				return true;
 			}

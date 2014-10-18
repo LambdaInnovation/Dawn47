@@ -15,7 +15,7 @@ package cn.dawn47.mob.client.model;
 
 import org.lwjgl.opengl.GL11;
 
-import cn.dawn47.mob.entity.EntityDroneBase;
+import cn.dawn47.mob.entity.EntityDrone;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -115,7 +115,7 @@ public class ModelDrone extends ModelBase {
 	public void render(Entity entity, float f, float f1, float f2, float f3,
 			float f4, float f5) {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-		EntityDroneBase base = (EntityDroneBase) entity;
+		EntityDrone base = (EntityDrone) entity;
 		GL11.glPushMatrix();
 		body.render(f5);
 		head.render(f5);

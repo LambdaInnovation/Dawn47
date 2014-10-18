@@ -28,7 +28,7 @@ import net.minecraft.world.World;
  * @author WeAthFolD
  *
  */
-public class EntityDroneBase extends LIEntityMob {
+public class EntityDrone extends LIEntityMob {
 	
 	public int tickCharging = 0;
 	public Entity jumpEntity;
@@ -38,7 +38,7 @@ public class EntityDroneBase extends LIEntityMob {
 	/**
 	 * @param par1World
 	 */
-	public EntityDroneBase(World par1World) {
+	public EntityDrone(World par1World) {
 		this(par1World, 0);
 	}
 	
@@ -48,7 +48,7 @@ public class EntityDroneBase extends LIEntityMob {
 		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 	
-	protected EntityDroneBase(World world, int tID) {
+	protected EntityDrone(World world, int tID) {
 		super(world);
 		this.setSize(0.8F, 0.8F);
 	}

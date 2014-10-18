@@ -22,7 +22,7 @@ public class WeaponHandgun extends DWGeneralWeapon {
 	}
 	
 	protected void initActions() {
-		this.actionShoot = new ActionAutomaticShoot(300, 10, 4, "dawn47:weapons.glock.glock_fire")
+		this.actionShoot = new ActionAutomaticShoot(300, 4, 4, "dawn47:weapons.glock.glock_fire")
 			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH);
 	}
 

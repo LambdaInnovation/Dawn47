@@ -21,7 +21,7 @@ public class RendererScoutRobot extends RenderLiving {
 	 * @param par2
 	 */
 	public RendererScoutRobot() {
-		super(new ModelBaseCustom(DWClientProps.MDL_SCOUT_ROBOT).setScale(0.04F).setOffset(0, 1, 0), 1.5F);
+		super(new ModelBaseCustom(DWClientProps.MDL_SCOUT_ROBOT).setScale(0.03F).setOffset(0, 1, 0), 1.5F);
 	}
 
 	/* (non-Javadoc)

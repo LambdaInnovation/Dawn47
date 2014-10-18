@@ -15,12 +15,13 @@ import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author WeathFolD
  *
  */
-public class RendererPoster extends Render {
+public class RendererPoster extends RenderEntity {
 	
 	final Vec3 vecs[] = {
 		RenderUtils.newV3(0, 0, 0),
@@ -46,11 +47,13 @@ public class RendererPoster extends Render {
 			float var8, float var9) {
 		EntityPoster poster = (EntityPoster) var1;
 		Tessellator t = Tessellator.instance;
+		//super.doRender(var1, var2, var4, var6, var8, var9);
 		
 		GL11.glPushMatrix(); {
 			GL11.glTranslated(var2, var4, var6);
 			RenderUtils.loadTexture(DWClientProps.POSTER_TEXTURE_PATH[poster.posterID]);
 			
+			ForgeDirection dir = poster.attachedSide;
 			int side = poster.attachedSide.ordinal();
 			//x和z坐标是否需要互换（旋转90度）
 			boolean swap = side == 4 || side == 5;
@@ -61,6 +64,7 @@ public class RendererPoster extends Render {
 				GL11.glTranslated(-poster.attachedSide.offsetZ, 0, poster.attachedSide.offsetX);
 			
 			t.startDrawingQuads();
+			t.setNormal(dir.offsetX, 0, dir.offsetZ);
 			for(int i = 0; i < 4; ++i) {
 				Vec3 vec = vecs[i].addVector(0, 0, 0);
 				vec.xCoord *= EntityPoster.infs[poster.posterID].width * (reverse ? -1 : 1);

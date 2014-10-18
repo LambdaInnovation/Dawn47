@@ -26,6 +26,7 @@ import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.misc.entity.EntityPoster;
+import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
@@ -101,6 +102,7 @@ public class Dawn47 {
 		registerEntity(EntityScoutRobot.class, "dw_scout_robot");
 		registerEntity(EntityRottenCreeper.class, "dw_rotten_creeper");
 		registerEntity(EntityPoster.class, "dw_posterrr");
+		registerEntity(EntityDrone.class, "dw_drone");
 		
 		//-----------------------
 		proxy.init();

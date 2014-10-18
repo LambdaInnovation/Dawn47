@@ -44,7 +44,7 @@ public class EntityPoster extends EntityHanging {
 		attachedSide = ForgeDirection.values()[side];
 		updatePosition();
 		this.hangingDirection = side;
-		this.setSize(4F, 2F);
+		this.setSize(1F, 1F);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class EntityPoster extends EntityHanging {
 	 */
 	public EntityPoster(World world) {
 		super(world);
-		this.setSize(4F, 2F);
+		this.setSize(1F, 1F);
 		this.ignoreFrustumCheck = true;
 	}
 	
@@ -70,7 +70,7 @@ public class EntityPoster extends EntityHanging {
 	 * 愉快的帧更新
 	 */
 	public void onUpdate() {
-		
+		this.onGround = false;
 		doSync(); //数据同步
 		updatePosition(); //更新位置
 	}
@@ -79,12 +79,13 @@ public class EntityPoster extends EntityHanging {
 		if(attachedX == 0 && attachedY == 0 && attachedZ == 0) { //State bad, return
 			return;
 		}
-		posX = attachedX + (attachedSide.offsetX != 0 ? (attachedSide.offsetX == 1 ?
+		lastTickPosX = posX = attachedX + (attachedSide.offsetX != 0 ? (attachedSide.offsetX == 1 ?
 				1.01 : -0.01) : 0);
-		posY = attachedY;
-		posZ = attachedZ + (attachedSide.offsetZ != 0 ? (attachedSide.offsetZ == 1 ?
+		lastTickPosY = posY = attachedY + 0.01;
+		lastTickPosZ = posZ = attachedZ + (attachedSide.offsetZ != 0 ? (attachedSide.offsetZ == 1 ?
 				1.01 : -0.01) : 0);
-		//System.out.println("Pos updated to " + "[" + posX + ", " + posY + ", " + posZ + "]");
+		System.out.println("Pos updated to " + "[" + posX + ", " +
+				posY + ", " + posZ + "]" + "in " + worldObj.isRemote);
 	}
 	
 	/**

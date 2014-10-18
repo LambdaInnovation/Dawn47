@@ -19,6 +19,7 @@ import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
+import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.weapon.item.DWGeneralWeapon;
@@ -68,7 +69,8 @@ public class DWItems {
 	//---------Mobs-------------------
 	public static Item
 		spawnerScoutRobot,
-		spawnerRottenCreeper;
+		spawnerRottenCreeper,
+		spawnerDrone;
 	
 	//------------------------------
 	
@@ -96,11 +98,14 @@ public class DWItems {
 		superdrink = new ItemSuperDrink();
 		
 		posters = reg(ItemPosterPlacer.class, 5, "dw_poster");
+		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct);
 		
 		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct)
 				.setUnlocalizedName("dw_scout_robot");
 		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class).setCreativeTab(Dawn47.cct)
 				.setTextureName("dawn47:rotten_creeper").setUnlocalizedName("dw_rotten_creeper");
+		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct)
+				.setTextureName("dawn47:drone").setUnlocalizedName("dw_drone");
 		
 		GameRegistry.registerItem(ammoHandgun, "hg_ammo");
 		GameRegistry.registerItem(ammoAR, "ar_ammo");
@@ -118,12 +123,24 @@ public class DWItems {
 		GameRegistry.registerItem(shotgun, "dw_shotgun");
 		GameRegistry.registerItem(spawnerScoutRobot, "dw_spawner_robot");
 		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
+		GameRegistry.registerItem(spawnerDrone, "dw_drone");
 		
 		/*
 		GameRegistry.registerItem(ak47, "dw_ak47");
 		GameRegistry.registerItem(uzi, "dw_uzi");
 		*/
 		GameRegistry.registerItem(superdrink, "dw_superdrink");
+	}
+	
+	private static Item reg(Class<? extends Item> itemClass, String id) {
+		try {
+			Item it = itemClass.getConstructor().newInstance();
+			GameRegistry.registerItem(it, id);
+			return it;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private static Item[] reg(Class<? extends Item> itemClass, int n, String id) {
