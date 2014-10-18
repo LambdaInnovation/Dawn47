@@ -18,6 +18,7 @@ import net.minecraftforge.common.config.Configuration;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.equipment.item.ItemSuperDrink;
+import cn.dawn47.misc.item.ItemPosterPlacer;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.weapon.item.DWGeneralWeapon;
@@ -52,7 +53,8 @@ public class DWItems {
 		ammoAR,
 		ammoLaser,
 		ammoRadit,
-		ammoShotgun;
+		ammoShotgun,
+		posters[];
 		//sn_ammo,
 		//ammoUzi;
 	//------------------------------
@@ -93,6 +95,8 @@ public class DWItems {
 		
 		superdrink = new ItemSuperDrink();
 		
+		posters = reg(ItemPosterPlacer.class, 5, "dw_poster");
+		
 		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct)
 				.setUnlocalizedName("dw_scout_robot");
 		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class).setCreativeTab(Dawn47.cct)
@@ -120,6 +124,20 @@ public class DWItems {
 		GameRegistry.registerItem(uzi, "dw_uzi");
 		*/
 		GameRegistry.registerItem(superdrink, "dw_superdrink");
+	}
+	
+	private static Item[] reg(Class<? extends Item> itemClass, int n, String id) {
+		Item[] res = new Item[n];
+		try {
+			for(int i = 0; i < n; ++i) {
+				Item it = itemClass.getConstructor(Integer.TYPE).newInstance(i);
+				GameRegistry.registerItem(it, id + i);
+				res[i] = it;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 	public static void addRecipes() {

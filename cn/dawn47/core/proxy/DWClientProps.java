@@ -64,6 +64,16 @@ public class DWClientProps {
 		SUPER_AR_TEX_PATH = src(TEX_MODELS + "super_ar.png"),
 		SCOUT_ROBOT_TEX = src(TEX_MODELS + "scout_robot.png");
 	
+	//poster
+	public static final ResourceLocation
+		POSTER_TEXTURE_PATH[] = {
+			src(TEX_ENTITIES + "poster0.png"),
+			src(TEX_ENTITIES + "poster1.png"),
+			src(TEX_ENTITIES + "poster2.png"),
+			src(TEX_ENTITIES + "poster3.png"),
+			src(TEX_ENTITIES + "poster4.png")
+		};
+	
 	public static ResourceLocation NUMBERS[] = new ResourceLocation[10];
 	static {
 		for(int i = 0; i <= 9; i++)

@@ -20,7 +20,7 @@ public class WeaponShotgun extends DWGeneralWeapon {
 		this.setMaxDamage(5);
 		this.setIAndU("shotgun");
 		this.actionShoot = new ActionAutomaticShoot(
-				new ActionBuckshot(4, "dawn47:weapons.shotgun.fire"),
+				new ActionBuckshot(4, 8, "dawn47:weapons.shotgun.fire"),
 				20, 300);
 		this.actionReload = new ActionMultipleReload(15, 300)
 			.setSound("dawn47:weapons.shotgun.insert")

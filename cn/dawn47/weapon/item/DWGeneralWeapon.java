@@ -59,7 +59,8 @@ public abstract class DWGeneralWeapon extends WeaponGeneric implements IDWAmmoIn
 	public void onItemClick(World world, EntityPlayer player, ItemStack stack, int keyid) {
 		if(keyid == 1) {
 			InfWeapon inf = this.loadInformation(player);
-			inf.executeAction(actionButtAttack);
+			if(!inf.isActionPresent(actionShoot.name))
+				inf.executeAction(actionButtAttack);
 		} else
 			super.onItemClick(world, player, stack, keyid);
 	}

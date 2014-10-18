@@ -16,6 +16,8 @@ package cn.dawn47.core.proxy;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cn.dawn47.core.register.DWItems;
+import cn.dawn47.misc.client.RendererPoster;
+import cn.dawn47.misc.entity.EntityPoster;
 import cn.dawn47.mob.client.render.RenderRottenCreeper;
 import cn.dawn47.mob.client.render.RendererScoutRobot;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
@@ -141,6 +143,7 @@ public class DWClientProxy extends DWCommonProxy {
 		//RenderingRegistry.registerEntityRenderingHandler(EntityDroneBase.class, new RenderDrone());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLaserDelayed.class, new RendererLaserDelayed());
 		RenderingRegistry.registerEntityRenderingHandler(EntityScoutRobot.class, new RendererScoutRobot());
+		RenderingRegistry.registerEntityRenderingHandler(EntityPoster.class, new RendererPoster());
 		
 		//----------------------------------------
 		
