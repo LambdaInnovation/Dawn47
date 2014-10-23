@@ -25,6 +25,9 @@ import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
+import cn.dawn47.equipment.blocks.BlockMedkit;
+import cn.dawn47.equipment.entitis.EntityMedkit;
+import cn.dawn47.equipment.item.ItemMedkit;
 import cn.dawn47.misc.entity.EntityPoster;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
@@ -43,6 +46,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author WeAthFolD
@@ -103,6 +107,14 @@ public class Dawn47 {
 		registerEntity(EntityRottenCreeper.class, "dw_rotten_creeper");
 		registerEntity(EntityPoster.class, "dw_posterrr");
 		registerEntity(EntityDrone.class, "dw_drone");
+		
+		BlockMedkit blockMedkit = new BlockMedkit();
+		GameRegistry.registerBlock(blockMedkit, "dw_block_medkit");
+
+		ItemMedkit itemMedkit = new ItemMedkit();
+		GameRegistry.registerItem(itemMedkit, "dw_item_medkit");
+
+		registerEntity(EntityMedkit.class, "dw_entity_medkit");
 		
 		//-----------------------
 		proxy.init();

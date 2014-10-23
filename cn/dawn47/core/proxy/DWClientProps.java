@@ -52,7 +52,8 @@ public class DWClientProps {
 		MDL_RAD_LAUNCHER =  AdvancedModelLoader.loadModel(src("dawn47:models/radiation_launcher.obj")),
 		MDL_SCOUT_ROBOT =  AdvancedModelLoader.loadModel(src("dawn47:models/scout_robot.obj")),
 		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj")),
-		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj"));
+		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj")),
+		MDL_MEDKIT = AdvancedModelLoader.loadModel(src("dawn47:models/medkit.obj"));
 	
 	//model textures
 	public static final ResourceLocation
@@ -62,7 +63,8 @@ public class DWClientProps {
 		LASER_TEXTURE_PATH[] = { src(TEX_MODELS + "laser_rifle.png"), src(TEX_MODELS + "laser_rifle1") },
 		SHOTGUN_TEXTURE_PATH[] = { src(TEX_MODELS + "shotgun.png"), src(TEX_MODELS + "shotgun1.png") },
 		SUPER_AR_TEX_PATH = src(TEX_MODELS + "super_ar.png"),
-		SCOUT_ROBOT_TEX = src(TEX_MODELS + "scout_robot.png");
+		SCOUT_ROBOT_TEX = src(TEX_MODELS + "scout_robot.png"),
+		MEDKIT_TEX = src(TEX_MODELS + "medkit.png");
 	
 	//poster
 	public static final ResourceLocation
