@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWGenericItem;
-import cn.dawn47.equipment.entitis.EntityMedkit;
+import cn.dawn47.equipment.entities.EntityMedkit;
 
 public class ItemMedkit extends DWGenericItem {
 

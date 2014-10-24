@@ -17,16 +17,18 @@ package cn.dawn47;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Logger;
 
+import cn.dawn47.core.events.DWEventListener;
 import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.equipment.blocks.BlockMedkit;
-import cn.dawn47.equipment.entitis.EntityMedkit;
+import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.equipment.item.ItemMedkit;
 import cn.dawn47.misc.entity.EntityPoster;
 import cn.dawn47.mob.entity.EntityDrone;
@@ -88,6 +90,7 @@ public class Dawn47 {
 		DWItems.init(config);
 		
 		netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
+		MinecraftForge.EVENT_BUS.register(new DWEventListener());
 		
 		proxy.preInit();
 	}

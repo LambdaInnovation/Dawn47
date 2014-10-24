@@ -1,5 +1,7 @@
 package cn.dawn47.mob.client.render;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import cn.dawn47.core.proxy.DWClientProps;
@@ -16,5 +18,13 @@ public class RendererMedkit extends RenderModel {
   protected ResourceLocation getEntityTexture(Entity var1) {
     return DWClientProps.MEDKIT_TEX;
   }
+  
+	@Override
+	public void doRender(Entity entity, double par2, double par4, double par6,
+			float par8, float par9) {
+		GL11.glCullFace(GL11.GL_FRONT);
+		super.doRender(entity, par2, par4, par6, par8, par9);
+		GL11.glCullFace(GL11.GL_BACK);
+	}
 
 }

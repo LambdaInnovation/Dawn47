@@ -144,7 +144,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
                 {
                     this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1008, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
                     EntityLargeFireball entitylargefireball = new EntityLargeFireball(this.worldObj, this, d5, d6, d7);
-                    entitylargefireball.field_92057_e = this.explosionStrength;
+                  //  entitylargefireball.field_92057_e = this.explosionStrength;
                     double d8 = 4.0D;
                     Vec3 vec3 = this.getLook(1.0F);
                     entitylargefireball.posX = this.posX + vec3.xCoord * d8;
@@ -285,7 +285,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setInteger("ExplosionPower", this.explosionStrength);
+       // par1NBTTagCompound.setInteger("ExplosionPower", this.explosionStrength);
     }
 
     /**
@@ -297,7 +297,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
 
         if (par1NBTTagCompound.hasKey("ExplosionPower", 99))
         {
-            this.explosionStrength = par1NBTTagCompound.getInteger("ExplosionPower");
+            //this.explosionStrength = par1NBTTagCompound.getInteger("ExplosionPower");
         }
     }
 }

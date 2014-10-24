@@ -30,6 +30,7 @@ import cn.dawn47.weapon.item.WeaponRaditLauncher;
 import cn.dawn47.weapon.item.WeaponSAR;
 import cn.dawn47.weapon.item.WeaponShotgun;
 import cn.liutils.api.item.LIMobSpawner;
+import cn.liutils.api.util.RegUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -97,7 +98,7 @@ public class DWItems {
 		
 		superdrink = new ItemSuperDrink();
 		
-		posters = reg(ItemPosterPlacer.class, 5, "dw_poster");
+		posters = RegUtils.reg(ItemPosterPlacer.class, 5, "dw_poster");
 		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct);
 		
 		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct)
@@ -130,31 +131,6 @@ public class DWItems {
 		GameRegistry.registerItem(uzi, "dw_uzi");
 		*/
 		GameRegistry.registerItem(superdrink, "dw_superdrink");
-	}
-	
-	private static Item reg(Class<? extends Item> itemClass, String id) {
-		try {
-			Item it = itemClass.getConstructor().newInstance();
-			GameRegistry.registerItem(it, id);
-			return it;
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private static Item[] reg(Class<? extends Item> itemClass, int n, String id) {
-		Item[] res = new Item[n];
-		try {
-			for(int i = 0; i < n; ++i) {
-				Item it = itemClass.getConstructor(Integer.TYPE).newInstance(i);
-				GameRegistry.registerItem(it, id + i);
-				res[i] = it;
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return res;
 	}
 	
 	public static void addRecipes() {

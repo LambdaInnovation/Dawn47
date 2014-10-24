@@ -1,4 +1,4 @@
-package cn.dawn47.equipment.entitis;
+package cn.dawn47.equipment.entities;
 
 import java.util.List;
 
