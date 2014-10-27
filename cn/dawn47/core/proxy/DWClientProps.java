@@ -84,7 +84,8 @@ public class DWClientProps {
 	public static ResourceLocation HUD_SHIELD = src(TEX_HUD + "shield.png"),
 			HUD_AMMO = src(TEX_HUD + "ammo.png"),
 			HUD_MID = src(TEX_HUD + "mid.png"),
-			HUD_HEALTH = src(TEX_HUD + "health.png");
+			HUD_HEALTH = src(TEX_HUD + "health.png"),
+			HUD_MEDKIT = src(TEX_HUD + "medkit.png");
 	
 	public static final ResourceLocation EFFECT_SMOKE[] = { 
 		src(TEX_ENTITIES + "smoke001.png"), src(TEX_ENTITIES + "smoke002.png"),

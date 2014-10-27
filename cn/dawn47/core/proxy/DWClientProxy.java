@@ -13,8 +13,11 @@
  */
 package cn.dawn47.core.proxy;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import cn.dawn47.core.client.key.MedkitUse;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.misc.client.RendererPoster;
@@ -33,6 +36,7 @@ import cn.liutils.api.client.model.ItemModelCustom;
 import cn.liutils.api.client.render.RenderIcon;
 import cn.liutils.api.client.render.RenderModelItem;
 import cn.liutils.core.LIUtilsMod;
+import cn.liutils.core.client.register.LIKeyProcess;
 import cn.weaponmod.api.client.render.RendererModelBulletWeapon;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -47,6 +51,7 @@ public class DWClientProxy extends DWCommonProxy {
 		if(LIUtilsMod.DEBUG) {
 			
 		}
+		LIKeyProcess.addKey("key.medkituse", Keyboard.KEY_V, true, new MedkitUse());
 	}
 	
 	@Override

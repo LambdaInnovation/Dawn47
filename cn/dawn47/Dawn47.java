@@ -24,6 +24,8 @@ import org.apache.logging.log4j.Logger;
 
 import cn.dawn47.core.events.DWEventListener;
 import cn.dawn47.core.misc.DWCreativeTab;
+import cn.dawn47.core.network.MsgMedkitUse;
+import cn.dawn47.core.network.MsgSyncPlayerProps;
 import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
@@ -49,6 +51,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * @author WeAthFolD
@@ -121,6 +124,9 @@ public class Dawn47 {
 		
 		//-----------------------
 		proxy.init();
+		
+		netHandler.registerMessage(MsgMedkitUse.Handler.class, MsgMedkitUse.class, DWGeneralProps.NET_ID_MEDKIT_USE, Side.SERVER);
+		netHandler.registerMessage(MsgSyncPlayerProps.Handler.class, MsgSyncPlayerProps.class, DWGeneralProps.NET_ID_SYNC_PLAYER_PROPS, Side.CLIENT);
 	}
 	 
 	private int nextEntityID = -1;

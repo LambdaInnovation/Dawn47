@@ -23,6 +23,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import cn.dawn47.core.entitis.ExtendedPlayer;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.weapon.item.IDWAmmoInfProvider;
 import cn.liutils.api.client.util.HudUtils;
@@ -71,6 +72,14 @@ public class DWHudDrawer {
 			String str = prv.getAmmoForHud(player, st);
 			drawString(str, i - 5 - getStrLen(str, DEFAULT_FONT_SIZE), j - 21);
 		}
+		
+		//medkit
+		ExtendedPlayer props = ExtendedPlayer.get(player);
+		String medkitCount = String.valueOf(props.getMedkitCount());
+		RenderUtils.loadTexture(DWClientProps.HUD_MEDKIT);
+        HudUtils.drawTexturedModalRect(8, j - 60, 16, 16);
+        drawString(medkitCount, 16 + 16, j - 60);
+        
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 	}

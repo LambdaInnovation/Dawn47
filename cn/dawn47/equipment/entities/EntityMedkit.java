@@ -7,12 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import cn.dawn47.Dawn47;
+import cn.dawn47.core.entitis.ExtendedPlayer;
 import cn.liutils.api.util.GenericUtils;
 
 public class EntityMedkit extends Entity {
 
-  private float containHP = 10;
   private int side;
 
   public EntityMedkit(World world) {
@@ -26,15 +25,24 @@ public class EntityMedkit extends Entity {
     this.side = side;
   }
 
+  public int getSide() {
+    return side;
+  }
+
   @Override
   public void onUpdate() {
-    
-    //Dawn47.log.info("entity side::" + side + " remote:" + worldObj.isRemote + " x:" + posX + " y:" + posY + " z:" + posZ);
-    //if(worldObj.isRemote) {
-    //  return;
-   // }
 
-    //FIXME: the range number?
+    if (worldObj.isRemote) {
+      return;
+    }
+
+    if (worldObj.isRemote) {
+      side = dataWatcher.getWatchableObjectByte(10);
+    } else {
+      dataWatcher.updateObject(10, Byte.valueOf((byte) side));
+    }
+
+    // FIXME: the range number?
     double xRange = 0.15;
     double yRange = 0.3;
     double zRange = 0.15;
@@ -42,21 +50,15 @@ public class EntityMedkit extends Entity {
     AxisAlignedBB box =
         AxisAlignedBB.getBoundingBox(posX - xRange, posY - yRange, posZ - zRange, posX + xRange,
             posY + yRange, posZ + zRange);
-    
+
     List<EntityPlayer> list =
         worldObj.getEntitiesWithinAABBExcludingEntity(this, box, GenericUtils.selectorPlayer);
     if (list != null && list.size() != 0) {
       EntityPlayer player = list.get(0);// get first one
-      
-      Dawn47.log.info("get player HP:" +  player.getHealth() + " max HP:" + player.getMaxHealth());
-      //Dawn47.log.info("entity side::" +  side + "remote:"+worldObj.isRemote);
-      Dawn47.log.info("entity side::" + side + " remote:" + worldObj.isRemote + " x:" + posX + " y:" + posY + " z:" + posZ);
-      this.setDead();
 
-      if (player.getHealth() < player.getMaxHealth()) {
-        player.setHealth(player.getHealth() + containHP);
-        this.setDead();
-      }
+      this.setDead();
+      ExtendedPlayer props = ExtendedPlayer.get(player);
+      props.setMedkitCount(props.getMedkitCount() + 1);
     }
   }
 
@@ -67,22 +69,16 @@ public class EntityMedkit extends Entity {
 
   @Override
   protected void entityInit() {
-
+    this.dataWatcher.addObject(10, Byte.valueOf((byte) 0));
   }
 
   @Override
   protected void readEntityFromNBT(NBTTagCompound nbt) {
-    posX = nbt.getDouble("posX");
-    posY = nbt.getDouble("posY");
-    posZ = nbt.getDouble("posZ");
     side = nbt.getInteger("side");
   }
 
   @Override
   protected void writeEntityToNBT(NBTTagCompound nbt) {
-    nbt.setDouble("posX", posX);
-    nbt.setDouble("posY", posY);
-    nbt.setDouble("posZ", posZ);
     nbt.setInteger("side", side);
   }
 
