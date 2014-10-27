@@ -36,6 +36,7 @@ import cn.dawn47.misc.entity.EntityPoster;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
+import cn.dawn47.weapon.entity.EntityLaserDelayed;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.weaponmod.core.WeaponMod;
 import cpw.mods.fml.common.FMLLog;
@@ -109,6 +110,7 @@ public class Dawn47 {
 		//-----Entity Registry--------
 		
 		registerEntity(EntityRadiationBall.class, "dw_radiation_ball");
+		registerEntity(EntityLaserDelayed.class, "dw_laser");
 		registerEntity(EntityScoutRobot.class, "dw_scout_robot");
 		registerEntity(EntityRottenCreeper.class, "dw_rotten_creeper");
 		registerEntity(EntityPoster.class, "dw_posterrr");

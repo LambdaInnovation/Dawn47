@@ -23,7 +23,7 @@ public class WeaponSAR extends DWGeneralWeapon {
 	
 	protected void initAction() {
 		actionShoot = new ActionAutomaticShoot(300, 4, 5, "dawn47:weapons.sar.fire")
-			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH).setMuzOffset(.45, 0.32, -0.1);
+			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH).setMuzOffset(.48, 0.06, 0.05);
 	}
 
 	@Override

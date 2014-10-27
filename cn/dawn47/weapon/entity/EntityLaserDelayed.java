@@ -24,7 +24,7 @@ import cn.liutils.api.util.Motion3D;
  */
 public class EntityLaserDelayed extends EntityBullet {
 	
-	final int DELAY_TICK = 20;
+	final int DELAY_TICK = 0;
 	final float VELOCITY = 2F;
 	
 	public int bornTick = 0;
@@ -37,7 +37,29 @@ public class EntityLaserDelayed extends EntityBullet {
 		this.setSize(0.7F, 0.2F);
 		lifeTime = 200;
 	}
-
+	
+	@Override
+	public void entityInit() {
+		super.entityInit();
+		dataWatcher.addObject(15, (Byte)(byte) 0);
+	} 
+	
+	void syncData() {
+		if(worldObj.isRemote) {
+			byte b = dataWatcher.getWatchableObjectByte(15);
+			if(b == 0) {
+				isHit = false;
+				ticksAfterHit = 0;
+			} else {
+				isHit = true;
+				ticksAfterHit = b >> 1;
+			}
+		} else {
+			if(isHit)
+				dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
+			else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
+		}
+	}
 	
 	public EntityLaserDelayed(World world) {
 		super(world);
@@ -50,7 +72,7 @@ public class EntityLaserDelayed extends EntityBullet {
 		if(!worldObj.isRemote && bornTick == 0) {
 			this.playSound("dawn47:laser_charge", .5F, 1F);
 		}
-		
+		syncData();
 		if(++bornTick < DELAY_TICK) {
 			//痛苦的等待
 		} else if(bornTick == DELAY_TICK) {
@@ -66,6 +88,7 @@ public class EntityLaserDelayed extends EntityBullet {
 	
 	@Override
 	protected void doBlockCollision(MovingObjectPosition result) {
+		if(worldObj.isRemote) return;
 		isHit = true;
 		motionX = motionY = motionZ = 0D;
 	}
@@ -73,6 +96,7 @@ public class EntityLaserDelayed extends EntityBullet {
 	@Override
 	protected void doEntityCollision(MovingObjectPosition result) {
 		super.doEntityCollision(result);
+		if(worldObj.isRemote) return;
 		isHit = true;
 		motionX = motionY = motionZ = 0D;
 	}
