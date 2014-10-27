@@ -23,7 +23,9 @@ public class WeaponHandgun extends DWGeneralWeapon {
 	
 	protected void initActions() {
 		this.actionShoot = new ActionAutomaticShoot(300, 4, 4, "dawn47:weapons.glock.glock_fire")
-			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH);
+			.setMuzzleflash(DWClientProps.GLOCK_MUZZLEFLASH)
+			.setMuzOffset(.149F, -.05F, .2F)
+			.setMuzScale(.85F);
 	}
 
 	@Override

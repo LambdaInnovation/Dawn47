@@ -27,6 +27,7 @@ import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.weapon.client.render.RendererLaserDelayed;
+import cn.dawn47.weapon.client.render.RendererRadiationBall;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.liutils.api.client.model.ItemModelCustom;
@@ -58,44 +59,71 @@ public class DWClientProxy extends DWCommonProxy {
 		
 		IItemRenderer renderHandgun = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_HANDGUN), DWItems.handgun, 
 			DWClientProps.HANDGUN_TEXTURE_PATH[0])
-			.setInvOffset(4.0F, 2.438F).setStdRotation(-2.375F,-89.45F,184.2F)
-			.setOffset(-1.778F, -0.024F, -0.209F).setInvScale(1.18F)
-			.setInvRotation(-32.67F, -75.816F, 0F).setEquipOffset(.5F, 0F, 0F)
+			.setInvOffset(4.0F, 2.438F)
+			.setStdRotation(-2.375F,-89.45F,184.2F)
+			.setOffset(-1.778F, -0.024F, -0.209F)
+			.setInvScale(1.18F)
+			.setInvRotation(-32.67F, -75.816F, 0F)
+			.setEquipOffset(0.5, -0.002, 0.185)
+			.setEquipRotation(0.0F, -2.566F, -5.384F)
 			.setInventorySpin(false).setScale(0.526D);
+		((RendererModelBulletWeapon)renderHandgun).setUpliftFactor(4F);
 		//.setMuzzleflashOffset(-.05F, .0F, .0F)
 		
 		//.setMuzzleflashOffset(-.05F, .0F, .0F)
 		
 		IItemRenderer renderAssaultRifle = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_ASSAULT_RIFLE), DWItems.assaultRifle,
-			DWClientProps.AR_TEXTURE_PATH[0]).setEquipOffset(0.74F, 0.235F, 0.0F)
-			.setInventorySpin(false).setInvRotation(-33.876F, -57.218F, 0.142F)
-			.setInvOffset(0.806F, -0.808F).setInvScale(0.948F)
-			.setOffset(3.917F,-0.043F,0.714F).setStdRotation(178.025F,-82.650F,4.950F)
+			DWClientProps.AR_TEXTURE_PATH[0])
+			.setEquipOffset(0.824, 0.042, 0.062)
+			.setEquipRotation(0.0F, 2.521F, -3.738F)
+			.setInventorySpin(false)
+			.setInvRotation(-33.876F, -57.218F, 0.142F)
+			.setInvOffset(0.806F, -0.808F)
+			.setInvScale(0.948F)
+			.setOffset(3.917F,-0.043F,0.714F)
+			.setStdRotation(178.025F,-82.650F,4.950F)
 			.setScale(0.330D);
+		((RendererModelBulletWeapon)renderAssaultRifle).setUpliftFactor(2.7F);
 		//.setMuzzleflashOffset(.27F, .11F, .1F)
 		
 		IItemRenderer renderLaser = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_LASER_RIFLE), DWItems.laserRifle, 
 			DWClientProps.LASER_TEXTURE_PATH[0])
-			.setOffset(-2.199F, -1.167F, -1.217F).setEquipOffset(.64F, 0.2F, 0.0F)
-			.setInvOffset(1.45F, -0.82F).setInvScale(0.86F)
-			.setInvRotation(-29.594F, -62.04F, -8.98F).setStdRotation(0.025F, 266.375F, -172.825F)
-			.setScale(0.417D).setInventorySpin(false);
+			.setOffset(-2.199F, -1.167F, -1.217F)
+			.setEquipOffset(0.64F, 0.198F, 0.109F)
+			.setInvOffset(1.45F, -0.82F)
+			.setInvScale(0.86F)
+			.setInvRotation(-29.594F, -62.04F, -8.98F)
+			.setStdRotation(0.025F, 266.375F, -172.825F)
+			.setScale(0.351)
+			.setInventorySpin(false)
+			.setRenderEntityItem(true);
 		//.setMuzzleflashOffset(0.809, -0.449, -0.043)
 		
 		IItemRenderer renderRaditLauncher = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_RAD_LAUNCHER),
 				DWItems.raditLauncher, DWClientProps.RADIATION_TEXTURE_PATH)
-			.setInvOffset(-2.9F, -1.846F).setInvScale(0.568F)
-			.setInvRotation(-42.818F, -60.998F, -12.588F).setOffset(1.488F, -0.786F, -1.069F)
-			.setEquipOffset(0.898, 0.058, 0.334).setStdRotation(-0.25F,632.275F,-167.775F)
-			.setScale(0.375D).setInventorySpin(false);
+			.setInvOffset(-2.9F, -1.846F)
+			.setInvScale(-0.221)
+			.setInvRotation(-42.818F, -60.998F, -12.588F)
+			.setOffset(1.488F, -0.786F, -1.069F)
+			.setEquipOffset(0.893F, -0.131F, 0.433)
+			.setStdRotation(-0.25F,632.275F,-167.775F)
+			.setEquipRotation(0.0F, 5.151F, 5.602F)
+			.setScale(0.333)
+			.setInventorySpin(false)
+			.setRenderEntityItem(true);
 		
 		IItemRenderer renderShotgun = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_SHOTGUN), DWItems.shotgun, 
 			DWClientProps.SHOTGUN_TEXTURE_PATH[0])
-			.setStdRotation(0F, -90F, 0F).setOffset(.894F, -.567F, 1.116F)
-			.setEquipOffset(.60F, -.17F, -0.026F).setInventorySpin(false)
-			.setInvScale(-0.798F).setScale(-.391)
-			.setEquipRotation(-2.329F, 1.54F, -9.20F).setInvOffset(2.27F, 3.95F)
-			.setInvRotation(498.078F, -46.724F, 26.35F);
+			.setStdRotation(0F, -90F, 0F)
+			.setOffset(.894F, -.567F, 1.116F)
+			.setEquipOffset(0.581, -0.141, 0.066)
+			.setInventorySpin(false)
+			.setInvScale(-0.798F)
+			.setScale(-0.316)
+			.setEquipRotation(-2.329F, 1.54F, -9.2F)
+			.setInvOffset(2.27F, 3.95F)
+			.setInvRotation(498.078F, -46.724F, 26.35F)
+			.setRenderEntityItem(true);
 		
 		IItemRenderer renderSuperDrink = new RenderModelItem(new ItemModelCustom(DWClientProps.MDL_SUPER_DRINK), DWClientProps.SUPER_DRINK_TEXTURE_PATH)
 			.setScale(-0.283).setEquipOffset(0.488, -0.096, -0.21)
@@ -103,10 +131,16 @@ public class DWClientProxy extends DWCommonProxy {
 			.setInvScale(1.233F).setInventorySpin(false);//.disableInvRotation();
 				
 		IItemRenderer renderSAR = new RendererModelBulletWeapon(new ItemModelCustom(DWClientProps.MDL_SUPER_AR), DWItems.sar, DWClientProps.SUPER_AR_TEX_PATH)
-			.setOffset(-8.12F,-1.457F,0.134F).setEquipOffset(.8F, 0F, 0F)
-			.setInvOffset(1.58F, 2.85F).setInvScale(0.836F)
-			.setStdRotation(6.8F,266.8F,-178.05F).setInvRotation(-41.592F, -63.238F, -20.288F)
-			.setScale(0.359D).setInventorySpin(false);
+			.setOffset(-8.12F,-1.457F,0.134F)
+			.setEquipOffset(0.642, 0.005, 0.128)
+			.setEquipRotation(5.078F, -3.847F, -8.504F)
+			.setInvOffset(1.58F, 2.85F)
+			.setInvScale(0.836F)
+			.setStdRotation(6.8F,266.8F,-178.05F)
+			.setInvRotation(-41.592F, -63.238F, -20.288F)
+			.setScale(0.359D)
+			.setInventorySpin(false);
+		((RendererModelBulletWeapon)renderSAR).setUpliftFactor(2F);
 		//.setMuzzleflashOffset(0.79F, 0.0F, 0.09F)
 		
 		//RenderModelItem ak_ammo_render = new RenderModelItem(new ModelAKAmmo(), DWClientProps.SUPER_AR_TEX_PATH)
@@ -141,7 +175,7 @@ public class DWClientProxy extends DWCommonProxy {
 		//-----------------ENTITIES---------------
 		
 		//RenderingRegistry.registerEntityRenderingHandler(EntityLaserDelayed.class, new RenderLaser());
-		RenderingRegistry.registerEntityRenderingHandler(EntityRadiationBall.class, new RenderIcon(DWClientProps.EFFECT_RADBALL).setHasLight(false).setSize(1.5F).setBlend(0.7F));
+		RenderingRegistry.registerEntityRenderingHandler(EntityRadiationBall.class, new RendererRadiationBall());
 		//RenderingRegistry.registerEntityRenderingHandler(EntitySpitFX.class, new RenderIcon(DWClientProps.EFFECT_SPIT).setHasLight(false).setSize(0.5F).setColorRGB(0.1F, 0.8F, 0.1F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityRottenCreeper.class, new RenderRottenCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityDrone.class, new RendererDrone());

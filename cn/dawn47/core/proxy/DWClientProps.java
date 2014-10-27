@@ -35,7 +35,22 @@ public class DWClientProps {
 		EFFECT_LASER = src(TEX_ENTITIES + "laser.png"),
 		EFFECT_LASERHIT = src(TEX_ENTITIES + "laser_hit.png"),
 		EFFECT_RADBALL = src(TEX_ENTITIES + "radiation_ball.png"),
-		BLANK = src(TEX_ENTITIES + "blank.png");
+		BLANK = src(TEX_ENTITIES + "blank.png"),
+		EFFECT_RADBALL_END[] = {
+			src(TEX_ENTITIES + "radiation_ball_end0.png"),
+			src(TEX_ENTITIES + "radiation_ball_end1.png"),
+			src(TEX_ENTITIES + "radiation_ball_end2.png"),
+			src(TEX_ENTITIES + "radiation_ball_end3.png"),
+			src(TEX_ENTITIES + "radiation_ball_end4.png"),
+			src(TEX_ENTITIES + "radiation_ball_end5.png"),
+			src(TEX_ENTITIES + "radiation_ball_end6.png")
+		},
+		RADIT_MUZZLEFLASH[] = {
+			src(TEX_MUZZLE + "muz_radit.png")
+		},
+		LASER_MUZZLEFLASH[] = {
+			src(TEX_MUZZLE + "muz_laser.png")
+		};
 	
 	//mobs
 	public static final ResourceLocation ROTTEN_CREEPER_MOB = src(TEX_ENTITIES + "rotten_creeper.png");

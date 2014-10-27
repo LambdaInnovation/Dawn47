@@ -3,6 +3,7 @@
  */
 package cn.dawn47.weapon.item;
 
+import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.liutils.api.entity.EntityBullet;
@@ -23,6 +24,9 @@ public class WeaponRaditLauncher extends DWGeneralWeapon {
 
 		public ActionBallGen() {
 			super(0, 3, "dawn47:weapons.rad.launch");
+			this.setMuzzle(DWClientProps.RADIT_MUZZLEFLASH);
+			this.setMuzzleOffset(0.0, -0.45, 0.15);
+			this.setMuzzleScale(1.5F);
 		}
 		
 		@Override

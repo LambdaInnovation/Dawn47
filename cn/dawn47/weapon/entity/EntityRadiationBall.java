@@ -13,6 +13,8 @@ import cn.weaponmod.api.WeaponHelper;
 public class EntityRadiationBall extends EntityBullet {
 
 	public int splashTick = 0;
+	public boolean isHit;
+	public int ticksAfterHit;
 
 	public EntityRadiationBall(World par1World, EntityLivingBase ent) {
 		super(par1World, ent, 15);
@@ -21,6 +23,41 @@ public class EntityRadiationBall extends EntityBullet {
 	public EntityRadiationBall(World world) {
 		super(world);
 	}
+	
+	@Override
+	public void entityInit() {
+		super.entityInit();
+		dataWatcher.addObject(15, (Byte)(byte) 0);
+	} 
+	
+	@Override
+	public void onUpdate() {
+		if(isHit) {
+			++ticksAfterHit;
+			motionX = motionY = motionZ = 0.0;
+			if(ticksAfterHit == 20)
+				this.setDead();
+		}
+		syncData();
+		super.onUpdate();
+	}
+	
+	void syncData() {
+		if(worldObj.isRemote) {
+			byte b = dataWatcher.getWatchableObjectByte(15);
+			if(b == 0) {
+				isHit = false;
+				ticksAfterHit = 0;
+			} else {
+				isHit = true;
+				ticksAfterHit = b >> 1;
+			}
+		} else {
+			if(isHit)
+				dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
+			else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
+		}
+	}
 
 	protected void doBlockCollision(MovingObjectPosition result) {
 		WeaponHelper.doRangeDamage(worldObj, DamageSource
@@ -28,7 +65,8 @@ public class EntityRadiationBall extends EntityBullet {
 				.getVecFromPool(posX, posY, posZ), 16.0F, 4.0F, this);
 		motionX = motionY = motionZ = 0;
 		spawnParticles(result);
-		setDead();
+		if(!worldObj.isRemote)
+			isHit = true;
 	}
 
 	public void doEntityCollision(MovingObjectPosition result) {
@@ -37,7 +75,8 @@ public class EntityRadiationBall extends EntityBullet {
 				.getVecFromPool(posX, posY, posZ), 16.0F, 4.0F, this);
 		motionX = motionY = motionZ = 0;
 		spawnParticles(result);
-		setDead();
+		if(!worldObj.isRemote)
+			isHit = true;
 	}
 
 	private void spawnParticles(MovingObjectPosition result) {

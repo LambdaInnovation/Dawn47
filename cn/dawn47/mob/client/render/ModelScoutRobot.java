@@ -27,7 +27,7 @@ public class ModelScoutRobot extends ModelBaseCustom {
 		rleg;
 	
 	public static final float 
-		CYCLE = (float) (50 / 2 / Math.PI),
+		CYCLE = (float) (18 / Math.PI),
 		LEG_AMP = 40,
 		MAX_HEIGHT = 9;
 
@@ -37,9 +37,11 @@ public class ModelScoutRobot extends ModelBaseCustom {
 	public ModelScoutRobot() {
 		super(DWClientProps.MDL_SCOUT_ROBOT);
 		main = new ModelPart(theModel, "main");
-		arms = new ModelPart(theModel, "arms");
+		arms = new ModelPart(theModel, "arm");
 		lleg = new ModelPart(theModel, "lleg", 0, 71.382, 0);
 		rleg = new ModelPart(theModel, "rleg", 0, 71.382, 0);
+		setScale(0.03F);
+		setOffset(0, 1.5, 0);
 	}
 	
 	@Override
@@ -66,8 +68,10 @@ public class ModelScoutRobot extends ModelBaseCustom {
 		height = 0.5 * MAX_HEIGHT * (MathHelper.cos(time / CYCLE / 2));
 		GL11.glTranslated(0, height, 0);
 		
-		lleg.rotationZ = amp * LEG_AMP * MathHelper.sin(time / CYCLE);
-		rleg.rotationZ = amp * LEG_AMP * MathHelper.cos(time / CYCLE);
+		lleg.rotationZ = amp * LEG_AMP * Math.sin(time / CYCLE) + 10F;
+		rleg.rotationZ = amp * LEG_AMP * Math.cos(time / CYCLE) + 10F;
+		//rleg.rotationZ = 40 * Math.cos((double)time / CYCLE * 5);
+		//System.out.println(time / CYCLE);
 		arms.rotationY = head / (180F / (float) Math.PI);
 	}
 

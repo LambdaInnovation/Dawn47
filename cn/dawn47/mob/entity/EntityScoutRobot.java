@@ -16,6 +16,7 @@ public class EntityScoutRobot extends LIEntityMob {
 
 	public EntityScoutRobot(World par1World) {
 		super(par1World);
+		setSize(2.5F, 4.0F);
 	}
 
 	@Override
