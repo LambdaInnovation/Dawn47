@@ -25,7 +25,7 @@ public class WeaponRaditLauncher extends DWGeneralWeapon {
 		public ActionBallGen() {
 			super(0, 3, "dawn47:weapons.rad.launch");
 			this.setMuzzle(DWClientProps.RADIT_MUZZLEFLASH);
-			this.setMuzzleOffset(0.0, -0.45, 0.15);
+			this.setMuzzleOffset(0.18, -0.4, 0.2);
 			this.setMuzzleScale(1.5F);
 		}
 		

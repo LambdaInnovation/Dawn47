@@ -84,8 +84,6 @@ public class EntityPoster extends EntityHanging {
 		lastTickPosY = posY = attachedY + 0.01;
 		lastTickPosZ = posZ = attachedZ + (attachedSide.offsetZ != 0 ? (attachedSide.offsetZ == 1 ?
 				1.01 : -0.01) : 0);
-		System.out.println("Pos updated to " + "[" + posX + ", " +
-				posY + ", " + posZ + "]" + "in " + worldObj.isRemote);
 	}
 	
 	/**

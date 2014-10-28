@@ -19,16 +19,19 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cn.dawn47.core.client.key.MedkitUse;
 import cn.dawn47.core.register.DWItems;
+import cn.dawn47.equipment.client.renderer.RendererMedkit;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.misc.client.RendererPoster;
 import cn.dawn47.misc.entity.EntityPoster;
 import cn.dawn47.mob.client.render.RenderRottenCreeper;
+import cn.dawn47.mob.client.render.RendererDemonSeed;
 import cn.dawn47.mob.client.render.RendererDrone;
-import cn.dawn47.mob.client.render.RendererMedkit;
 import cn.dawn47.mob.client.render.RendererScoutRobot;
+import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
+import cn.dawn47.mob.entity.EntitySeedSpit;
 import cn.dawn47.weapon.client.render.RendererLaserDelayed;
 import cn.dawn47.weapon.client.render.RendererRadiationBall;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
@@ -187,6 +190,9 @@ public class DWClientProxy extends DWCommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityLaserDelayed.class, new RendererLaserDelayed());
 		RenderingRegistry.registerEntityRenderingHandler(EntityScoutRobot.class, new RendererScoutRobot());
 		RenderingRegistry.registerEntityRenderingHandler(EntityPoster.class, new RendererPoster());
+		RenderingRegistry.registerEntityRenderingHandler(EntityDemonSeed.class, new RendererDemonSeed());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySeedSpit.class, 
+				new RenderIcon(DWClientProps.EFFECT_DEMON_SPIT).setHasLight(false).setBlend(.8F));
 		
 		//----------------------------------------
 		

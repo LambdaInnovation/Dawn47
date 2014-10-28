@@ -6,6 +6,8 @@
 
 package cn.dawn47.mob.client.model;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -94,14 +96,26 @@ public class ModelDemonSeed extends ModelBase {
 			float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-		head.render(f5);
-		te[0].render(f5);
-		te[1].render(f5);
-		te[2].render(f5);
-		te[3].render(f5);
-		te[4].render(f5);
-		te[5].render(f5);
-		te[6].render(f5);
+		GL11.glPushMatrix(); {
+			GL11.glTranslated(0, 0.5, 0);
+			
+			double mx = entity.motionX, my = entity.motionY, mz = entity.motionZ;
+			Double rotationPitch = Math.atan2(my, Math.sqrt(mx * mx + my + my + mz * mz)) * 180 / Math.PI;
+			if(!rotationPitch.equals(Double.NaN))
+				GL11.glRotated(rotationPitch, -1, 0, 0);
+			
+			//Back at the origin
+			GL11.glTranslated(0, -0.5, 0);
+			
+			head.render(f5);
+			te[0].render(f5);
+			te[1].render(f5);
+			te[2].render(f5);
+			te[3].render(f5);
+			te[4].render(f5);
+			te[5].render(f5);
+			te[6].render(f5);
+		} GL11.glPopMatrix();
 	}
 	
 	private void applyTentacleRotation(int id, float rotation) {
@@ -121,7 +135,10 @@ public class ModelDemonSeed extends ModelBase {
 	public void setRotationAngles(float f, float f1, float f2, float f3,
 			float f4, float f5, Entity e) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
-		System.out.println(f2);
+		float rotation = (float) (15 * f1 * Math.sin(e.ticksExisted * 0.14));
+		for(int i = 0; i < 7; ++i) {
+			applyTentacleRotation(i, (float) (rotation / 180 * Math.PI));
+		}
 	}
 
 }

@@ -33,9 +33,11 @@ import cn.dawn47.equipment.blocks.BlockMedkit;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.equipment.item.ItemMedkit;
 import cn.dawn47.misc.entity.EntityPoster;
+import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
+import cn.dawn47.mob.entity.EntitySeedSpit;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.weaponmod.core.WeaponMod;
@@ -115,6 +117,8 @@ public class Dawn47 {
 		registerEntity(EntityRottenCreeper.class, "dw_rotten_creeper");
 		registerEntity(EntityPoster.class, "dw_posterrr");
 		registerEntity(EntityDrone.class, "dw_drone");
+		registerEntity(EntityDemonSeed.class, "dw_demon_seed");
+		registerEntity(EntitySeedSpit.class, "dw_seed_spit");
 		
 		BlockMedkit blockMedkit = new BlockMedkit();
 		GameRegistry.registerBlock(blockMedkit, "dw_block_medkit");

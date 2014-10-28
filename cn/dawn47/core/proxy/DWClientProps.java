@@ -36,6 +36,7 @@ public class DWClientProps {
 		EFFECT_LASERHIT = src(TEX_ENTITIES + "laser_hit.png"),
 		EFFECT_RADBALL = src(TEX_ENTITIES + "radiation_ball.png"),
 		BLANK = src(TEX_ENTITIES + "blank.png"),
+		EFFECT_DEMON_SPIT = src(TEX_ENTITIES + "dsegg.png"),
 		EFFECT_RADBALL_END[] = {
 			src(TEX_ENTITIES + "radiation_ball_end0.png"),
 			src(TEX_ENTITIES + "radiation_ball_end1.png"),
@@ -53,7 +54,9 @@ public class DWClientProps {
 		};
 	
 	//mobs
-	public static final ResourceLocation ROTTEN_CREEPER_MOB = src(TEX_ENTITIES + "rotten_creeper.png");
+	public static final ResourceLocation 
+		ROTTEN_CREEPER_MOB = src(TEX_ENTITIES + "rotten_creeper.png"),
+		DEMON_SEED_MOB = src(TEX_ENTITIES + "demon_seed.png");
 	
 	//hud
 	public static final ResourceLocation HUD = src(TEX_HUD + "helmet.png");

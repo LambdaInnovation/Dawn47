@@ -20,6 +20,7 @@ public class RendererRadiationBall extends RenderIcon {
 		setHasLight(false);
 		setSize(1.5F);
 		setBlend(0.7F);
+		setViewOptimize();
 	}
 	
 	@Override

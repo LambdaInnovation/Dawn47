@@ -33,11 +33,8 @@ public class EntityMedkit extends Entity {
   public void onUpdate() {
 
     if (worldObj.isRemote) {
-      return;
-    }
-
-    if (worldObj.isRemote) {
       side = dataWatcher.getWatchableObjectByte(10);
+      return;
     } else {
       dataWatcher.updateObject(10, Byte.valueOf((byte) side));
     }

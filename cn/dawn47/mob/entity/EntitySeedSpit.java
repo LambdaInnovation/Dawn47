@@ -3,9 +3,13 @@
  */
 package cn.dawn47.mob.entity;
 
+import cn.weaponmod.api.WeaponHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 /**
@@ -14,43 +18,41 @@ import net.minecraft.world.World;
  * @author WeathFolD
  *
  */
-public class EntitySeedSpit extends EntityThrowable {
+public class EntitySeedSpit extends EntityLargeFireball {
 
-	/**
-	 * @param par1World
-	 */
 	public EntitySeedSpit(World par1World) {
 		super(par1World);
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param par1World
-	 * @param par2EntityLivingBase
-	 */
-	public EntitySeedSpit(World par1World, EntityLivingBase par2EntityLivingBase) {
-		super(par1World, par2EntityLivingBase);
-		// TODO Auto-generated constructor stub
+	public EntitySeedSpit(World par1World, double par2, double par4,
+			double par6, double par8, double par10, double par12) {
+		super(par1World, par2, par4, par6, par8, par10, par12);
 	}
 
-	/**
-	 * @param par1World
-	 * @param par2
-	 * @param par4
-	 * @param par6
-	 */
-	public EntitySeedSpit(World par1World, double par2, double par4, double par6) {
-		super(par1World, par2, par4, par6);
-		// TODO Auto-generated constructor stub
+	public EntitySeedSpit(World par1World,
+			EntityLivingBase par2EntityLivingBase, double par3, double par5,
+			double par7) {
+		super(par1World, par2EntityLivingBase, par3, par5, par7);
 	}
-
-	/* (non-Javadoc)
-	 * @see net.minecraft.entity.projectile.EntityThrowable#onImpact(net.minecraft.util.MovingObjectPosition)
-	 */
+	
 	@Override
-	protected void onImpact(MovingObjectPosition var1) {
-		// TODO Auto-generated method stub
+	public void onUpdate() {
+		super.onUpdate();
+		this.extinguish();
+	}
 
+	@Override
+	protected void onImpact(MovingObjectPosition res) {
+        if (!this.worldObj.isRemote)
+        {
+            if (res.entityHit != null)
+            {
+                res.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 4.0F);
+            }
+            WeaponHelper.doRangeDamage(worldObj, DamageSource.generic, 
+            		Vec3.createVectorHelper(posX, posY, posZ),
+            		11.0F, 4, this);
+        }
 	}
 
 }

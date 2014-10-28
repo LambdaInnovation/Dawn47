@@ -83,9 +83,9 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
 
         if (d3 < 1.0D || d3 > 3600.0D)
         {
-            this.waypointX = this.posX + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointY = this.posY + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointZ = this.posZ + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointX = this.posX + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
+            this.waypointY = this.posY + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
+            this.waypointZ = this.posZ + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
         }
 
         if (this.courseChangeCooldown-- <= 0)
@@ -135,22 +135,22 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
             {
                 if (this.attackCounter == 10)
                 {
-                    this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1007, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
+                	//this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
                 }
 
                 ++this.attackCounter;
 
                 if (this.attackCounter == 20)
                 {
-                    this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1008, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
-                    EntityLargeFireball entitylargefireball = new EntityLargeFireball(this.worldObj, this, d5, d6, d7);
+                	this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
+                	EntitySeedSpit spit = new EntitySeedSpit(this.worldObj, this, d5, d6, d7);
                   //  entitylargefireball.field_92057_e = this.explosionStrength;
                     double d8 = 4.0D;
                     Vec3 vec3 = this.getLook(1.0F);
-                    entitylargefireball.posX = this.posX + vec3.xCoord * d8;
-                    entitylargefireball.posY = this.posY + (double)(this.height / 2.0F) + 0.5D;
-                    entitylargefireball.posZ = this.posZ + vec3.zCoord * d8;
-                    this.worldObj.spawnEntityInWorld(entitylargefireball);
+                    spit.posX = this.posX + vec3.xCoord * d8;
+                    spit.posY = this.posY + (double)(this.height / 2.0F) + 0.5D;
+                    spit.posZ = this.posZ + vec3.zCoord * d8;
+                    this.worldObj.spawnEntityInWorld(spit);
                     this.attackCounter = -40;
                 }
             }
@@ -209,7 +209,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      */
     protected String getLivingSound()
     {
-        return "dawn47:entities.seed.howl";
+        return "dawn47:entities.ds_howl";
     }
 
     /**
@@ -217,7 +217,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      */
     protected String getHurtSound()
     {
-        return "dawn47:entities.seed.howl";
+        return "dawn47:entities.ds_howl";
     }
 
     /**
@@ -225,34 +225,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      */
     protected String getDeathSound()
     {
-        return "dawn47:entities.seed.death";
-    }
-
-    protected Item getDropItem()
-    {
-        return Items.gunpowder;
-    }
-
-    /**
-     * Drop 0-2 items of this living's type. @param par1 - Whether this entity has recently been hit by a player. @param
-     * par2 - Level of Looting used to kill this mob.
-     */
-    protected void dropFewItems(boolean par1, int par2)
-    {
-        int j = this.rand.nextInt(2) + this.rand.nextInt(1 + par2);
-        int k;
-
-        for (k = 0; k < j; ++k)
-        {
-            this.dropItem(Items.ghast_tear, 1);
-        }
-
-        j = this.rand.nextInt(3) + this.rand.nextInt(1 + par2);
-
-        for (k = 0; k < j; ++k)
-        {
-            this.dropItem(Items.gunpowder, 1);
-        }
+        return "dawn47:entities.ds_death";
     }
 
     /**
@@ -276,7 +249,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      */
     public int getMaxSpawnedInChunk()
     {
-        return 1;
+        return 32;
     }
 
     /**
@@ -285,7 +258,6 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
-       // par1NBTTagCompound.setInteger("ExplosionPower", this.explosionStrength);
     }
 
     /**
@@ -294,10 +266,5 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
-
-        if (par1NBTTagCompound.hasKey("ExplosionPower", 99))
-        {
-            //this.explosionStrength = par1NBTTagCompound.getInteger("ExplosionPower");
-        }
     }
 }

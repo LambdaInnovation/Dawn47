@@ -19,6 +19,7 @@ import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
+import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
@@ -71,7 +72,8 @@ public class DWItems {
 	public static Item
 		spawnerScoutRobot,
 		spawnerRottenCreeper,
-		spawnerDrone;
+		spawnerDrone,
+		spawnerDemonSeed;
 	
 	//------------------------------
 	
@@ -101,12 +103,22 @@ public class DWItems {
 		posters = RegUtils.reg(ItemPosterPlacer.class, 5, "dw_poster");
 		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct);
 		
-		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class).setCreativeTab(Dawn47.cct)
-				.setUnlocalizedName("dw_scout_robot");
-		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class).setCreativeTab(Dawn47.cct)
-				.setTextureName("dawn47:rotten_creeper").setUnlocalizedName("dw_rotten_creeper");
-		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct)
-				.setTextureName("dawn47:drone").setUnlocalizedName("dw_drone");
+		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_scout_robot")
+			.setTextureName("dawn47:egg4");
+		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_rotten_creeper")
+			.setTextureName("dawn47:egg0");;
+		spawnerDrone = new LIMobSpawner(EntityDrone.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_drone")
+			.setTextureName("dawn47:egg1");
+		spawnerDemonSeed = new LIMobSpawner(EntityDemonSeed.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_demonseed")
+			.setTextureName("dawn47:egg2");
 		
 		GameRegistry.registerItem(ammoHandgun, "hg_ammo");
 		GameRegistry.registerItem(ammoAR, "ar_ammo");
@@ -125,6 +137,7 @@ public class DWItems {
 		GameRegistry.registerItem(spawnerScoutRobot, "dw_spawner_robot");
 		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
 		GameRegistry.registerItem(spawnerDrone, "dw_drone");
+		GameRegistry.registerItem(spawnerDemonSeed, "dw_dseed");
 		
 		/*
 		GameRegistry.registerItem(ak47, "dw_ak47");

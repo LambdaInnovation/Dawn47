@@ -20,6 +20,7 @@ public class RendererLaserDelayed extends RenderIcon {
 	public RendererLaserDelayed() {
 		super(null);
 		this.setSize(.8F);
+		setViewOptimize();
 	}
 	
 	@Override
