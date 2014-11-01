@@ -32,7 +32,7 @@ public class DWCreativeTab extends CreativeTabs {
 
 	@Override
 	public Item getTabIconItem() {
-		return DWItems.sar;
+		return DWItems.logo;
 	}
 
 }

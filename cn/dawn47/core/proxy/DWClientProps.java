@@ -62,16 +62,16 @@ public class DWClientProps {
 	public static final ResourceLocation HUD = src(TEX_HUD + "helmet.png");
 	
 	//models
-	public static final IModelCustom
-		MDL_ASSAULT_RIFLE = AdvancedModelLoader.loadModel(src("dawn47:models/assault_rifle.obj")),
-		MDL_HANDGUN = AdvancedModelLoader.loadModel(src("dawn47:models/hand_gun.obj")),
-		MDL_SUPER_AR = AdvancedModelLoader.loadModel(src("dawn47:models/super_assualt_rifle.obj")),
-		MDL_LASER_RIFLE =  AdvancedModelLoader.loadModel(src("dawn47:models/laser_rifle.obj")),
-		MDL_RAD_LAUNCHER =  AdvancedModelLoader.loadModel(src("dawn47:models/radiation_launcher.obj")),
-		MDL_SCOUT_ROBOT =  AdvancedModelLoader.loadModel(src("dawn47:models/scout_robot.obj")),
-		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj")),
-		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj")),
-		MDL_MEDKIT = AdvancedModelLoader.loadModel(src("dawn47:models/medkit.obj"));
+	public static IModelCustom
+		MDL_ASSAULT_RIFLE,
+		MDL_HANDGUN,
+		MDL_SUPER_AR,
+		MDL_LASER_RIFLE,
+		MDL_RAD_LAUNCHER,
+		MDL_SCOUT_ROBOT,
+		MDL_SHOTGUN,
+		MDL_SUPER_DRINK,
+		MDL_MEDKIT;
 	
 	//model textures
 	public static final ResourceLocation
@@ -82,7 +82,8 @@ public class DWClientProps {
 		SHOTGUN_TEXTURE_PATH[] = { src(TEX_MODELS + "shotgun.png"), src(TEX_MODELS + "shotgun1.png") },
 		SUPER_AR_TEX_PATH = src(TEX_MODELS + "super_ar.png"),
 		SCOUT_ROBOT_TEX = src(TEX_MODELS + "scout_robot.png"),
-		MEDKIT_TEX = src(TEX_MODELS + "medkit.png");
+		MEDKIT_TEX = src(TEX_MODELS + "medkit.png"),
+		SOLDIER_PATH[] = { src(TEX_ENTITIES + "soldier.png") };
 	
 	//poster
 	public static final ResourceLocation
@@ -113,6 +114,18 @@ public class DWClientProps {
 	
 	private static ResourceLocation src(String s) {
 		return new ResourceLocation(s);
+	}
+	
+	public static void init() {
+		MDL_ASSAULT_RIFLE = AdvancedModelLoader.loadModel(src("dawn47:models/assault_rifle.obj"));
+		MDL_HANDGUN = AdvancedModelLoader.loadModel(src("dawn47:models/hand_gun.obj"));
+		MDL_SUPER_AR = AdvancedModelLoader.loadModel(src("dawn47:models/super_assualt_rifle.obj"));
+		MDL_LASER_RIFLE =  AdvancedModelLoader.loadModel(src("dawn47:models/laser_rifle.obj"));
+		MDL_RAD_LAUNCHER =  AdvancedModelLoader.loadModel(src("dawn47:models/radiation_launcher.obj"));
+		MDL_SCOUT_ROBOT =  AdvancedModelLoader.loadModel(src("dawn47:models/scout_robot.obj"));
+		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj"));
+		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj"));
+		MDL_MEDKIT = AdvancedModelLoader.loadModel(src("dawn47:models/medkit.obj"));
 	}
 
 }

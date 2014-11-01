@@ -19,6 +19,9 @@ import cn.dawn47.core.proxy.DWClientProps;
 import cn.liutils.api.entity.LIEntityMob;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +35,7 @@ public class EntityDrone extends LIEntityMob {
 	
 	public int tickCharging = 0;
 	public Entity jumpEntity;
-	public int style = rand.nextInt(3);
+	public int style;
 	private int tID = 0;
 
 	/**
@@ -40,16 +43,19 @@ public class EntityDrone extends LIEntityMob {
 	 */
 	public EntityDrone(World par1World) {
 		this(par1World, 0);
+		style = rand.nextInt(3);
 	}
 	
 	@Override
 	public void entityInit() {
-		super.entityInit();
 		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+		dataWatcher.addObject(18, Byte.valueOf((byte) 0));
+		super.entityInit();
 	}
 	
 	protected EntityDrone(World world, int tID) {
 		super(world);
+		style = rand.nextInt(3);
 		this.setSize(0.8F, 0.8F);
 	}
 
@@ -68,6 +74,14 @@ public class EntityDrone extends LIEntityMob {
 	
 	@Override
 	public void onUpdate() {
+		if(worldObj.isRemote) {
+			style = dataWatcher.getWatchableObjectByte(18);
+			System.out.println("Recieved style " + style);
+		} else {
+			//System.out.println("Updating style " + style);
+			dataWatcher.updateObject(18, Byte.valueOf((byte) style));
+		}
+		
 		if(tickCharging > 0) {
 			--tickCharging;
 			if(tickCharging == 0 && jumpEntity != null) {
@@ -111,6 +125,14 @@ public class EntityDrone extends LIEntityMob {
     		}
     	}
     }
+    
+    public boolean attackEntityAsMob(Entity par1Entity)
+    {
+    	if(style == 1 && par1Entity instanceof EntityPlayer) {
+    		((EntityPlayer)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100));
+    	}
+    	return super.attackEntityAsMob(par1Entity);
+    }
 
 	@Override
 	protected double getFollowRange() {
@@ -129,7 +151,7 @@ public class EntityDrone extends LIEntityMob {
 
 	@Override
 	protected double getAttackDamage() {
-		return 4;
+		return 4 + style == 2 ? 4 : 0;
 	}
 
 	@Override

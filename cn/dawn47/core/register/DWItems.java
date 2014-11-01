@@ -23,6 +23,7 @@ import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
+import cn.dawn47.mob.entity.EntitySoldier;
 import cn.dawn47.weapon.item.DWGeneralWeapon;
 import cn.dawn47.weapon.item.WeaponAR;
 import cn.dawn47.weapon.item.WeaponHandgun;
@@ -57,7 +58,8 @@ public class DWItems {
 		ammoLaser,
 		ammoRadit,
 		ammoShotgun,
-		posters[];
+		posters[],
+		logo;
 		//sn_ammo,
 		//ammoUzi;
 	//------------------------------
@@ -73,7 +75,8 @@ public class DWItems {
 		spawnerScoutRobot,
 		spawnerRottenCreeper,
 		spawnerDrone,
-		spawnerDemonSeed;
+		spawnerDemonSeed,
+		spawnerSoldier;
 	
 	//------------------------------
 	
@@ -119,6 +122,12 @@ public class DWItems {
 			.setCreativeTab(Dawn47.cct)
 			.setUnlocalizedName("dw_demonseed")
 			.setTextureName("dawn47:egg2");
+		spawnerDemonSeed = new LIMobSpawner(EntitySoldier.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_soldier")
+			.setTextureName("dawn47:egg0");
+		
+		logo = new Item().setTextureName("dawn47:logo");
 		
 		GameRegistry.registerItem(ammoHandgun, "hg_ammo");
 		GameRegistry.registerItem(ammoAR, "ar_ammo");
@@ -128,6 +137,7 @@ public class DWItems {
 		//GameRegistry.registerItem(ammoSAR, "ak_ammo");
 		//GameRegistry.registerItem(ammoUzi, "uzi_ammo");
 		
+		GameRegistry.registerItem(logo, "dw_logo");
 		GameRegistry.registerItem(handgun, "dw_handgun");
 		GameRegistry.registerItem(sar, "dw_superassaultrifleiknowthisisalongname");
 		GameRegistry.registerItem(raditLauncher, "dw_niconiconi");

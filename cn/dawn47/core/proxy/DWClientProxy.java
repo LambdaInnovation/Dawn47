@@ -27,11 +27,13 @@ import cn.dawn47.mob.client.render.RenderRottenCreeper;
 import cn.dawn47.mob.client.render.RendererDemonSeed;
 import cn.dawn47.mob.client.render.RendererDrone;
 import cn.dawn47.mob.client.render.RendererScoutRobot;
+import cn.dawn47.mob.client.render.RendererSoldier;
 import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.mob.entity.EntitySeedSpit;
+import cn.dawn47.mob.entity.EntitySoldier;
 import cn.dawn47.weapon.client.render.RendererLaserDelayed;
 import cn.dawn47.weapon.client.render.RendererRadiationBall;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
@@ -55,6 +57,7 @@ public class DWClientProxy extends DWCommonProxy {
 		if(LIUtilsMod.DEBUG) {
 			
 		}
+		DWClientProps.init();
 		LIKeyProcess.addKey("key.medkituse", Keyboard.KEY_V, true, new MedkitUse());
 	}
 	
@@ -72,9 +75,9 @@ public class DWClientProxy extends DWCommonProxy {
 			.setOffset(-1.778F, -0.024F, -0.209F)
 			.setInvScale(1.18F)
 			.setInvRotation(-32.67F, -75.816F, 0F)
-			.setEquipOffset(0.5, -0.002, 0.185)
-			.setEquipRotation(0.0F, -2.566F, -5.384F)
-			.setInventorySpin(false).setScale(0.526D);
+			.setEquipOffset(0.565, -0.15, 0.187)
+			.setEquipRotation(0.0F, -2.761F, 9.103F)
+			.setInventorySpin(false).setScale(0.441);
 		((RendererModelBulletWeapon)renderHandgun).setUpliftFactor(4F);
 		//.setMuzzleflashOffset(-.05F, .0F, .0F)
 		
@@ -88,8 +91,8 @@ public class DWClientProxy extends DWCommonProxy {
 			.setInvRotation(-33.876F, -57.218F, 0.142F)
 			.setInvOffset(0.806F, -0.808F)
 			.setInvScale(0.948F)
-			.setOffset(3.917F,-0.043F,0.714F)
-			.setStdRotation(178.025F,-82.650F,4.950F)
+			.setOffset(-3.87F, -0.069F, -0.814F)
+			.setStdRotation(178.025F,-82.650F - 180F,4.950F)
 			.setScale(0.330D);
 		((RendererModelBulletWeapon)renderAssaultRifle).setUpliftFactor(2.7F);
 		//.setMuzzleflashOffset(.27F, .11F, .1F)
@@ -193,6 +196,7 @@ public class DWClientProxy extends DWCommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityDemonSeed.class, new RendererDemonSeed());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySeedSpit.class, 
 				new RenderIcon(DWClientProps.EFFECT_DEMON_SPIT).setHasLight(false).setBlend(.8F));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySoldier.class, new RendererSoldier());
 		
 		//----------------------------------------
 		

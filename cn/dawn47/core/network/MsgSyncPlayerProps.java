@@ -9,6 +9,8 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 
 public class MsgSyncPlayerProps implements IMessage
@@ -35,8 +37,9 @@ public class MsgSyncPlayerProps implements IMessage
   
   public static class Handler implements IMessageHandler<MsgSyncPlayerProps, IMessage> {
       @Override
+      @SideOnly(Side.CLIENT)
       public IMessage onMessage(MsgSyncPlayerProps message, MessageContext ctx) {
-          EntityPlayer player = ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer :  ctx.getServerHandler().playerEntity;
+          EntityPlayer player = Minecraft.getMinecraft().thePlayer;
           ExtendedPlayer.get(player).loadNBTData(message.data);
           return null;
       }
