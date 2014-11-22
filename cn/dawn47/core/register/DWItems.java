@@ -19,20 +19,19 @@ import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
-import cn.dawn47.mob.entity.EntityDemonSeed;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
-import cn.dawn47.mob.entity.EntityScoutRobot;
 import cn.dawn47.mob.entity.EntitySoldier;
+import cn.dawn47.weapon.item.DWDualWieldWeapon;
 import cn.dawn47.weapon.item.DWGeneralWeapon;
 import cn.dawn47.weapon.item.WeaponAR;
 import cn.dawn47.weapon.item.WeaponHandgun;
 import cn.dawn47.weapon.item.WeaponLaserRifle;
-import cn.dawn47.weapon.item.WeaponRaditLauncher;
 import cn.dawn47.weapon.item.WeaponSAR;
 import cn.dawn47.weapon.item.WeaponShotgun;
 import cn.liutils.api.item.LIMobSpawner;
 import cn.liutils.api.util.RegUtils;
+import cn.weaponmod.api.weapon.WeaponDualWield;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -48,9 +47,10 @@ public class DWItems {
 		laserRifle,
 		raditLauncher,
 		shotgun,
-		sniperRifle,
 		sar,
 		uzi;
+
+	public static WeaponDualWield dual_handgun;
 	
 	public static Item 
 		ammoHandgun,
@@ -86,17 +86,17 @@ public class DWItems {
 	 */
 	public static void init(Configuration conf) {
 		
-		ammoHandgun = new DWAmmo().setStackAndDamage(1, 9).setIAndU("ammo_handgun");
-		ammoAR = new DWAmmo().setStackAndDamage(1, 25).setIAndU("ammo_ar");
-		ammoLaser = new DWAmmo().setStackAndDamage(1, 40).setIAndU("ammo_laser");
-		ammoRadit = new DWAmmo().setStackAndDamage(1, 20).setIAndU("ammo_radit");
+		ammoHandgun = new DWAmmo().setStackAndDamage(1, 10).setIAndU("ammo_handgun");
+		ammoAR = new DWAmmo().setStackAndDamage(1, 26).setIAndU("ammo_ar");
+		ammoLaser = new DWAmmo().setStackAndDamage(1, 41).setIAndU("ammo_laser");
+		ammoRadit = new DWAmmo().setStackAndDamage(1, 21).setIAndU("ammo_radit");
 		ammoShotgun = new DWAmmo().setStackAndDamage(64, 1).setIAndU("ammo_shotgun");
 		//sn_ammo = new DWAmmo().setStackAndDamage(64, 1).setIAndU("sn_ammo");
 		//ammoUzi = new DWAmmo().setStackAndDamage(1, 20).setIAndU("uzi_ammo");
 		
 		handgun = new WeaponHandgun();
 		sar = new WeaponSAR();
-		raditLauncher = new WeaponRaditLauncher();
+//		raditLauncher = new WeaponRaditLauncher();
 		laserRifle = new WeaponLaserRifle();
 		assaultRifle = new WeaponAR();
 		shotgun = new WeaponShotgun();
@@ -105,24 +105,25 @@ public class DWItems {
 		
 		posters = RegUtils.reg(ItemPosterPlacer.class, 5, "dw_poster");
 		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct);
+		dual_handgun = (WeaponDualWield) new DWDualWieldWeapon(handgun).setCreativeTab(Dawn47.cct).setTextureName("dawn47:handgun_dual").setUnlocalizedName("hf_dualhg");
 		
-		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class)
-			.setCreativeTab(Dawn47.cct)
-			.setUnlocalizedName("dw_scout_robot")
-			.setTextureName("dawn47:egg4");
+//		spawnerScoutRobot = new LIMobSpawner(EntityScoutRobot.class)
+//			.setCreativeTab(Dawn47.cct)
+//			.setUnlocalizedName("dw_scout_robot")
+//			.setTextureName("dawn47:egg4");
 		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class)
 			.setCreativeTab(Dawn47.cct)
 			.setUnlocalizedName("dw_rotten_creeper")
-			.setTextureName("dawn47:egg0");;
+			.setTextureName("dawn47:egg0");
 		spawnerDrone = new LIMobSpawner(EntityDrone.class)
 			.setCreativeTab(Dawn47.cct)
 			.setUnlocalizedName("dw_drone")
 			.setTextureName("dawn47:egg1");
-		spawnerDemonSeed = new LIMobSpawner(EntityDemonSeed.class)
-			.setCreativeTab(Dawn47.cct)
-			.setUnlocalizedName("dw_demonseed")
-			.setTextureName("dawn47:egg2");
-		spawnerDemonSeed = new LIMobSpawner(EntitySoldier.class)
+//		spawnerDemonSeed = new LIMobSpawner(EntityDemonSeed.class)
+//			.setCreativeTab(Dawn47.cct)
+//			.setUnlocalizedName("dw_demonseed")
+//			.setTextureName("dawn47:egg2");
+		spawnerSoldier = new LIMobSpawner(EntitySoldier.class)
 			.setCreativeTab(Dawn47.cct)
 			.setUnlocalizedName("dw_soldier")
 			.setTextureName("dawn47:egg0");
@@ -139,15 +140,17 @@ public class DWItems {
 		
 		GameRegistry.registerItem(logo, "dw_logo");
 		GameRegistry.registerItem(handgun, "dw_handgun");
+		GameRegistry.registerItem(dual_handgun, "dw_dual_handgun");
 		GameRegistry.registerItem(sar, "dw_superassaultrifleiknowthisisalongname");
-		GameRegistry.registerItem(raditLauncher, "dw_niconiconi");
+//		GameRegistry.registerItem(raditLauncher, "dw_niconiconi");
 		GameRegistry.registerItem(laserRifle, "dw_laser");
 		GameRegistry.registerItem(assaultRifle, "dw_assault_rifle");
 		GameRegistry.registerItem(shotgun, "dw_shotgun");
-		GameRegistry.registerItem(spawnerScoutRobot, "dw_spawner_robot");
+//		GameRegistry.registerItem(spawnerScoutRobot, "dw_spawner_robot");
 		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
 		GameRegistry.registerItem(spawnerDrone, "dw_drone");
-		GameRegistry.registerItem(spawnerDemonSeed, "dw_dseed");
+		GameRegistry.registerItem(spawnerSoldier, "dw_soldier");
+//		GameRegistry.registerItem(spawnerDemonSeed, "dw_dseed");
 		
 		/*
 		GameRegistry.registerItem(ak47, "dw_ak47");

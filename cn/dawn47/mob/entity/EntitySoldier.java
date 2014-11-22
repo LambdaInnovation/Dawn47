@@ -72,6 +72,15 @@ public class EntitySoldier extends LIEntityMob {
 	
 	@Override
 	public void onUpdate() {
+		boolean preonGround = this.onGround;
+		if(isShooting) {
+			this.motionX = this.motionZ = 0;
+			if(preonGround) motionY = 0;
+		}
+		super.onUpdate();
+		if(preonGround)
+			this.motionY = 0;
+		
 		if(worldObj.isRemote) {
 			weapon = dataWatcher.getWatchableObjectByte(15);
 			int res = dataWatcher.getWatchableObjectByte(16);
@@ -91,24 +100,40 @@ public class EntitySoldier extends LIEntityMob {
 			dataWatcher.updateObject(16, Byte.valueOf(res));
 			dataWatcher.updateObject(17, Byte.valueOf((byte) shootTime));
 		}
+		
 		if(isShooting && !dead) {
 			++shootTick;
+			//Make soldier face the player
+//			if(entityToAttack != null) {
+//				double dx = entityToAttack.posX - posX,
+//						dz = entityToAttack.posZ - posZ;
+//				double angle = Math.atan2(dx, dz) * 180 / Math.PI;
+//				
+////				System.out.
+//				System.out.println(angle + " " + this.rotationYaw + " " + this.rotationPitch + " " + worldObj.isRemote);
+//				
+//				this.rotationYawHead = (float) -angle;
+//				this.newRotationYaw = this.prevRotationYaw = this.rotationYaw = (float) -angle;
+//			}
+//			
+//			EntityPlayer ep;
+//			ep.attackEntityFrom(par1DamageSource, par2);
 			if(ticksExisted % getShootRate() == 0)
 				shoot();
 			if(shootTick >= shootTime)
 				isShooting = false;
 		}
-		super.onUpdate();
 	}
 	
-	@Override
-	protected boolean isMovementBlocked()
-	{
-		return isShooting;
-	}
+//	@Override
+//	protected boolean isMovementBlocked()
+//	{
+//		return isShooting;
+//	}
 	
 	@Override
 	protected void attackEntity(Entity par1Entity, float par2) {
+		System.out.println(worldObj.isRemote);
 		/**
 		 * Check if the distance is between 3 and 16 and more than 40 ticks passed from ticksExisted and randomed and not running
 		 */
@@ -125,13 +150,16 @@ public class EntitySoldier extends LIEntityMob {
 		if(entityToAttack == null) {
 			return;
 		}
-		EntityBullet bullet = new EntityBullet(worldObj, this, this.entityToAttack, getDamage());
-		worldObj.spawnEntityInWorld(bullet);
+		this.playSound(((ActionAutomaticShoot)wpnTemplates.get(weapon).wpn.actionShoot).getSound(), 0.5F, 1.0F);
+		if(rand.nextInt() % 4 == 0) {//1/4
+			EntityBullet bullet = new EntityBullet(worldObj, this, this.entityToAttack, getDamage());
+			worldObj.spawnEntityInWorld(bullet);
+		}
 		lastShootTick = ticksExisted;
 	}
 	
 	private int getShootRate() {
-		return ((ActionAutomaticShoot)wpnTemplates.get(weapon).wpn.actionShoot).getShootRate() * 3;
+		return ((ActionAutomaticShoot)wpnTemplates.get(weapon).wpn.actionShoot).getShootRate();
 	}
 	
 	private float getDamage() {
@@ -168,17 +196,11 @@ public class EntitySoldier extends LIEntityMob {
 		return 2.0;
 	}
 
-	/* (non-Javadoc)
-	 * @see cn.liutils.api.entity.LIEntityMob#getAttackDamage()
-	 */
 	@Override
 	protected double getAttackDamage() {
 		return 6.0;
 	}
 
-	/* (non-Javadoc)
-	 * @see cn.liutils.api.entity.LIEntityMob#getTexture()
-	 */
 	@Override
 	public ResourceLocation getTexture() {
 		return DWClientProps.SOLDIER_PATH[skin];

@@ -9,20 +9,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import cn.liutils.api.entity.LIEntityMob;
 
 /**
  * 恶魔种子实体。实际上直接抄了恶魂的代码。（你够
@@ -55,19 +47,22 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
         return this.dataWatcher.getWatchableObjectByte(16) != 0;
     }
 
-    protected void entityInit()
+    @Override
+	protected void entityInit()
     {
         super.entityInit();
         this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
-    protected void updateEntityActionState()
+    @Override
+	protected void updateEntityActionState()
     {
         if (!this.worldObj.isRemote && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
         {
@@ -83,15 +78,15 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
 
         if (d3 < 1.0D || d3 > 3600.0D)
         {
-            this.waypointX = this.posX + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
-            this.waypointY = this.posY + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
-            this.waypointZ = this.posZ + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
+            this.waypointX = this.posX + ((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
+            this.waypointY = this.posY + ((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
+            this.waypointZ = this.posZ + ((this.rand.nextFloat() * 2.0F - 1.0F) * 7.0F - 3.5F);
         }
 
         if (this.courseChangeCooldown-- <= 0)
         {
             this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-            d3 = (double)MathHelper.sqrt_double(d3);
+            d3 = MathHelper.sqrt_double(d3);
 
             if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
             {
@@ -127,7 +122,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
         if (this.targetedEntity != null && this.targetedEntity.getDistanceSqToEntity(this) < d4 * d4)
         {
             double d5 = this.targetedEntity.posX - this.posX;
-            double d6 = this.targetedEntity.boundingBox.minY + (double)(this.targetedEntity.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
+            double d6 = this.targetedEntity.boundingBox.minY + this.targetedEntity.height / 2.0F - (this.posY + this.height / 2.0F);
             double d7 = this.targetedEntity.posZ - this.posZ;
             this.renderYawOffset = this.rotationYaw = -((float)Math.atan2(d5, d7)) * 180.0F / (float)Math.PI;
 
@@ -148,7 +143,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
                     double d8 = 4.0D;
                     Vec3 vec3 = this.getLook(1.0F);
                     spit.posX = this.posX + vec3.xCoord * d8;
-                    spit.posY = this.posY + (double)(this.height / 2.0F) + 0.5D;
+                    spit.posY = this.posY + this.height / 2.0F + 0.5D;
                     spit.posZ = this.posZ + vec3.zCoord * d8;
                     this.worldObj.spawnEntityInWorld(spit);
                     this.attackCounter = -40;
@@ -191,7 +186,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
         double d6 = (this.waypointZ - this.posZ) / par7;
         AxisAlignedBB axisalignedbb = this.boundingBox.copy();
 
-        for (int i = 1; (double)i < par7; ++i)
+        for (int i = 1; i < par7; ++i)
         {
             axisalignedbb.offset(d4, d5, d6);
 
@@ -207,7 +202,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Returns the sound this mob makes while it's alive.
      */
-    protected String getLivingSound()
+    @Override
+	protected String getLivingSound()
     {
         return "dawn47:entities.ds_howl";
     }
@@ -215,7 +211,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Returns the sound this mob makes when it is hurt.
      */
-    protected String getHurtSound()
+    @Override
+	protected String getHurtSound()
     {
         return "dawn47:entities.ds_howl";
     }
@@ -223,7 +220,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Returns the sound this mob makes on death.
      */
-    protected String getDeathSound()
+    @Override
+	protected String getDeathSound()
     {
         return "dawn47:entities.ds_death";
     }
@@ -231,7 +229,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Returns the volume for the sounds this mob makes.
      */
-    protected float getSoundVolume()
+    @Override
+	protected float getSoundVolume()
     {
         return 10.0F;
     }
@@ -239,7 +238,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Checks if the entity's current position is a valid location to spawn this entity.
      */
-    public boolean getCanSpawnHere()
+    @Override
+	public boolean getCanSpawnHere()
     {
         return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL;
     }
@@ -247,7 +247,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * Will return how many at most can spawn in a chunk at once.
      */
-    public int getMaxSpawnedInChunk()
+    @Override
+	public int getMaxSpawnedInChunk()
     {
         return 32;
     }
@@ -255,7 +256,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
-    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
+    @Override
+	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
     }
@@ -263,7 +265,8 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
+    @Override
+	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
     }

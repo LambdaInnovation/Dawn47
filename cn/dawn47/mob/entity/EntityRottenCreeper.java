@@ -15,16 +15,9 @@ package cn.dawn47.mob.entity;
 
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.liutils.api.entity.LIEntityMob;
-import cn.liutils.api.util.Motion3D;
-import net.minecraft.block.Block;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author WeAthFolD
@@ -59,7 +52,8 @@ public class EntityRottenCreeper extends LIEntityMob {
 		}
 	}
 	
-    protected void jump()
+    @Override
+	protected void jump()
     {
     	this.motionY = 0.14;
         this.isAirBorne = true;

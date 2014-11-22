@@ -36,6 +36,7 @@ public class ActionButtAttack extends Action {
 		damage = dmg;
 	}
 	
+	@Override
 	public boolean onActionBegin(World world, EntityPlayer player, InfWeapon inf) { 
 		if(InfUtils.getDeltaTick(inf, "butt") > 10) {
 			player.playSound(sound_hit, 0.5F, 1.0F);
@@ -46,6 +47,7 @@ public class ActionButtAttack extends Action {
 		return true;
 	}
 	
+	@Override
 	public boolean onActionTick(World world, EntityPlayer player, InfWeapon inf) {
 		return true;
 	}

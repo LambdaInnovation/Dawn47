@@ -6,7 +6,6 @@ package cn.dawn47.weapon.item;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.core.register.DWItems;
 import cn.weaponmod.api.action.ActionAutomaticShoot;
-import net.minecraft.item.Item;
 
 /**
  * @author WeathFolD

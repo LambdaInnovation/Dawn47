@@ -3,13 +3,10 @@
  */
 package cn.dawn47.mob.client.render;
 
-import java.util.regex.Pattern;
-
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MathHelper;
-import net.minecraftforge.client.model.IModelCustom;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.liutils.api.client.model.ModelBaseCustom;
 import cn.liutils.api.client.model.ModelPart;
@@ -63,7 +60,6 @@ public class ModelScoutRobot extends ModelBaseCustom {
 	
 	private void adjustRotations(float amp, float head) {
 		long time = Minecraft.getSystemTime() / 50;
-		System.out.println("amp:" + amp);
 		double height;
 		height = 0.5 * MAX_HEIGHT * (MathHelper.cos(time / CYCLE / 2));
 		GL11.glTranslated(0, height, 0);

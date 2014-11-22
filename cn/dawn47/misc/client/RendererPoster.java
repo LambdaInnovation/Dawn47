@@ -7,10 +7,8 @@ import org.lwjgl.opengl.GL11;
 
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.misc.entity.EntityPoster;
-import cn.dawn47.misc.entity.PosterInfo;
 import cn.liutils.api.client.util.RenderUtils;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;

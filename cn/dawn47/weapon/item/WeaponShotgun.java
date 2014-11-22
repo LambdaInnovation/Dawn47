@@ -8,7 +8,6 @@ import cn.dawn47.core.register.DWItems;
 import cn.weaponmod.api.action.ActionAutomaticShoot;
 import cn.weaponmod.api.action.ActionBuckshot;
 import cn.weaponmod.api.action.ActionMultipleReload;
-import net.minecraft.item.Item;
 
 /**
  * @author WeathFolD

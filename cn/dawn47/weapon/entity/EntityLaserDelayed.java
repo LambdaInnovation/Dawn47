@@ -10,13 +10,10 @@
  */
 package cn.dawn47.weapon.entity;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cn.liutils.api.entity.EntityBullet;
-import cn.liutils.api.util.Motion3D;
 
 /**
  * 
@@ -41,7 +38,7 @@ public class EntityLaserDelayed extends EntityBullet {
 	@Override
 	public void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(15, (Byte)(byte) 0);
+		dataWatcher.addObject(15, (byte) 0);
 	} 
 	
 	void syncData() {

@@ -112,6 +112,7 @@ public class ModelDrone extends ModelBase {
 	      setRotation(legbl2, 0.0083652F, -0.6714805F, -0.2464056F);
 	}
 
+	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3,
 			float f4, float f5) {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -137,6 +138,7 @@ public class ModelDrone extends ModelBase {
 		model.rotateAngleZ = z;
 	}
 
+	@Override
 	public void setRotationAngles(float f, float f1, float f2, float f3,
 			float f4, float f5, Entity e) {
 		this.head.rotateAngleX = f4 / (180F / (float) Math.PI);

@@ -50,7 +50,7 @@ public class ItemMedkit extends DWGenericItem {
     ForgeDirection direction = ForgeDirection.getOrientation(side);
     ForgeDirection opposite = direction.getOpposite();
 
-    if (opposite == ForgeDirection.UP || opposite == ForgeDirection.UNKNOWN) {
+    if (direction == ForgeDirection.UP || direction == ForgeDirection.UNKNOWN) {
       return false;
     }
     return world.isSideSolid(x, y, z, opposite);

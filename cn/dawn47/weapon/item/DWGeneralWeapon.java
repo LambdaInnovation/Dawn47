@@ -22,10 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cn.dawn47.Dawn47;
 import cn.dawn47.weapon.action.ActionButtAttack;
+import cn.weaponmod.api.WeaponHelper;
 import cn.weaponmod.api.action.Action;
 import cn.weaponmod.api.action.ActionJam;
-import cn.weaponmod.api.action.ActionReload;
-import cn.weaponmod.api.information.InfUtils;
 import cn.weaponmod.api.information.InfWeapon;
 import cn.weaponmod.api.weapon.WeaponGeneric;
 import cpw.mods.fml.relauncher.Side;
@@ -95,7 +94,7 @@ public abstract class DWGeneralWeapon extends WeaponGeneric implements IDWAmmoIn
 	
 	@Override
 	public String getAmmoForHud(EntityPlayer player, ItemStack stack) {
-		return getAmmo(stack) + "|" + getMaxDamage();
+		return getAmmo(stack) + "|" + WeaponHelper.getAmmoCapacity(ammoItem, player.inventory);
 	}
 	
 	public int getMuzzleConsistentTick() {

@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import cn.dawn47.mob.entity.EntitySoldier;
 import cn.dawn47.mob.entity.EntitySoldier.WeaponTemplate;
-import cn.dawn47.weapon.item.DWGeneralWeapon;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

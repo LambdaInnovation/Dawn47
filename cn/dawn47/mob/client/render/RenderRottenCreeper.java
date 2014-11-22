@@ -15,7 +15,6 @@ package cn.dawn47.mob.client.render;
 
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.mob.client.model.ModelRottenCreeper;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;

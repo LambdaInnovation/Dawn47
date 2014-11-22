@@ -21,6 +21,9 @@ item.shotgun.name=Shotgun
 item.dw_scout_robot.name=Spawn Scout Robot
 item.dw_rotten_creeper.name=Spawn Rotten Creeper
 item.superdrink.name=Super Drink
+item.hf_dualhg=Dual Wield Handgun
+item.dw_soldier.name=Spawn Soldier
+item.dw_drone.name=Spawn Drone
 
 #Blocks
 #(Non-block)

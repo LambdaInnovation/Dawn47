@@ -1,10 +1,7 @@
 package cn.dawn47.core.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import cn.dawn47.Dawn47;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class DWGenericItem extends Item {
 

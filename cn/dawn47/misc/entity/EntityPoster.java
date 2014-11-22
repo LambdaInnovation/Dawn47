@@ -79,6 +79,7 @@ public class EntityPoster extends EntityHanging {
 		if(attachedX == 0 && attachedY == 0 && attachedZ == 0) { //State bad, return
 			return;
 		}
+		//强制设置位置，防止MC的同步及检查函数显示设置
 		lastTickPosX = posX = attachedX + (attachedSide.offsetX != 0 ? (attachedSide.offsetX == 1 ?
 				1.01 : -0.01) : 0);
 		lastTickPosY = posY = attachedY + 0.01;

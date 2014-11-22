@@ -18,7 +18,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.liutils.api.entity.LIEntityMob;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -67,7 +66,8 @@ public class EntityDrone extends LIEntityMob {
 		return 10D;
 	}
 	
-    protected boolean isMovementCeased()
+    @Override
+	protected boolean isMovementCeased()
     {
         return tickCharging > 0;
     }
@@ -89,8 +89,8 @@ public class EntityDrone extends LIEntityMob {
 				double d0 = entity.posX - this.posX;
                 double d1 = entity.posZ - this.posZ;
                 float f2 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
-                this.motionX = d0 / (double)f2 * 0.5D * 1.2D + this.motionX * 0.20000000298023224D;
-                this.motionZ = d1 / (double)f2 * 0.5D * 1.2D + this.motionZ * 0.20000000298023224D;
+                this.motionX = d0 / f2 * 0.5D * 1.2D + this.motionX * 0.20000000298023224D;
+                this.motionZ = d1 / f2 * 0.5D * 1.2D + this.motionZ * 0.20000000298023224D;
                 this.motionY = 0.6;
                 jumpEntity = null;
 			}
@@ -108,7 +108,8 @@ public class EntityDrone extends LIEntityMob {
     	return super.attackEntityFrom(ds, par2);
     }
 	
-    protected void attackEntity(Entity entity, float dist)
+    @Override
+	protected void attackEntity(Entity entity, float dist)
     {
     	if(dist > 20.0)
     		entity = null;
@@ -126,7 +127,8 @@ public class EntityDrone extends LIEntityMob {
     	}
     }
     
-    public boolean attackEntityAsMob(Entity par1Entity)
+    @Override
+	public boolean attackEntityAsMob(Entity par1Entity)
     {
     	if(style == 1 && par1Entity instanceof EntityPlayer) {
     		((EntityPlayer)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100));

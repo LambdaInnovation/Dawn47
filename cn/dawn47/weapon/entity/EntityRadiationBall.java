@@ -27,7 +27,7 @@ public class EntityRadiationBall extends EntityBullet {
 	@Override
 	public void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(15, (Byte)(byte) 0);
+		dataWatcher.addObject(15, (byte) 0);
 	} 
 	
 	@Override
@@ -59,6 +59,7 @@ public class EntityRadiationBall extends EntityBullet {
 		}
 	}
 
+	@Override
 	protected void doBlockCollision(MovingObjectPosition result) {
 		WeaponHelper.doRangeDamage(worldObj, DamageSource
 				.causeMobDamage(getThrower()), worldObj.getWorldVec3Pool()
@@ -69,6 +70,7 @@ public class EntityRadiationBall extends EntityBullet {
 			isHit = true;
 	}
 
+	@Override
 	public void doEntityCollision(MovingObjectPosition result) {
 		WeaponHelper.doRangeDamage(worldObj, DamageSource
 				.causeMobDamage(getThrower()), worldObj.getWorldVec3Pool()

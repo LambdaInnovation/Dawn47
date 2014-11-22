@@ -13,10 +13,11 @@
  */
 package cn.dawn47.core.proxy;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
+import org.lwjgl.input.Keyboard;
+
 import cn.dawn47.core.client.key.MedkitUse;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.equipment.client.renderer.RendererMedkit;
@@ -41,8 +42,10 @@ import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.liutils.api.client.model.ItemModelCustom;
 import cn.liutils.api.client.render.RenderIcon;
 import cn.liutils.api.client.render.RenderModelItem;
-import cn.liutils.core.LIUtilsMod;
+import cn.liutils.core.LIUtils;
 import cn.liutils.core.client.register.LIKeyProcess;
+import cn.weaponmod.api.client.render.RendererBulletWeaponBase;
+import cn.weaponmod.api.client.render.RendererDualWield;
 import cn.weaponmod.api.client.render.RendererModelBulletWeapon;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -54,7 +57,7 @@ public class DWClientProxy extends DWCommonProxy {
 	
 	@Override
 	public void preInit() {
-		if(LIUtilsMod.DEBUG) {
+		if(LIUtils.DEBUG) {
 			
 		}
 		DWClientProps.init();
@@ -166,6 +169,7 @@ public class DWClientProxy extends DWCommonProxy {
 		MinecraftForgeClient.registerItemRenderer(DWItems.assaultRifle, renderAssaultRifle);
 		MinecraftForgeClient.registerItemRenderer(DWItems.shotgun, renderShotgun);
 		MinecraftForgeClient.registerItemRenderer(DWItems.superdrink, renderSuperDrink);
+		MinecraftForgeClient.registerItemRenderer(DWItems.dual_handgun, new RendererDualWield(DWItems.handgun, (RendererBulletWeaponBase) renderHandgun));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMedkit.class, new RendererMedkit());
 		/*
 		MinecraftForgeClient.registerItemRenderer(DWItems.assault_rifle, assault_rifle_render);

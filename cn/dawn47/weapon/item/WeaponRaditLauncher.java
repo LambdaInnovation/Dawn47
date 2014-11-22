@@ -6,12 +6,10 @@ package cn.dawn47.weapon.item;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.core.register.DWItems;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
-import cn.liutils.api.entity.EntityBullet;
 import cn.weaponmod.api.action.ActionAutomaticShoot;
 import cn.weaponmod.api.action.ActionShoot;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 /**

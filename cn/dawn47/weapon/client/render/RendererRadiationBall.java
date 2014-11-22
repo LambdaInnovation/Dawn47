@@ -4,7 +4,6 @@
 package cn.dawn47.weapon.client.render;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.liutils.api.client.render.RenderIcon;

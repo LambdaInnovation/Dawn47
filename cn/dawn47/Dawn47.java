@@ -29,7 +29,6 @@ import cn.dawn47.core.network.MsgSyncPlayerProps;
 import cn.dawn47.core.proxy.DWCommonProxy;
 import cn.dawn47.core.proxy.DWGeneralProps;
 import cn.dawn47.core.register.DWItems;
-import cn.dawn47.equipment.blocks.BlockMedkit;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.dawn47.equipment.item.ItemMedkit;
 import cn.dawn47.misc.entity.EntityPoster;
@@ -64,7 +63,7 @@ import cpw.mods.fml.relauncher.Side;
 @Mod(modid = "dawn47", name = "Dawn47", version = Dawn47.VERSION, dependencies = WeaponMod.DEPENDENCY)
 public class Dawn47 {
 
-	public static final String VERSION = "0.8";
+	public static final String VERSION = "0.9";
 	
 	@SidedProxy(
 		serverSide = "cn.dawn47.core.proxy.DWCommonProxy",

@@ -35,6 +35,7 @@ public class DWAmmo extends DWGenericItem {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	/**
 	 * allows items to add custom lines of information to the mouseover description
