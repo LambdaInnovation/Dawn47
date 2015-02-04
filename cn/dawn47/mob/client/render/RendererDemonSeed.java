@@ -16,12 +16,6 @@ import cn.dawn47.mob.client.model.ModelDemonSeed;
  */
 public class RendererDemonSeed extends RenderLiving {
 	
-	//public Render test = new RenderEntity();
-
-	/**
-	 * @param par1ModelBase
-	 * @param par2
-	 */
 	public RendererDemonSeed() {
 		super(new ModelDemonSeed(), 0.0F);
 	}
@@ -33,9 +27,7 @@ public class RendererDemonSeed extends RenderLiving {
 	
     @Override
 	public void doRender(EntityLiving par1EntityLiving, double par2, 
-    		double par4, double par6, float par8, float par9)
-    {
-    	//test.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
+    		double par4, double par6, float par8, float par9) {
     	super.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
     }
 

@@ -1,13 +1,14 @@
 package cn.dawn47.equipment.client.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.equipment.entities.EntityMedkit;
-import cn.liutils.api.client.model.ModelBaseCustom;
-import cn.liutils.api.client.render.RenderModel;
+import cn.liutils.api.render.model.ModelBaseCustom;
+import cn.liutils.template.client.render.entity.RenderModel;
 
 public class RendererMedkit extends RenderModel {
 

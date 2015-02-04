@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import cn.dawn47.core.entitis.ExtendedPlayer;
-import cn.liutils.api.util.GenericUtils;
+import cn.liutils.util.GenericUtils;
 
 public class EntityMedkit extends Entity {
 

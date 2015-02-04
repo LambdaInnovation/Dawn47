@@ -3,7 +3,7 @@ package cn.dawn47.core.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import cn.dawn47.core.entitis.ExtendedPlayer;
-import cn.liutils.api.command.LICommandBase;
+import cn.liutils.template.command.LICommandBase;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

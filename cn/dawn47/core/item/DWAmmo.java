@@ -32,7 +32,6 @@ public class DWAmmo extends DWGenericItem {
 	 */
 	public DWAmmo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

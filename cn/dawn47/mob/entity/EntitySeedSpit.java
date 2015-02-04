@@ -3,13 +3,15 @@
  */
 package cn.dawn47.mob.entity;
 
-import cn.weaponmod.api.WeaponHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
+import cn.liutils.util.GenericUtils;
 
 /**
  * 恶魔种子吐出酸液的实体。
@@ -17,6 +19,8 @@ import net.minecraft.world.World;
  * @author WeathFolD
  *
  */
+@RegistrationClass
+@RegEntity
 public class EntitySeedSpit extends EntityLargeFireball {
 
 	public EntitySeedSpit(World par1World) {
@@ -48,7 +52,7 @@ public class EntitySeedSpit extends EntityLargeFireball {
             {
                 res.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 4.0F);
             }
-            WeaponHelper.doRangeDamage(worldObj, DamageSource.generic, 
+            GenericUtils.doRangeDamage(worldObj, DamageSource.generic, 
             		Vec3.createVectorHelper(posX, posY, posZ),
             		11.0F, 4, this);
         }

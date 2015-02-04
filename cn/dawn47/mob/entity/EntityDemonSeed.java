@@ -3,6 +3,8 @@
  */
 package cn.dawn47.mob.entity;
 
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
@@ -21,6 +23,8 @@ import net.minecraft.world.World;
  * @author WeathFolD
  *
  */
+@RegistrationClass
+@RegEntity
 public class EntityDemonSeed extends EntityFlying implements IMob {
     public int courseChangeCooldown;
     public double waypointX;

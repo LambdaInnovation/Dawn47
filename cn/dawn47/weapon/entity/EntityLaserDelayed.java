@@ -11,15 +11,25 @@
 package cn.dawn47.weapon.entity;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import cn.liutils.api.entity.EntityBullet;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
+import cn.liutils.api.entityx.EntityX;
+import cn.liutils.api.entityx.MotionHandler;
+import cn.liutils.api.entityx.motion.CollisionCheck;
+import cn.liutils.api.entityx.motion.LifeTime;
+import cn.liutils.api.entityx.motion.VelocityUpdate;
+import cn.liutils.util.space.Motion3D;
 
 /**
  * 
  * @author WeAthFolD
  */
-public class EntityLaserDelayed extends EntityBullet {
+@RegistrationClass
+@RegEntity
+public class EntityLaserDelayed extends EntityX {
 	
 	final int DELAY_TICK = 0;
 	final float VELOCITY = 2F;
@@ -29,10 +39,33 @@ public class EntityLaserDelayed extends EntityBullet {
 	public boolean isHit = false;
 	public int ticksAfterHit = 0;
 
-	public EntityLaserDelayed(World par1World, EntityLivingBase par2EntityLiving) {
-		super(par1World, par2EntityLiving, 22.0F);
+	public EntityLaserDelayed(World world, final EntityLivingBase ent) {
+		super(world);
 		this.setSize(0.7F, 0.2F);
-		lifeTime = 200;
+		
+		this.playSound("dawn47:laser_charge", .5F, 1F);
+		
+		new Motion3D(ent, true).applyToEntity(EntityLaserDelayed.this);
+		this.setHeading(motionX, motionY, motionZ, VELOCITY);
+		
+		addDaemonHandler(new VelocityUpdate(this));
+		addDaemonHandler(new CollisionCheck(this) {
+			@Override
+			protected void onCollided(MovingObjectPosition res) {
+				motionX = motionY = motionZ = 0;
+				isHit = true;
+				if(res.entityHit != null) {
+					res.entityHit.attackEntityFrom(DamageSource.causeMobDamage(ent), 12);
+				}
+			}
+		});
+		addDaemonHandler(new LifeTime(this, 200));
+	}
+	
+	public EntityLaserDelayed(World world) {
+		super(world);
+		addDaemonHandler(new VelocityUpdate(this));
+		this.setSize(0.7F, 0.2F);
 	}
 	
 	@Override
@@ -58,53 +91,13 @@ public class EntityLaserDelayed extends EntityBullet {
 		}
 	}
 	
-	public EntityLaserDelayed(World world) {
-		super(world);
-		this.setSize(0.7F, 0.2F);
-		lifeTime = 200;
-	}
-	
 	@Override
 	public void onUpdate() {
-		if(!worldObj.isRemote && bornTick == 0) {
-			this.playSound("dawn47:laser_charge", .5F, 1F);
-		}
 		syncData();
-		if(++bornTick < DELAY_TICK) {
-			//痛苦的等待
-		} else if(bornTick == DELAY_TICK) {
-			this.initPosition(getThrower());
-		} else {
-			if(isHit)  {
-				motionX = motionY = motionZ = 0D;
-				if(++ticksAfterHit > 20) setDead();
-			}
-			super.onUpdate();
-		}
-	}
-	
-	@Override
-	protected void doBlockCollision(MovingObjectPosition result) {
-		if(worldObj.isRemote) return;
-		isHit = true;
-		motionX = motionY = motionZ = 0D;
-	}
-	
-	@Override
-	protected void doEntityCollision(MovingObjectPosition result) {
-		super.doEntityCollision(result);
-		if(worldObj.isRemote) return;
-		isHit = true;
-		motionX = motionY = motionZ = 0D;
+		super.onUpdate();
 	}
 	
 	public boolean isCharging() {
 		return bornTick < DELAY_TICK;
 	}
-	
-	@Override
-	protected float func_70182_d() {
-		return VELOCITY;
-	}
-
 }

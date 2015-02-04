@@ -21,7 +21,4 @@ public class DWGeneralProps {
 
 	public static final String NET_CHANNEL = "D47_NET";
 	
-	public static final byte NET_ID_MEDKIT_USE = 0;
-	public static final byte NET_ID_SYNC_PLAYER_PROPS = 1;
-	
 }

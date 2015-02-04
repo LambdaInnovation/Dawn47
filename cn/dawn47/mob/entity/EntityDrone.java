@@ -13,10 +13,6 @@
  */
 package cn.dawn47.mob.entity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import cn.dawn47.core.proxy.DWClientProps;
-import cn.liutils.api.entity.LIEntityMob;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -25,11 +21,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
+import cn.dawn47.core.proxy.DWClientProps;
+import cn.liutils.template.entity.LIEntityMob;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author WeAthFolD
  *
  */
+@RegistrationClass
+@RegEntity
 public class EntityDrone extends LIEntityMob {
 	
 	public int tickCharging = 0;

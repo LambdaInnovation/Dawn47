@@ -13,16 +13,20 @@
  */
 package cn.dawn47.mob.entity;
 
-import cn.dawn47.core.proxy.DWClientProps;
-import cn.liutils.api.entity.LIEntityMob;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
+import cn.dawn47.core.proxy.DWClientProps;
+import cn.liutils.template.entity.LIEntityMob;
 
 /**
  * @author WeAthFolD
  *
  */
+@RegistrationClass
+@RegEntity
 public class EntityRottenCreeper extends LIEntityMob {
 	
 	int JUDGE_JUMP_TIME = 40;

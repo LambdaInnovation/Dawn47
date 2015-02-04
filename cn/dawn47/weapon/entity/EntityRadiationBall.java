@@ -1,40 +1,72 @@
 package cn.dawn47.weapon.entity;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.client.DWParticleHelper;
-import cn.liutils.api.entity.EntityBullet;
-import cn.weaponmod.api.WeaponHelper;
+import cn.liutils.api.entityx.EntityX;
+import cn.liutils.api.entityx.motion.CollisionCheck;
+import cn.liutils.api.entityx.motion.GravityApply;
+import cn.liutils.api.entityx.motion.VelocityUpdate;
+import cn.liutils.util.GenericUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityRadiationBall extends EntityBullet {
+@RegistrationClass
+@RegEntity
+public class EntityRadiationBall extends EntityX {
 
 	public int splashTick = 0;
 	public boolean isHit;
 	public int ticksAfterHit;
 
-	public EntityRadiationBall(World par1World, EntityLivingBase ent) {
-		super(par1World, ent, 15);
+	public EntityRadiationBall(World world, final EntityPlayer ent) {
+		super(world);
+		this.addDaemonHandler(new CollisionCheck(this) {
+			@Override
+			protected void onCollided(MovingObjectPosition res) {
+				isHit = true;
+				motionX = motionY = motionZ = 0;
+				GenericUtils.doRangeDamage(worldObj, 
+					DamageSource.causeMobDamage(ent), 
+					worldObj.getWorldVec3Pool().getVecFromPool(posX, posY, posZ), 
+					16.0F, 4.0F, EntityRadiationBall.this, ent);
+			}
+		});
 	}
 
 	public EntityRadiationBall(World world) {
 		super(world);
+		this.addDaemonHandler(new CollisionCheck(this) {
+			@Override
+			protected void onCollided(MovingObjectPosition res) {
+				isHit = true;
+				motionX = motionY = motionZ = 0;
+				spawnParticles(res);
+			}
+		});
+	}
+	
+	private void setup() {
+		addDaemonHandler(new GravityApply(this, 0.005));
+		addDaemonHandler(new VelocityUpdate(this));
 	}
 	
 	@Override
 	public void entityInit() {
 		super.entityInit();
 		dataWatcher.addObject(15, (byte) 0);
-	} 
+	}
 	
 	@Override
 	public void onUpdate() {
 		if(isHit) {
 			++ticksAfterHit;
-			motionX = motionY = motionZ = 0.0;
 			if(ticksAfterHit == 20)
 				this.setDead();
 		}
@@ -59,33 +91,9 @@ public class EntityRadiationBall extends EntityBullet {
 		}
 	}
 
-	@Override
-	protected void doBlockCollision(MovingObjectPosition result) {
-		WeaponHelper.doRangeDamage(worldObj, DamageSource
-				.causeMobDamage(getThrower()), worldObj.getWorldVec3Pool()
-				.getVecFromPool(posX, posY, posZ), 16.0F, 4.0F, this);
-		motionX = motionY = motionZ = 0;
-		spawnParticles(result);
-		if(!worldObj.isRemote)
-			isHit = true;
-	}
-
-	@Override
-	public void doEntityCollision(MovingObjectPosition result) {
-		WeaponHelper.doRangeDamage(worldObj, DamageSource
-				.causeMobDamage(getThrower()), worldObj.getWorldVec3Pool()
-				.getVecFromPool(posX, posY, posZ), 16.0F, 4.0F, this);
-		motionX = motionY = motionZ = 0;
-		spawnParticles(result);
-		if(!worldObj.isRemote)
-			isHit = true;
-	}
-
+	@SideOnly(Side.CLIENT)
 	private void spawnParticles(MovingObjectPosition result) {
-		if (!worldObj.isRemote)
-			return;
 		for (int i = 0; i < 34; i++) {
-
 			double moX = motionX, moY = motionY, moZ = motionZ;
 			double posX = result.hitVec.xCoord ,
 			posY = result.hitVec.yCoord,
@@ -121,16 +129,6 @@ public class EntityRadiationBall extends EntityBullet {
 	@Override
 	public boolean canBeCollidedWith() {
 		return false;
-	}
-
-	@Override
-	protected float func_70182_d() {
-		return 2.2F;
-	}
-
-	@Override
-	public float getGravityVelocity() {
-		return 0.005F;
 	}
 
 }

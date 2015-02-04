@@ -4,8 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.network.MsgMedkitUse;
-import cn.liutils.api.client.key.IKeyHandler;
-
+import cn.liutils.api.key.IKeyHandler;
 
 public class MedkitUse implements IKeyHandler {
 

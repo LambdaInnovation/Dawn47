@@ -6,7 +6,7 @@ package cn.dawn47.weapon.client.render;
 import net.minecraft.entity.Entity;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
-import cn.liutils.api.client.render.RenderIcon;
+import cn.liutils.template.client.render.entity.RenderIcon;
 
 /**
  * @author WeathFolD

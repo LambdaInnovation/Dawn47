@@ -7,8 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
-import cn.liutils.api.client.render.RenderIcon;
-import cn.liutils.api.client.util.RenderUtils;
+import cn.liutils.template.client.render.entity.RenderIcon;
+import cn.liutils.util.RenderUtils;
 
 /**
  * @author FolD
