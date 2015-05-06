@@ -1,0 +1,21 @@
+{
+"default": {
+    "creativeTab": "cn.dawn47.Dawn47.cct",
+    "itemType": "cn.dawn47.weapon.DawnWeapon",
+    "weapon": {
+        "reloadStartSound": "dawn47:weapons/abort",
+        "jamSound": "dawn47:weapons/abort"
+    }
+},
+
+"ar": {
+    "weapon": {
+        "ammo": "ar_ammo",
+        "maxAmmo": 100,
+        "shootInterval": 5,
+        "shootDamage": 4,
+        "shootScatter": 3,
+        "reloadTime": 30
+    }
+}
+}

@@ -1,0 +1,23 @@
+{
+"entities.drone_death": {"category": "master", "sounds": [{"name": "entities/drone_death", "stream": false}]},
+"entities.drone_howl": {"category": "master", "sounds": [{"name": "entities/drone_howl", "stream": false}]},
+"entities.ds_attack": {"category": "master", "sounds": [{"name": "entities/ds_attack", "stream": false}]},
+"entities.ds_death": {"category": "master", "sounds": [{"name": "entities/ds_death", "stream": false}]},
+"entities.ds_howl": {"category": "master", "sounds": [{"name": "entities/ds_howl", "stream": false}]},
+"entities.medshot": {"category": "master", "sounds": [{"name": "entities/medshot", "stream": false}]},
+"weapons.abort": {"category": "master", "sounds": [{"name": "weapons/abort", "stream": false}]},
+"weapons.stock_attack": {"category": "master", "sounds": [{"name": "weapons/stock_attack", "stream": false}]},
+"weapons.stock_swing": {"category": "master", "sounds": [{"name": "weapons/stock_swing", "stream": false}]},
+"weapons.ar.fire": {"category": "master", "sounds": [{"name": "weapons/ar/fire", "stream": false}]},
+"weapons.ar.magin": {"category": "master", "sounds": [{"name": "weapons/ar/magin", "stream": false}]},
+"weapons.ar.magout": {"category": "master", "sounds": [{"name": "weapons/ar/magout", "stream": false}]},
+"weapons.laser_rifle.fire": {"category": "master", "sounds": [{"name": "weapons/laser_rifle/fire", "stream": false}]},
+"weapons.radiation_launcher.fire": {"category": "master", "sounds": [{"name": "weapons/radiation_launcher/fire", "stream": false}]},
+"weapons.radiation_launcher.impact": {"category": "master", "sounds": [{"name": "weapons/radiation_launcher/impact", "stream": false}]},
+"weapons.shotgun.fire": {"category": "master", "sounds": [{"name": "weapons/shotgun/fire", "stream": false}]},
+"weapons.shotgun.insert": {"category": "master", "sounds": [{"name": "weapons/shotgun/insert", "stream": false}]},
+"weapons.shotgun.pump_seq": {"category": "master", "sounds": [{"name": "weapons/shotgun/pump_seq", "stream": false}]},
+"weapons.super_ar.fire": {"category": "master", "sounds": [{"name": "weapons/super_ar/fire", "stream": false}]},
+"weapons.super_ar.magin": {"category": "master", "sounds": [{"name": "weapons/super_ar/magin", "stream": false}]},
+"weapons.super_ar.magout": {"category": "master", "sounds": [{"name": "weapons/super_ar/magout", "stream": false}]}
+}

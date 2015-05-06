@@ -1,0 +1,11 @@
+{
+    "default": {
+        "creativeTab": "cn.dawn47.Dawn47.cct"
+    },
+    
+    "ar_ammo": {
+    	"unlName": "ar_ammo",
+    	"textureName": "dawn47:ar_ammo",
+    	"maxDamage": 30
+    }
+}
