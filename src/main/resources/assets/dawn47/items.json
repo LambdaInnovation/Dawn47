@@ -7,5 +7,15 @@
     	"unlName": "ar_ammo",
     	"textureName": "dawn47:ar_ammo",
     	"maxDamage": 30
+    },
+    "handgun_ammo": {
+        "unlName": "handgun_ammo",
+        "textureName": "dawn47:handgun_ammo",
+        "maxDamage": 30
+    },
+    "laser_rifle_ammo": {
+        "unlName": "laser_rifle_ammo",
+        "textureName": "dawn47:laser_rifle_ammo",
+        "maxDamage": 30
     }
 }

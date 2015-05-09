@@ -60,6 +60,12 @@ public class DawnWeaponLoader extends ItemLoader<DawnWeapon> {
 			item.setUnlocalizedName("dw_" + name);
 			item.setTextureName("dawn47:" + name);
 			item.ammoType = (Item) DWItems.itemLoader.getObject(ns.getString("weapon", "ammo"));
+			
+			//Load sounds
+			item.shootSound = "dawn47:weapons." + name + ".fire";
+			item.reloadEndSound = item.jamSound = "dawn47:weapons.abort";
+			item.reloadStartSound = "dawn47:weapons." + name + ".magout";
+			item.reloadEndSound = "dawn47:weapons." + name + ".magin";
 		}
 		
 	}

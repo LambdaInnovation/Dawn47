@@ -19,5 +19,8 @@
 "weapons.shotgun.pump_seq": {"category": "master", "sounds": [{"name": "weapons/shotgun/pump_seq", "stream": false}]},
 "weapons.super_ar.fire": {"category": "master", "sounds": [{"name": "weapons/super_ar/fire", "stream": false}]},
 "weapons.super_ar.magin": {"category": "master", "sounds": [{"name": "weapons/super_ar/magin", "stream": false}]},
-"weapons.super_ar.magout": {"category": "master", "sounds": [{"name": "weapons/super_ar/magout", "stream": false}]}
+"weapons.super_ar.magout": {"category": "master", "sounds": [{"name": "weapons/super_ar/magout", "stream": false}]},
+"weapons.handgun.fire": {"category": "master", "sounds": [{"name": "weapons/handgun/fire", "stream": false}]},
+"weapons.handgun.magin": {"category": "master", "sounds": [{"name": "weapons/handgun/magin", "stream": false}]},
+"weapons.handgun.magout": {"category": "master", "sounds": [{"name": "weapons/handgun/magout", "stream": false}]}
 }
