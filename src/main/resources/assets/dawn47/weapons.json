@@ -38,7 +38,7 @@
 },
 "laser_rifle": {
     "weapon": {
-        "ammo": "ar_ammo",
+        "ammo": "laser_rifle_ammo",
         "maxAmmo": 20,
         "shootInterval": 20,
         "shootDamage": 10,
@@ -63,7 +63,7 @@
 },
 "handgun": {
     "weapon": {
-        "ammo": "ar_ammo",
+        "ammo": "handgun_ammo",
         "maxAmmo": 8,
         "shootInterval": 4,
         "shootDamage": 10,
@@ -85,12 +85,15 @@
         },
         "muzzleflash": {
             "offset": [0.55, 0.38, 0]
+        },
+        "reload": {
+            "maxAngle": 10
         }
     }
 },
 "shotgun":{
     "weapon": {
-        "ammo": "ar_ammo",
+        "ammo": "shotgun_ammo",
         "maxAmmo": 100,
         "shootInterval": 30,
         "shootDamage": 2,

@@ -2,20 +2,33 @@
     "default": {
         "creativeTab": "cn.dawn47.Dawn47.cct"
     },
+    "ammo": {
+        "ignore": true,
+        "maxStackSize": 1
+    },
     
     "ar_ammo": {
+        "parent": "ammo",
     	"unlName": "ar_ammo",
     	"textureName": "dawn47:ar_ammo",
     	"maxDamage": 30
     },
     "handgun_ammo": {
+        "parent": "ammo",
         "unlName": "handgun_ammo",
         "textureName": "dawn47:handgun_ammo",
         "maxDamage": 30
     },
     "laser_rifle_ammo": {
+        "parent": "ammo",
         "unlName": "laser_rifle_ammo",
         "textureName": "dawn47:laser_rifle_ammo",
+        "maxDamage": 30
+    },
+    "shotgun_ammo": {
+        "parent": "ammo",
+        "unlName": "shotgun_ammo",
+        "textureName": "dawn47:shotgun_ammo",
         "maxDamage": 30
     }
 }
