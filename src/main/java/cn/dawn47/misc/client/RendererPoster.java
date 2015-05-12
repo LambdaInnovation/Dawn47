@@ -15,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 import cn.dawn47.core.proxy.DWClientProps;
 import cn.dawn47.misc.entity.EntityPoster;
 import cn.liutils.util.RenderUtils;
+import cn.weaponry.core.blob.VecUtils;
 
 /**
  * @author WeathFolD
@@ -23,10 +24,10 @@ import cn.liutils.util.RenderUtils;
 public class RendererPoster extends RenderEntity {
 	
 	final Vec3 vecs[] = {
-		RenderUtils.newV3(0, 0, 0),
-		RenderUtils.newV3(1, 0, 0),
-		RenderUtils.newV3(1, 1, 0),
-		RenderUtils.newV3(0, 1, 0)
+		VecUtils.vec(0, 0, 0),
+		VecUtils.vec(1, 0, 0),
+		VecUtils.vec(1, 1, 0),
+		VecUtils.vec(0, 1, 0)
 	};
 	double uvs[][] = {
 			{0, 1},
