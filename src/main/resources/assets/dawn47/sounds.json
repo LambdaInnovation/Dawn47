@@ -5,6 +5,7 @@
 "entities.ds_death": {"category": "master", "sounds": [{"name": "entities/ds_death", "stream": false}]},
 "entities.ds_howl": {"category": "master", "sounds": [{"name": "entities/ds_howl", "stream": false}]},
 "entities.medshot": {"category": "master", "sounds": [{"name": "entities/medshot", "stream": false}]},
+"entities.spore": {"category": "master", "sounds": [{"name": "entities/spore1", "stream": false}, {"name": "entities/spore2", "stream": false}]},
 "weapons.abort": {"category": "master", "sounds": [{"name": "weapons/abort", "stream": false}]},
 "weapons.stock_attack": {"category": "master", "sounds": [{"name": "weapons/stock_attack", "stream": false}]},
 "weapons.stock_swing": {"category": "master", "sounds": [{"name": "weapons/stock_swing", "stream": false}]},

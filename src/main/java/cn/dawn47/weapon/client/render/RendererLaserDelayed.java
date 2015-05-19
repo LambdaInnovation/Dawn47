@@ -5,7 +5,7 @@ package cn.dawn47.weapon.client.render;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
 import cn.liutils.template.client.render.entity.RenderIcon;
 import cn.liutils.util.RenderUtils;
@@ -32,8 +32,8 @@ public class RendererLaserDelayed extends RenderIcon {
 		this.setSize(laser.isHit ? 1F : 1.5F);
 		
 		if(laser.isCharging()) {
-			texture = DWClientProps.BLANK;
-		} else texture = laser.isHit ? DWClientProps.EFFECT_LASERHIT: DWClientProps.EFFECT_LASER;
+			texture = DWResources.BLANK;
+		} else texture = laser.isHit ? DWResources.EFFECT_LASERHIT: DWResources.EFFECT_LASER;
 		RenderUtils.loadTexture(texture);
 		
 		super.doRender(entity, par2, par4, par6, par8, par9);

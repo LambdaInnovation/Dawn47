@@ -1,10 +1,16 @@
 package cn.dawn47.core.proxy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.mc.RegSubmoduleInit;
 
-public class DWClientProps {
+@RegistrationClass
+public class DWResources {
 
 	//public paths
 	public static final String 
@@ -61,18 +67,6 @@ public class DWClientProps {
 	//hud
 	public static final ResourceLocation HUD = src(TEX_HUD + "helmet.png");
 	
-	//models
-	public static IModelCustom
-		MDL_ASSAULT_RIFLE,
-		MDL_HANDGUN,
-		MDL_SUPER_AR,
-		MDL_LASER_RIFLE,
-		MDL_RAD_LAUNCHER,
-		MDL_SCOUT_ROBOT,
-		MDL_SHOTGUN,
-		MDL_SUPER_DRINK,
-		MDL_MEDKIT;
-	
 	//model textures
 	public static final ResourceLocation
 		HANDGUN_TEXTURE_PATH[] = { src(TEX_MODELS + "handgun.png"), src(TEX_MODELS + "handgun1.png") },
@@ -116,16 +110,34 @@ public class DWClientProps {
 		return new ResourceLocation(s);
 	}
 	
-	public static void init() {
-		MDL_ASSAULT_RIFLE = AdvancedModelLoader.loadModel(src("dawn47:models/assault_rifle.obj"));
-		MDL_HANDGUN = AdvancedModelLoader.loadModel(src("dawn47:models/hand_gun.obj"));
-		MDL_SUPER_AR = AdvancedModelLoader.loadModel(src("dawn47:models/super_assualt_rifle.obj"));
-		MDL_LASER_RIFLE =  AdvancedModelLoader.loadModel(src("dawn47:models/laser_rifle.obj"));
-		MDL_RAD_LAUNCHER =  AdvancedModelLoader.loadModel(src("dawn47:models/radiation_launcher.obj"));
-		MDL_SCOUT_ROBOT =  AdvancedModelLoader.loadModel(src("dawn47:models/scout_robot.obj"));
-		MDL_SHOTGUN =  AdvancedModelLoader.loadModel(src("dawn47:models/shotgun.obj"));
-		MDL_SUPER_DRINK = AdvancedModelLoader.loadModel(src("dawn47:models/superdrink.obj"));
-		MDL_MEDKIT = AdvancedModelLoader.loadModel(src("dawn47:models/medkit.obj"));
+	public static ResourceLocation[] getMdlMultiTexture(String name, int count) {
+		ResourceLocation[] ret = new ResourceLocation[count];
+		for(int i = 0; i < count; ++i) {
+			ret[i] = getMdlTexture(name + "_" + i);
+		}
+		return ret;
+	}
+	
+	public static ResourceLocation getMdlTexture(String name) {
+		return new ResourceLocation("dawn47:textures/models/" + name + ".png");
+	}
+	
+	public static ResourceLocation texture(String path) {
+		return src("dawn47:textures/" + path + ".png");
+	}
+	
+	public static ResourceLocation entityTexture(String name) {
+		return texture("entities/" + name);
+	}
+	
+	static Map<String, IModelCustom> loadedModels = new HashMap();
+	public static IModelCustom loadModel(String name) {
+		IModelCustom mdl = loadedModels.get(name);
+		if(mdl != null) return mdl;
+		
+		mdl = AdvancedModelLoader.loadModel(src("dawn47:models/" + name + ".obj"));
+		loadedModels.put(name, mdl);
+		return mdl;
 	}
 
 }

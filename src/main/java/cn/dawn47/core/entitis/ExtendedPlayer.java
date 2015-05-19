@@ -6,8 +6,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import cn.annoreg.mc.network.RegNetworkCall;
+import cn.annoreg.mc.s11n.StorageOption.Data;
+import cn.annoreg.mc.s11n.StorageOption.Target;
 import cn.dawn47.Dawn47;
-import cn.dawn47.core.network.MsgSyncPlayerProps;
+import cpw.mods.fml.relauncher.Side;
 
 public class ExtendedPlayer implements IExtendedEntityProperties {
 
@@ -59,13 +62,17 @@ public class ExtendedPlayer implements IExtendedEntityProperties {
   }
 
   @Override
-  public void init(Entity entity, World world) {
-    // TODO Auto-generated method stub
-
-  }
+  public void init(Entity entity, World world) {}
 
   public void sync() {
-    Dawn47.netHandler.sendTo(new MsgSyncPlayerProps(player), (EntityPlayerMP) player);
+	  NBTTagCompound tag = new NBTTagCompound();
+	  saveNBTData(tag);
+	  receiveSync(this.player, tag);
+  }
+  
+  @RegNetworkCall(side = Side.CLIENT)
+  private static void receiveSync(@Target EntityPlayer player, @Data NBTTagCompound tag) {
+	  ExtendedPlayer.get(player).loadNBTData(tag);
   }
 
 }

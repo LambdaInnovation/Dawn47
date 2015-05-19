@@ -37,6 +37,7 @@
     }
 },
 "laser_rifle": {
+    "itemType": "cn.dawn47.weapon.LaserRifle",
     "weapon": {
         "ammo": "laser_rifle_ammo",
         "maxAmmo": 20,

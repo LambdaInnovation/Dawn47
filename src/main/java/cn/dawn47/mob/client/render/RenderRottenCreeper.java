@@ -13,7 +13,7 @@
  */
 package cn.dawn47.mob.client.render;
 
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.model.ModelRottenCreeper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
@@ -35,7 +35,7 @@ public class RenderRottenCreeper extends RenderLiving {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
-		return DWClientProps.ROTTEN_CREEPER_MOB;
+		return DWResources.ROTTEN_CREEPER_MOB;
 	}
 
 }

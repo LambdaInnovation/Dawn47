@@ -13,7 +13,7 @@
  */
 package cn.dawn47.mob.client.render;
 
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.model.ModelDrone;
 import cn.dawn47.mob.entity.EntityDrone;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -45,7 +45,7 @@ public class RendererDrone extends RenderLiving {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
-		return DWClientProps.DRONE_PATH[((EntityDrone)entity).style];
+		return DWResources.DRONE_PATH[((EntityDrone)entity).style];
 	}
 
 }

@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.equipment.entities.EntityMedkit;
 import cn.liutils.api.render.model.ModelBaseCustom;
 import cn.liutils.template.client.render.entity.RenderModel;
@@ -13,13 +13,13 @@ import cn.liutils.template.client.render.entity.RenderModel;
 public class RendererMedkit extends RenderModel {
 
 	public RendererMedkit() {
-		super(new ModelBaseCustom(DWClientProps.MDL_MEDKIT).setScale(0.03F)
-				.setOffset(0, 1, 0), DWClientProps.MEDKIT_TEX, 0.03F);
+		super(new ModelBaseCustom(DWResources.loadModel("medkit")).setScale(0.03F)
+				.setOffset(0, 1, 0), DWResources.MEDKIT_TEX, 0.03F);
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity var1) {
-		return DWClientProps.MEDKIT_TEX;
+		return DWResources.MEDKIT_TEX;
 	}
 
 	@Override

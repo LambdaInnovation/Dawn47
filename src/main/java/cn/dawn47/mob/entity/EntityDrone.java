@@ -23,7 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import cn.annoreg.core.RegistrationClass;
 import cn.annoreg.mc.RegEntity;
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.render.RendererDrone;
 import cn.liutils.template.entity.LIEntityMob;
 import cpw.mods.fml.relauncher.Side;
@@ -167,7 +167,7 @@ public class EntityDrone extends LIEntityMob {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ResourceLocation getTexture() {
-		return DWClientProps.DRONE_PATH[tID];
+		return DWResources.DRONE_PATH[tID];
 	}
 
 }

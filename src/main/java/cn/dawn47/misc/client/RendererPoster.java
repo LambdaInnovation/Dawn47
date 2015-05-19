@@ -12,10 +12,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.misc.entity.EntityPoster;
 import cn.liutils.util.RenderUtils;
-import cn.weaponry.core.blob.VecUtils;
+import cn.liutils.util.VecUtils;
 
 /**
  * @author WeathFolD
@@ -51,7 +51,7 @@ public class RendererPoster extends RenderEntity {
 		
 		GL11.glPushMatrix(); {
 			GL11.glTranslated(var2, var4, var6);
-			RenderUtils.loadTexture(DWClientProps.POSTER_TEXTURE_PATH[poster.posterID]);
+			RenderUtils.loadTexture(DWResources.POSTER_TEXTURE_PATH[poster.posterID]);
 			
 			ForgeDirection dir = poster.attachedSide;
 			int side = poster.attachedSide.ordinal();

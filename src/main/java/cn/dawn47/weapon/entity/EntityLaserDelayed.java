@@ -10,11 +10,14 @@
  */
 package cn.dawn47.weapon.entity;
 
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cn.annoreg.core.RegistrationClass;
 import cn.annoreg.mc.RegEntity;
@@ -46,15 +49,25 @@ public class EntityLaserDelayed extends EntityAdvanced {
 	public boolean isHit = false;
 	public int ticksAfterHit = 0;
 
-	public EntityLaserDelayed(World world, final EntityLivingBase ent) {
-		super(world);
+	public EntityLaserDelayed(final EntityLivingBase ent) {
+		super(ent.worldObj);
 		this.setSize(0.7F, 0.2F);
 		
 		this.playSound("dawn47:laser_charge", .5F, 1F);
 		
 		new Motion3D(ent, true).multiplyMotionBy(VELOCITY).applyToEntity(EntityLaserDelayed.this);
 		
-		addMotionHandler(new Rigidbody());
+		Rigidbody rb = new Rigidbody();
+		addMotionHandler(rb);
+		rb.filter = new IEntitySelector() {
+
+			@Override
+			public boolean isEntityApplicable(Entity entity) {
+				return entity != ent;
+			}
+			
+		};
+		
 		this.regEventHandler(new CollideHandler() {
 
 			@Override
@@ -73,6 +86,13 @@ public class EntityLaserDelayed extends EntityAdvanced {
 						setDead();
 					}
 				}, 200);
+				
+				if(res.typeOfHit == MovingObjectType.BLOCK) {
+					Vec3 v = res.hitVec;
+					posX = v.xCoord;
+					posY = v.yCoord;
+					posZ = v.zCoord;
+				}
 			}
 			
 		});
@@ -110,7 +130,16 @@ public class EntityLaserDelayed extends EntityAdvanced {
 	@Override
 	public void onUpdate() {
 		syncData();
+		if(isHit) {
+			ticksAfterHit++;
+		}
+		
 		super.onUpdate();
+	}
+	
+	@Override
+	public boolean shouldRenderInPass(int pass) {
+		return pass == 1;
 	}
 	
 	public boolean isCharging() {

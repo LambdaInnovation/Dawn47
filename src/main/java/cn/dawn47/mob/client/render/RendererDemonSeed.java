@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.model.ModelDemonSeed;
 
 /**
@@ -22,7 +22,7 @@ public class RendererDemonSeed extends RenderLiving {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity var1) {
-		return DWClientProps.DEMON_SEED_MOB;
+		return DWResources.DEMON_SEED_MOB;
 	}
 	
     @Override

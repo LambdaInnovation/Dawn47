@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import cn.annoreg.core.RegistrationClass;
 import cn.annoreg.mc.RegEntity;
-import cn.dawn47.core.proxy.DWClientProps;
+import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.render.RenderRottenCreeper;
 import cn.liutils.template.entity.LIEntityMob;
 import cpw.mods.fml.relauncher.Side;
@@ -84,7 +84,7 @@ public class EntityRottenCreeper extends LIEntityMob {
 	
 	@Override
 	public ResourceLocation getTexture() {
-		return DWClientProps.ROTTEN_CREEPER_MOB;
+		return DWResources.ROTTEN_CREEPER_MOB;
 	}
 
 	@Override
