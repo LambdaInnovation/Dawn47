@@ -19,7 +19,7 @@
         "maxAmmo": 30,
         "shootInterval": 3,
         "shootDamage": 4,
-        "shootScatter": 3,
+        "shootScatter": 1,
         "reloadTime": 30,
         "uplift": {
             "upliftRadius": 1.4,
@@ -97,12 +97,12 @@
         "ammo": "shotgun_ammo",
         "maxAmmo": 100,
         "shootInterval": 30,
-        "shootDamage": 2,
-        "shootScatter": 5,
+        "shootDamage": 4,
+        "shootScatter": 8,
         "reloadTime": 30,
         "shootBucks": 6,
         "uplift": {
-            "upliftRadius": 4
+            "upliftRadius": 6
         }
     },
     "render": {
@@ -115,6 +115,10 @@
         },
         "muzzleflash": {
             "offset": [0.94, 0.175, 0]
+        },
+        "recoil": {
+            "radius": 0.3,
+            "time": 600
         }
     }
 }

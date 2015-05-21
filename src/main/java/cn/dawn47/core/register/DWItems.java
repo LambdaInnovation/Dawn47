@@ -20,6 +20,7 @@ import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWAmmo;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
+import cn.dawn47.mob.entity.EntityBattleSoldier;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
 import cn.dawn47.weapon.DawnWeaponLoader;
@@ -65,6 +66,13 @@ public class DWItems {
 	
 	//------------------------------
 	
+	//------Internal-----
+	public static Item
+		solCrowbar,
+		solAxe;
+	
+	
+	
 	/**
 	 * 实际加载，在主mod中被调用
 	 * @param conf
@@ -101,6 +109,13 @@ public class DWItems {
 			.setCreativeTab(Dawn47.cct)
 			.setUnlocalizedName("dw_drone")
 			.setTextureName("dawn47:egg1");
+		spawnerSoldier = new LIMobSpawner(EntityBattleSoldier.class)
+			.setCreativeTab(Dawn47.cct)
+			.setUnlocalizedName("dw_soldier_battle")
+			.setTextureName("dawn47:egg2");
+		
+		solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D();
+		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
 		
 		logo = new Item().setTextureName("dawn47:logo");
 		
@@ -113,9 +128,12 @@ public class DWItems {
 		GameRegistry.registerItem(logo, "dw_logo");
 		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
 		GameRegistry.registerItem(spawnerDrone, "dw_drone");
-		//GameRegistry.registerItem(spawnerSoldier, "dw_soldier");
+		GameRegistry.registerItem(spawnerSoldier, "dw_soldier_battle");
 		
 		GameRegistry.registerItem(superdrink, "dw_superdrink");
+		
+		GameRegistry.registerItem(solCrowbar, "dw_scrowbar");
+		GameRegistry.registerItem(solAxe, "dw_axe");
 	}
 	
 	public static void addRecipes() {

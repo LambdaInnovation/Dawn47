@@ -9,7 +9,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.liutils.util.GenericUtils;
 
@@ -19,7 +19,7 @@ import cn.liutils.util.GenericUtils;
  * @author WeathFolD
  *
  */
-@RegistrationClass
+@Registrant
 @RegEntity
 public class EntitySeedSpit extends EntityLargeFireball {
 

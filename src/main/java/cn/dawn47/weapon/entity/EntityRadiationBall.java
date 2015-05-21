@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.weapon.client.render.RendererRadiationBall;
 import cn.liutils.entityx.EntityAdvanced;
@@ -16,7 +16,7 @@ import cn.liutils.util.GenericUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@RegistrationClass
+@Registrant
 @RegEntity
 @RegEntity.HasRender
 public class EntityRadiationBall extends EntityAdvanced {

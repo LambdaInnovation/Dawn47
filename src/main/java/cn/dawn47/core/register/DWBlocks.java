@@ -12,7 +12,7 @@
  */
 package cn.dawn47.core.register;
 
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegBlock;
 import cn.dawn47.mob.block.BlockSpore;
 
@@ -20,7 +20,7 @@ import cn.dawn47.mob.block.BlockSpore;
  * @author WeAthFolD
  *
  */
-@RegistrationClass
+@Registrant
 public class DWBlocks {
 
 	@RegBlock

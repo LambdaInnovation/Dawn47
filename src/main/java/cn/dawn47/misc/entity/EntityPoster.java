@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.misc.client.RendererPoster;
 import cpw.mods.fml.relauncher.Side;
@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author WeathFolD
  *
  */
-@RegistrationClass
+@Registrant
 @RegEntity
 @RegEntity.HasRender
 public class EntityPoster extends EntityHanging {

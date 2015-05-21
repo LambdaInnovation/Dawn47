@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.mob.client.render.RendererDemonSeed;
 import cpw.mods.fml.relauncher.Side;
@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author WeathFolD
  *
  */
-@RegistrationClass
+@Registrant
 @RegEntity
 @RegEntity.HasRender
 public class EntityDemonSeed extends EntityFlying implements IMob {

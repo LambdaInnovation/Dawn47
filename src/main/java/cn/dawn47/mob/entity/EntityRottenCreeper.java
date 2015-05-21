@@ -16,7 +16,7 @@ package cn.dawn47.mob.entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.mob.client.render.RenderRottenCreeper;
@@ -28,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author WeAthFolD
  *
  */
-@RegistrationClass
+@Registrant
 @RegEntity
 @RegEntity.HasRender
 public class EntityRottenCreeper extends LIEntityMob {

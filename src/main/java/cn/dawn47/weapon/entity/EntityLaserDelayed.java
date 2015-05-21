@@ -19,7 +19,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.weapon.client.render.RendererLaserDelayed;
 import cn.liutils.entityx.EntityAdvanced;
@@ -33,7 +33,7 @@ import cn.liutils.util.space.Motion3D;
  * 
  * @author WeAthFolD
  */
-@RegistrationClass
+@Registrant
 @RegEntity
 @RegEntity.HasRender
 public class EntityLaserDelayed extends EntityAdvanced {

@@ -7,12 +7,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.entitis.ExtendedPlayer;
 import cn.liutils.util.GenericUtils;
 
-@RegistrationClass
+@Registrant
 @RegEntity
 public class EntityMedkit extends Entity {
 

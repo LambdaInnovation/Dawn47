@@ -6,10 +6,10 @@ import java.util.Map;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegSubmoduleInit;
 
-@RegistrationClass
+@Registrant
 public class DWResources {
 
 	//public paths
@@ -114,6 +114,14 @@ public class DWResources {
 		ResourceLocation[] ret = new ResourceLocation[count];
 		for(int i = 0; i < count; ++i) {
 			ret[i] = getMdlTexture(name + "_" + i);
+		}
+		return ret;
+	}
+	
+	public static ResourceLocation[] getTextures(String name, int count) {
+		ResourceLocation[] ret = new ResourceLocation[count];
+		for(int i = 0; i < count; ++i) {
+			ret[i] = texture(name + i);
 		}
 		return ret;
 	}

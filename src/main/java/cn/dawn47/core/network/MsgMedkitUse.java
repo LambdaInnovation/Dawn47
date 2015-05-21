@@ -2,7 +2,7 @@ package cn.dawn47.core.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import cn.annoreg.core.RegistrationClass;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegMessageHandler;
 import cn.annoreg.mc.RegMessageHandler.Side;
 import cn.dawn47.core.entitis.ExtendedPlayer;
@@ -11,7 +11,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-@RegistrationClass
+@Registrant
 public class MsgMedkitUse implements IMessage {
 
   private float containHP = 10;
