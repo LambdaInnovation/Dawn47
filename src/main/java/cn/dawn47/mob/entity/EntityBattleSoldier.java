@@ -29,6 +29,7 @@ import cn.dawn47.core.register.DWItems;
 import cn.dawn47.mob.client.render.RendererBattleSoldier;
 import cn.liutils.template.entity.LIEntityMob;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author WeAthFolD
@@ -40,6 +41,7 @@ import cpw.mods.fml.relauncher.Side;
 public class EntityBattleSoldier extends LIEntityMob {
 	
 	@RegEntity.Render
+	@SideOnly(Side.CLIENT)
 	public static RendererBattleSoldier renderer;
 	
 	boolean isCharging = false;
@@ -59,14 +61,23 @@ public class EntityBattleSoldier extends LIEntityMob {
 		super.onUpdate();
 		
 		if(worldObj.isRemote) {
-			if(!synced && reqTicker++ == 10) {
-				//TODO: Crash?
-				req(Minecraft.getMinecraft().thePlayer);
-				reqTicker = 0;
-			}
+			updateClient();
 		} else {
 			
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void updateClient() {
+		if(!synced && reqTicker++ == 10) {
+			//TODO: Crash?
+			req(Minecraft.getMinecraft().thePlayer);
+			reqTicker = 0;
+		}
+	}
+	
+	private void updateServer() {
+		
 	}
 	
 	@Override

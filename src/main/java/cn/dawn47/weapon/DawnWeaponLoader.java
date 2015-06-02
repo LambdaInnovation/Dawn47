@@ -35,8 +35,13 @@ public class DawnWeaponLoader extends ItemLoader<DawnWeapon> {
 		additionalRules.add(new ClassicWeaponRule());
 		additionalRules.add(new Rule());
 		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			additionalRules.add(new CustomRenderRule());
+			addRenderRule();
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void addRenderRule() {
+		additionalRules.add(new CustomRenderRule());
 	}
 	
 	@SideOnly(Side.CLIENT)

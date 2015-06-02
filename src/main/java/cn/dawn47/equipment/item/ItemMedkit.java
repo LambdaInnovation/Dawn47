@@ -13,8 +13,8 @@ import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWGenericItem;
 import cn.dawn47.core.network.MsgMedkitUse;
 import cn.dawn47.equipment.entities.EntityMedkit;
-import cn.liutils.api.key.IKeyHandler;
-import cn.liutils.api.key.LIKeyProcess;
+import cn.liutils.util.helper.KeyHandler;
+import cn.liutils.util.helper.KeyManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -76,27 +76,17 @@ public class ItemMedkit extends DWGenericItem {
 
 	@SideOnly(Side.CLIENT)
 	public static void init() {
-		LIKeyProcess.instance.addKey("dw_medkit", keyID, false, new MedkitUse());
+		KeyManager.dynamic.addKeyHandler("dw_medkit", keyID, new MedkitUse());
 	}
 	
-	private static class MedkitUse implements IKeyHandler {
+	private static class MedkitUse extends KeyHandler {
 
 		@Override
-		public void onKeyDown(int keyCode, boolean isEnd) {
-			if (isEnd)
-				return;
+		public void onKeyDown() {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			if (player == null)
 				return;
 			Dawn47.netHandler.sendToServer(new MsgMedkitUse());
-		}
-
-		@Override
-		public void onKeyUp(int keyCode, boolean isEnd) {
-		}
-
-		@Override
-		public void onKeyTick(int keyCode, boolean tickEnd) {
 		}
 
 	}

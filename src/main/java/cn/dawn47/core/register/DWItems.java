@@ -15,125 +15,80 @@ package cn.dawn47.core.register;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.config.Configuration;
+import cn.annoreg.core.Registrant;
+import cn.annoreg.mc.RegItem;
+import cn.annoreg.mc.RegSubmoduleInit;
 import cn.dawn47.Dawn47;
-import cn.dawn47.core.item.DWAmmo;
+import cn.dawn47.core.item.DWMobSpawner;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
 import cn.dawn47.mob.entity.EntityBattleSoldier;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.dawn47.mob.entity.EntityRottenCreeper;
+import cn.dawn47.mob.entity.EntityWeaponSoldier;
+import cn.dawn47.weapon.DawnWeapon;
 import cn.dawn47.weapon.DawnWeaponLoader;
 import cn.liutils.loading.item.ItemLoader;
-import cn.liutils.template.item.LIMobSpawner;
-import cn.liutils.util.RegUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author WeAthFolD
  *
  */
+@Registrant
+@RegSubmoduleInit
 public class DWItems {
 	
 	public static ItemLoader itemLoader;
-	public static DawnWeaponLoader dawnWeaponLoader;
+	public static DawnWeaponLoader weaponLoader;
 	
 	//----------Ammo and Weapons--------------
 	
-	public static Item 
-		ammoHandgun,
-		ammoAR,
-		ammoLaser,
-		ammoRadit,
-		ammoShotgun,
-		posters[],
-		logo;
-	//------------------------------
+	public static Item[] posters;
+
+	@RegItem
+	public static Item logo = new Item().setTextureName("dawn47:logo");
 	
-	//---------Equipments---------------
+	@RegItem
+	public static ItemSuperDrink superdrink;
 	
-	public static Item superdrink;
-	
-	//-------------------------------
-	
-	//---------Mobs-------------------
+	@RegItem
 	public static Item
-		spawnerScoutRobot,
-		spawnerRottenCreeper,
-		spawnerDrone,
-		spawnerDemonSeed,
-		spawnerSoldier;
+		spawnerRottenCreeper = new DWMobSpawner(EntityRottenCreeper.class, "rotten_creeper", 1),
+		spawnerDrone = new DWMobSpawner(EntityDrone.class, "drone", 0),
+		spawnerSoldier = new DWMobSpawner(EntityBattleSoldier.class, "battle_soldier", 3),
+		spawnerWSoldier = new DWMobSpawner(EntityWeaponSoldier.class, "weapon_soldier", 4);
 	
-	//------------------------------
-	
-	//------Internal-----
+	@RegItem
 	public static Item
-		solCrowbar,
-		solAxe;
+		solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D(),
+		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
+	
+	public static DawnWeapon 
+		weaponAR,
+		weaponHandgun;
 	
 	
-	
-	/**
-	 * 实际加载，在主mod中被调用
-	 * @param conf
-	 */
-	public static void init(Configuration conf) {
-		//Doesn't turn to AR until new constructing method is applied
+	public static void init() {
 		
 		itemLoader = new ItemLoader();
 		itemLoader.feed(new ResourceLocation("dawn47:items.json"));
 		itemLoader.loadAll();
 		Dawn47.log.info("Dawn47 itemLoader loaded " + itemLoader.getEnumeration().size() + " items.");
 		
-		dawnWeaponLoader = new DawnWeaponLoader();
-		dawnWeaponLoader.feed(new ResourceLocation("dawn47:weapons.json"));
-		dawnWeaponLoader.loadAll();
-		Dawn47.log.info("Dawn47 weaponLoader loaded " + dawnWeaponLoader.getEnumeration().size() + " items.");
+		weaponLoader = new DawnWeaponLoader();
+		weaponLoader.feed(new ResourceLocation("dawn47:weapons.json"));
+		weaponLoader.loadAll();
+		Dawn47.log.info("Dawn47 weaponLoader loaded " + weaponLoader.getEnumeration().size() + " items.");
 		
-		ammoHandgun = new DWAmmo().setStackAndDamage(1, 10).setIAndU("ammo_handgun");
-		//ammoAR = new DWAmmo().setStackAndDamage(1, 26).setIAndU("ammo_ar");
-		ammoLaser = new DWAmmo().setStackAndDamage(1, 41).setIAndU("ammo_laser");
-		ammoRadit = new DWAmmo().setStackAndDamage(1, 21).setIAndU("ammo_radit");
-		ammoShotgun = new DWAmmo().setStackAndDamage(64, 1).setIAndU("ammo_shotgun");
+		posters = new Item[5];
+		for(int i = 0; i < 5; ++i) {
+			posters[i] = new ItemPosterPlacer(i);
+			GameRegistry.registerItem(posters[i], "dw_poster" + i);
+		}
 		
-		superdrink = new ItemSuperDrink();
-		
-		posters = RegUtils.reg(ItemPosterPlacer.class, 5, "dw_poster");
-		spawnerDrone = new LIMobSpawner(EntityDrone.class).setCreativeTab(Dawn47.cct);
-	
-		spawnerRottenCreeper = new LIMobSpawner(EntityRottenCreeper.class)
-			.setCreativeTab(Dawn47.cct)
-			.setUnlocalizedName("dw_rotten_creeper")
-			.setTextureName("dawn47:egg0");
-		spawnerDrone = new LIMobSpawner(EntityDrone.class)
-			.setCreativeTab(Dawn47.cct)
-			.setUnlocalizedName("dw_drone")
-			.setTextureName("dawn47:egg1");
-		spawnerSoldier = new LIMobSpawner(EntityBattleSoldier.class)
-			.setCreativeTab(Dawn47.cct)
-			.setUnlocalizedName("dw_soldier_battle")
-			.setTextureName("dawn47:egg2");
-		
-		solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D();
-		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
-		
-		logo = new Item().setTextureName("dawn47:logo");
-		
-		GameRegistry.registerItem(ammoHandgun, "hg_ammo");
-		//GameRegistry.registerItem(ammoAR, "ar_ammo");
-		GameRegistry.registerItem(ammoLaser, "laser_ammo");
-		GameRegistry.registerItem(ammoRadit, "radiation_ammo");
-		GameRegistry.registerItem(ammoShotgun, "sg_ammo");
-		
-		GameRegistry.registerItem(logo, "dw_logo");
-		GameRegistry.registerItem(spawnerRottenCreeper, "dw_rotten_creeper");
-		GameRegistry.registerItem(spawnerDrone, "dw_drone");
-		GameRegistry.registerItem(spawnerSoldier, "dw_soldier_battle");
-		
-		GameRegistry.registerItem(superdrink, "dw_superdrink");
-		
-		GameRegistry.registerItem(solCrowbar, "dw_scrowbar");
-		GameRegistry.registerItem(solAxe, "dw_axe");
+		weaponAR = weaponLoader.getObject("ar");
+		weaponHandgun = weaponLoader.getObject("handgun");
 	}
 	
 	public static void addRecipes() {

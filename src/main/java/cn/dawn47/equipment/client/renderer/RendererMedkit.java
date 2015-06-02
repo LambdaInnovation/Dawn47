@@ -1,27 +1,22 @@
 package cn.dawn47.equipment.client.renderer;
 
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
 import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.equipment.entities.EntityMedkit;
-import cn.liutils.api.render.model.ModelBaseCustom;
-import cn.liutils.template.client.render.entity.RenderModel;
 
-public class RendererMedkit extends RenderModel {
+public class RendererMedkit extends Render {
+	
+	IModelCustom model = DWResources.loadModel("medkit");
 
 	public RendererMedkit() {
-		super(new ModelBaseCustom(DWResources.loadModel("medkit")).setScale(0.03F)
-				.setOffset(0, 1, 0), DWResources.MEDKIT_TEX, 0.03F);
 	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity var1) {
-		return DWResources.MEDKIT_TEX;
-	}
-
+	
 	@Override
 	public void doRender(Entity entity, double par2, double par4, double par6,
 			float par8, float par9) {
@@ -30,10 +25,10 @@ public class RendererMedkit extends RenderModel {
 		GL11.glCullFace(GL11.GL_FRONT);
 		GL11.glPushMatrix();
 		{
-			bindTexture(texture);
+			bindTexture(DWResources.MEDKIT_TEX);
 			GL11.glTranslatef((float) par2, (float) par4 + 2 * entity.height,
 					(float) par6);
-			GL11.glTranslatef(offsetX, offsetY, offsetZ);
+			GL11.glTranslatef(0, 1, 0);
 			
 			//Transformation Sequence
 			final double offsetA = 0.72, offsetB = -0.8;
@@ -61,12 +56,19 @@ public class RendererMedkit extends RenderModel {
 			}
 			
 			GL11.glRotatef(180.0F - par8, 0.0F, 1.0F, 0.0F);
-			GL11.glScalef(-1.0F, -1.0F, 1.0F);
-			this.model.render(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F,
-					0.0625F * modelScale);
+			
+			final float scale = 0.03f;
+			GL11.glScalef(-1.0F * scale, -1.0F * scale, 1.0F * scale);
+			model.renderAll();
 		}
 		GL11.glPopMatrix();
 		GL11.glCullFace(GL11.GL_BACK);
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

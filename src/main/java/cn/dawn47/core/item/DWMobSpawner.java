@@ -46,9 +46,10 @@ public class DWMobSpawner extends DWGenericItem {
 	/**
 	 * @param par1
 	 */
-	public DWMobSpawner(Class<? extends Entity> entityToSpawn, String name) {
+	public DWMobSpawner(Class<? extends Entity> entityToSpawn, String name, int eggID) {
 		super();
-		this.setIAndU(name);
+		this.setUnlocalizedName(name);
+		this.setTextureName("dawn47:egg" + eggID);
 		spawnEntity = entityToSpawn;
 		try {
 			constructor = spawnEntity.getConstructor(World.class);

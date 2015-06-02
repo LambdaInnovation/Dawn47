@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.entitis.ExtendedPlayer;
-import cn.liutils.util.GenericUtils;
+import cn.liutils.util.mc.EntitySelectors;
 
 @Registrant
 @RegEntity
@@ -53,7 +53,7 @@ public class EntityMedkit extends Entity {
             posY + yRange, posZ + zRange);
 
     List<EntityPlayer> list =
-        worldObj.getEntitiesWithinAABBExcludingEntity(this, box, GenericUtils.selectorPlayer);
+        worldObj.getEntitiesWithinAABBExcludingEntity(this, box, EntitySelectors.player);
     if (list != null && list.size() != 0) {
       EntityPlayer player = list.get(0);// get first one
 

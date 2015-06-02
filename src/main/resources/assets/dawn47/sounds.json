@@ -13,6 +13,8 @@
 "weapons.ar.magin": {"category": "master", "sounds": [{"name": "weapons/ar/magin", "stream": false}]},
 "weapons.ar.magout": {"category": "master", "sounds": [{"name": "weapons/ar/magout", "stream": false}]},
 "weapons.laser_rifle.fire": {"category": "master", "sounds": [{"name": "weapons/laser_rifle/fire", "stream": false}]},
+"weapons.laser_rifle.magin": {"category": "master", "sounds": [{"name": "weapons/laser_rifle/magin", "stream": false}]},
+"weapons.laser_rifle.magout": {"category": "master", "sounds": [{"name": "weapons/laser_rifle/magout", "stream": false}]},
 "weapons.radiation_launcher.fire": {"category": "master", "sounds": [{"name": "weapons/radiation_launcher/fire", "stream": false}]},
 "weapons.radiation_launcher.impact": {"category": "master", "sounds": [{"name": "weapons/radiation_launcher/impact", "stream": false}]},
 "weapons.shotgun.fire": {"category": "master", "sounds": [{"name": "weapons/shotgun/fire", "stream": false}]},

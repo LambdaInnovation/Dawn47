@@ -12,7 +12,7 @@ package cn.dawn47.weapon.entity;
 
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -27,7 +27,10 @@ import cn.liutils.entityx.EntityCallback;
 import cn.liutils.entityx.event.CollideEvent;
 import cn.liutils.entityx.event.CollideEvent.CollideHandler;
 import cn.liutils.entityx.handlers.Rigidbody;
-import cn.liutils.util.space.Motion3D;
+import cn.liutils.util.client.ViewOptimize.IAssociatePlayer;
+import cn.liutils.util.helper.Motion3D;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * 
@@ -36,9 +39,12 @@ import cn.liutils.util.space.Motion3D;
 @Registrant
 @RegEntity
 @RegEntity.HasRender
-public class EntityLaserDelayed extends EntityAdvanced {
+public class EntityLaserDelayed extends EntityAdvanced implements IAssociatePlayer {
+	
+	private EntityPlayer player;
 	
 	@RegEntity.Render
+	@SideOnly(Side.CLIENT)
 	public static RendererLaserDelayed renderer;
 	
 	final int DELAY_TICK = 0;
@@ -49,8 +55,11 @@ public class EntityLaserDelayed extends EntityAdvanced {
 	public boolean isHit = false;
 	public int ticksAfterHit = 0;
 
-	public EntityLaserDelayed(final EntityLivingBase ent) {
+	public EntityLaserDelayed(final EntityPlayer ent) {
 		super(ent.worldObj);
+		
+		player = ent;
+		
 		this.setSize(0.7F, 0.2F);
 		
 		this.playSound("dawn47:laser_charge", .5F, 1F);
@@ -85,7 +94,7 @@ public class EntityLaserDelayed extends EntityAdvanced {
 					public void execute(Entity target) {
 						setDead();
 					}
-				}, 200);
+				}, 20);
 				
 				if(res.typeOfHit == MovingObjectType.BLOCK) {
 					Vec3 v = res.hitVec;
@@ -108,6 +117,7 @@ public class EntityLaserDelayed extends EntityAdvanced {
 	public void entityInit() {
 		super.entityInit();
 		dataWatcher.addObject(15, (byte) 0);
+		dataWatcher.addObject(16, Integer.valueOf(0));
 	} 
 	
 	void syncData() {
@@ -120,10 +130,19 @@ public class EntityLaserDelayed extends EntityAdvanced {
 				isHit = true;
 				ticksAfterHit = b >> 1;
 			}
+			
+			if(player == null) {
+				Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
+				if(e instanceof EntityPlayer) {
+					player = (EntityPlayer) e;
+				}
+			}
 		} else {
 			if(isHit)
 				dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
 			else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
+			
+			dataWatcher.updateObject(16, player.getEntityId());
 		}
 	}
 	
@@ -153,4 +172,9 @@ public class EntityLaserDelayed extends EntityAdvanced {
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		return player;
+	}
 }

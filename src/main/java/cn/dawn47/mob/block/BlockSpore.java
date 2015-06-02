@@ -17,6 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cn.dawn47.Dawn47;
+import cn.liutils.template.client.render.block.RenderEmptyBlock;
 
 /**
  * @author WeAthFolD
@@ -27,6 +28,8 @@ public class BlockSpore extends BlockContainer {
 	public BlockSpore() {
 		super(Material.craftedSnow);
 		this.setStepSound(soundTypeSnow);
+		this.setBlockTextureName("dawn47:spore");
+		this.setBlockName("dw_spore");
 		setCreativeTab(Dawn47.cct);
 		
 		this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
@@ -36,6 +39,10 @@ public class BlockSpore extends BlockContainer {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	
+    public int getRenderType() {
+        return RenderEmptyBlock.id;
+    }
 	
 	@Override
 	public int getRenderBlockPass() {

@@ -1,9 +1,11 @@
 package cn.dawn47.weapon.entity;
 
+import java.util.List;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
@@ -12,18 +14,23 @@ import cn.liutils.entityx.EntityAdvanced;
 import cn.liutils.entityx.event.CollideEvent;
 import cn.liutils.entityx.event.CollideEvent.CollideHandler;
 import cn.liutils.entityx.handlers.Rigidbody;
-import cn.liutils.util.GenericUtils;
+import cn.liutils.util.client.ViewOptimize.IAssociatePlayer;
+import cn.liutils.util.generic.MathUtils;
+import cn.liutils.util.mc.EntitySelectors;
+import cn.liutils.util.mc.WorldUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Registrant
 @RegEntity
 @RegEntity.HasRender
-public class EntityRadiationBall extends EntityAdvanced {
+public class EntityRadiationBall extends EntityAdvanced implements IAssociatePlayer {
 	
 	@SideOnly(Side.CLIENT)
 	@RegEntity.Render
 	public static RendererRadiationBall renderer;
+	
+	EntityPlayer spawner;
 
 	public int splashTick = 0;
 	public boolean isHit;
@@ -32,17 +39,27 @@ public class EntityRadiationBall extends EntityAdvanced {
 	public EntityRadiationBall(World world, final EntityPlayer ent) {
 		super(world);
 		
+		spawner = ent;
+		
 		addMotionHandler(new Rigidbody());
 		regEventHandler(new CollideHandler() {
 
 			@Override
 			public void onEvent(CollideEvent event) {
 				isHit = true;
+				final float range = 4;
+				
 				motionX = motionY = motionZ = 0;
-				GenericUtils.doRangeDamage(worldObj, 
-					DamageSource.causeMobDamage(ent), 
-					Vec3.createVectorHelper(posX, posY, posZ), 
-					16.0F, 4.0F, EntityRadiationBall.this, ent);
+				List<Entity> list = WorldUtils.getEntities(EntityRadiationBall.this, range, 
+					new EntitySelectors.SelectorList(
+							EntitySelectors.living, 
+							new EntitySelectors.Exclusion(EntityRadiationBall.this, ent)
+				));
+				for(Entity e : list) {
+					float distance = EntityRadiationBall.this.getDistanceToEntity(e);
+					float damage = 8 * MathUtils.lerpf(0.4f, 1, 1 - distance / range);
+					e.attackEntityFrom(DamageSource.causePlayerDamage(ent), damage);
+				}
 			}
 			
 		});
@@ -66,7 +83,8 @@ public class EntityRadiationBall extends EntityAdvanced {
 	@Override
 	public void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(15, (byte) 0);
+		dataWatcher.addObject(15, Byte.valueOf((byte) 0));
+		dataWatcher.addObject(16, Integer.valueOf(0));
 	}
 	
 	@Override
@@ -90,10 +108,19 @@ public class EntityRadiationBall extends EntityAdvanced {
 				isHit = true;
 				ticksAfterHit = b >> 1;
 			}
+			
+			if(spawner != null) {
+				Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
+				if(e instanceof EntityPlayer) {
+					spawner = (EntityPlayer) e;
+				}
+			}
 		} else {
 			if(isHit)
 				dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
 			else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
+			
+			dataWatcher.updateObject(16, spawner.getEntityId());
 		}
 	}
 
@@ -109,5 +136,10 @@ public class EntityRadiationBall extends EntityAdvanced {
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		return spawner;
+	}
 
 }

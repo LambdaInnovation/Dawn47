@@ -19,7 +19,7 @@
         "maxAmmo": 30,
         "shootInterval": 3,
         "shootDamage": 4,
-        "shootScatter": 1,
+        "shootScatter": 0.08,
         "reloadTime": 30,
         "uplift": {
             "upliftRadius": 1.4,
@@ -40,7 +40,7 @@
     "itemType": "cn.dawn47.weapon.LaserRifle",
     "weapon": {
         "ammo": "laser_rifle_ammo",
-        "maxAmmo": 20,
+        "maxAmmo": 30,
         "shootInterval": 20,
         "shootDamage": 10,
         "shootScatter": 0,
@@ -65,10 +65,10 @@
 "handgun": {
     "weapon": {
         "ammo": "handgun_ammo",
-        "maxAmmo": 8,
+        "maxAmmo": 12,
         "shootInterval": 4,
         "shootDamage": 10,
-        "shootScatter": 0,
+        "shootScatter": 0.2,
         "reloadTime": 30,
         "uplift": {
             "upliftRadius": 2
@@ -95,10 +95,10 @@
 "shotgun":{
     "weapon": {
         "ammo": "shotgun_ammo",
-        "maxAmmo": 100,
-        "shootInterval": 30,
+        "maxAmmo": 5,
+        "shootInterval": 20,
         "shootDamage": 4,
-        "shootScatter": 8,
+        "shootScatter": 1,
         "reloadTime": 30,
         "shootBucks": 6,
         "uplift": {

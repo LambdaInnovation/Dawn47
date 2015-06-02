@@ -18,8 +18,7 @@ public class RendererRadiationBall extends RenderIcon {
 		super(DWResources.EFFECT_RADBALL);
 		setHasLight(false);
 		setSize(1.5F);
-		setBlend(0.7F);
-		setViewOptimize();
+		color.a = 0.7f;
 	}
 	
 	@Override

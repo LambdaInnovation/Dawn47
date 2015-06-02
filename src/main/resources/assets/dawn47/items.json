@@ -5,6 +5,7 @@
     },
     "ammo": {
         "ignore": true,
+        "itemType": "cn.dawn47.core.item.DWAmmo",
         "maxStackSize": 1
     },
     
@@ -30,6 +31,6 @@
         "parent": "ammo",
         "unlName": "shotgun_ammo",
         "textureName": "shotgun_ammo",
-        "maxDamage": 30
+        "maxStackSize": 64
     }
 }

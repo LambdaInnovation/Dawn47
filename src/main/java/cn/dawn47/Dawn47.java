@@ -80,16 +80,10 @@ public class Dawn47 {
 		log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2015");
 		log.info("http://www.li-dev.cn/");
 		
-		DWItems.init(config);
-		
 		netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
 		MinecraftForge.EVENT_BUS.register(new DWEventListener());
 		
 		RegistrationManager.INSTANCE.registerAll(this, "PreInit");
-		
-        RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_CONFIGURABLE);
-		RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_KEYHANDLER);
-		RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_RENDER_HOOK);
 	}
 	
 	/**

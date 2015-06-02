@@ -24,7 +24,7 @@ import cn.dawn47.mob.block.TileSpore;
 import cn.liutils.render.material.Material;
 import cn.liutils.render.material.SimpleMaterial;
 import cn.liutils.render.mesh.Mesh;
-import cn.liutils.util.RenderUtils;
+import cn.liutils.util.client.RenderUtils;
 
 /**
  * @author WeAthFolD

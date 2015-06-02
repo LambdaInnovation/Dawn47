@@ -1,31 +1,22 @@
 package cn.dawn47.core.client.key;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.input.Keyboard;
+
+import cn.annoreg.core.Registrant;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.network.MsgMedkitUse;
-import cn.liutils.api.key.IKeyHandler;
+import cn.liutils.registry.KeyHandlerRegistration.RegKeyHandler;
+import cn.liutils.util.helper.KeyHandler;
 
-public class MedkitUse implements IKeyHandler {
+@Registrant
+public class MedkitUse extends KeyHandler {
+	
+	@RegKeyHandler(name = "dw_useMedkit", keyID = Keyboard.KEY_B)
+	public static MedkitUse instance;
 
   @Override
-  public void onKeyDown(int keyCode, boolean isEnd) {
-      if(isEnd)
-          return;
-      EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-      if (player == null)
-          return;
+  public void onKeyDown() {
       Dawn47.netHandler.sendToServer(new MsgMedkitUse());
   }
-
-  @Override
-  public void onKeyUp(int keyCode, boolean isEnd) {
-      
-  }
-
-
-  @Override
-  public void onKeyTick(int keyCode, boolean tickEnd) {
-  }
-
+  
 }

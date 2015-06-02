@@ -14,8 +14,8 @@ import org.lwjgl.opengl.GL11;
 
 import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.misc.entity.EntityPoster;
-import cn.liutils.util.RenderUtils;
-import cn.liutils.util.VecUtils;
+import cn.liutils.util.client.RenderUtils;
+import cn.liutils.util.generic.VecUtils;
 
 /**
  * @author WeathFolD

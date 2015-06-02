@@ -1,0 +1,35 @@
+# Dawn47 language file
+# 2015/6/2
+
+dw.ammocap.name=残弹量
+
+# Blocks
+tile.dw_spore.name=小蜘蛛孢子
+
+# Items
+item.superdrink.name=超能饮料
+item.drone.name=生成小蜘蛛
+item.rotten_creeper.name=生成腐烂爬行者
+item.battle_soldier.name=生成近战士兵
+item.weapon_soldier.name=生成远程士兵
+
+item.shotgun_ammo.name=霰弹枪弹药
+item.laser_rifle_ammo.name=激光步枪弹药
+item.handgun_ammo.name=手枪弹药
+item.ar_ammo.name=步枪弹药
+
+item.dw_handgun.name=手枪
+item.dw_shotgun.name=霰弹枪
+item.dw_laser_rifle.name=激光步枪
+item.dw_ar.name=步枪
+
+# Posters
+item.dw_poster0.name=海报 1
+item.dw_poster1.name=海报 2
+item.dw_poster2.name=海报 3
+item.dw_poster3.name=海报 4
+item.dw_poster4.name=海报 5
+
+# entities
+entity.dawn47.dw_Entity_EntityDrone.name=小蜘蛛
+entity.dawn47.dw_Entity_EntityRottenCreeper.name=腐烂爬行者

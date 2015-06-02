@@ -16,12 +16,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import org.apache.http.util.EntityUtils;
+
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegSubmoduleInit;
 import cn.annoreg.mc.RegTileEntity;
@@ -34,11 +36,12 @@ import cn.dawn47.mob.entity.EntityDrone;
 import cn.liutils.entityx.handlers.Rigidbody;
 import cn.liutils.render.particle.Particle;
 import cn.liutils.render.particle.SimpleParticleFactory;
-import cn.liutils.util.EntityUtils;
-import cn.liutils.util.GenericUtils;
-import cn.liutils.util.VecUtils;
-import cn.liutils.util.space.BlockPos;
-import cn.liutils.util.space.IBlockFilter;
+import cn.liutils.util.generic.RandUtils;
+import cn.liutils.util.generic.VecUtils;
+import cn.liutils.util.helper.BlockPos;
+import cn.liutils.util.helper.IBlockFilter;
+import cn.liutils.util.mc.EntitySelectors;
+import cn.liutils.util.mc.WorldUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -70,8 +73,8 @@ public class TileSpore extends TileEntity {
 	static IBlockFilter sporeFilter = new IBlockFilter() {
 
 		@Override
-		public boolean accepts(World world, Block block, int x, int y, int z) {
-			return block instanceof BlockSpore;
+		public boolean accepts(World world, int x, int y, int z) {
+			return world.getBlock(x, y, z) instanceof BlockSpore;
 		}
 		
 	};
@@ -87,14 +90,13 @@ public class TileSpore extends TileEntity {
 	}
 	
 	public TileSpore() {
-		rot1 = GenericUtils.randIntv(0, 360);
-		rot2 = GenericUtils.randIntv(0, 360);
+		rot1 = RandUtils.rangef(0, 360);
+		rot2 = RandUtils.rangef(0, 360);
 		textureID = r.nextInt(2);
 	}
 	
 	private void release() {
 		released = true;
-		//TODO Spawn particle effect
 		World world = getWorldObj();
 		
 		if(!world.isRemote) {
@@ -113,9 +115,7 @@ public class TileSpore extends TileEntity {
 			
 			if(!toRelease) {
 				double range = 3.5;
-				AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(spawnX - range, spawnY - range, spawnZ - range,
-						spawnX + range, spawnY + range, spawnZ + range);
-				Set<BlockPos> list = GenericUtils.getBlocksWithinAABB(world, aabb, sporeFilter);
+				List<BlockPos> list = WorldUtils.getBlocksWithin(world, spawnX, spawnY, spawnZ, range, 100, sporeFilter);
 				for(BlockPos bp : list) {
 					TileEntity te = world.getTileEntity(bp.x, bp.y, bp.z);
 					if(te instanceof TileSpore) {
@@ -124,30 +124,35 @@ public class TileSpore extends TileEntity {
 				}
 			}
 		} else {
+			releaseClient();
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void releaseClient() {
+		World world = getWorldObj();
+		int n = RandUtils.rangei(20, 30);
+		
+		for(int i = 0; i < n; ++i) {
+			double yvel = RandUtils.ranged(0.32, 0.48);
+			double xzvel = RandUtils.ranged(0.08, 0.12);
+			double theta = RandUtils.ranged(0, Math.PI * 2);
 			
-			int n = GenericUtils.randIntv(20, 30);
+			sporeFactory.pos = VecUtils.vec(
+				xCoord + 0.5 + RandUtils.ranged(-0.2, 0.2), 
+				yCoord + 0.2 + RandUtils.ranged(0.1, 0.3),
+				zCoord + 0.5 + RandUtils.ranged(-0.2, 0.2));
+			sporeFactory.vel = VecUtils.vec(xzvel * Math.sin(theta), yvel, xzvel * Math.cos(theta));
 			
-			for(int i = 0; i < n; ++i) {
-				double yvel = GenericUtils.randIntv(0.32, 0.48);
-				double xzvel = GenericUtils.randIntv(0.08, 0.12);
-				double theta = GenericUtils.randIntv(0, Math.PI * 2);
-				
-				sporeFactory.pos = VecUtils.vec(
-					xCoord + 0.5 + GenericUtils.randIntv(-0.2, 0.2), 
-					yCoord + 0.2 + GenericUtils.randIntv(0.1, 0.3),
-					zCoord + 0.5 + GenericUtils.randIntv(-0.2, 0.2));
-				sporeFactory.vel = VecUtils.vec(xzvel * Math.sin(theta), yvel, xzvel * Math.cos(theta));
-				
-				sporeFactory.world = world;
-				
-				Particle p = sporeFactory.next();
-				
-				Rigidbody rb = new Rigidbody();
-				rb.gravity = 0.035;
-				p.addMotionHandler(rb);
-				
-				world.spawnEntityInWorld(p);
-			}
+			sporeFactory.world = world;
+			
+			Particle p = sporeFactory.next();
+			
+			Rigidbody rb = new Rigidbody();
+			rb.gravity = 0.035;
+			p.addMotionHandler(rb);
+			
+			world.spawnEntityInWorld(p);
 		}
 	}
 	
@@ -182,9 +187,9 @@ public class TileSpore extends TileEntity {
 	
 	private void doReleaseCheck() {
 		if(!released) {
-			List<Entity> list = EntityUtils.getEntitiesAround(worldObj, 
+			List<Entity> list = WorldUtils.getEntities(worldObj, 
 				xCoord + .5, yCoord + .7, zCoord + .5, 
-				5, GenericUtils.selectorSurvivalPlayer);
+				5, EntitySelectors.survivalPlayer);
 			if(!list.isEmpty()) {
 				release();
 			}

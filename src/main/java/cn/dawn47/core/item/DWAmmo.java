@@ -42,7 +42,7 @@ public class DWAmmo extends DWGenericItem {
 	public void addInformation(ItemStack par1ItemStack,
 			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(this.getMaxDamage() > 1)
-		par3List.add(StatCollector.translateToLocal("ammocap.name")
+		par3List.add(StatCollector.translateToLocal("dw.ammocap.name")
 				+ " : "
 				+ (par1ItemStack.getMaxDamage() - 1 - par1ItemStack
 						.getItemDamage()) + "/"
