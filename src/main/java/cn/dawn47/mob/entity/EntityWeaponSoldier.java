@@ -152,7 +152,7 @@ public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob
 		if(rand.nextDouble() < 0.3) {
 			double yOffset = 1.5;
 			double dx = target.posX - posX, dy = target.posY + 1.0 - (posY + yOffset), dz = target.posZ - posZ;
-			bullet = new EntityBullet(this, new Motion3D(posX, posY + yOffset, posZ, dx, dy, dz), 0.06, 3);
+			bullet = new EntityBullet(this, new Motion3D(posX, posY + yOffset, posZ, dx, dy, dz), 0.06, 2);
 			worldObj.spawnEntityInWorld(bullet);
 		}
 		worldObj.playSoundAtEntity(this, getWeapon().shootSound, 0.5f, 1.0f);

@@ -24,14 +24,10 @@ import org.apache.logging.log4j.Logger;
 
 import cn.annoreg.core.RegistrationManager;
 import cn.annoreg.core.RegistrationMod;
-import cn.annoreg.mc.RegItem;
 import cn.annoreg.mc.RegMessageHandler;
 import cn.dawn47.core.events.DWEventListener;
 import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWGeneralProps;
-import cn.dawn47.core.register.DWItems;
-import cn.dawn47.equipment.item.ItemMedkit;
-import cn.liutils.core.LIUtils;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -65,9 +61,6 @@ public class Dawn47 {
 	public static Logger log = FMLLog.getLogger();
 	
 	public static Configuration config;
-	
-	@RegItem
-	public static ItemMedkit itemMedkit;
 	
 	@RegMessageHandler.WrapperInstance
 	public static SimpleNetworkWrapper netHandler;

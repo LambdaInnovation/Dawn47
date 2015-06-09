@@ -10,25 +10,28 @@
  * 在遵照该协议的情况下，您可以自由传播和修改。
  * http://www.gnu.org/licenses/gpl.html
  */
-package cn.dawn47.core.register;
+package cn.dawn47.equipment.block;
 
+import net.minecraft.tileentity.TileEntity;
 import cn.annoreg.core.Registrant;
-import cn.annoreg.mc.RegBlock;
-import cn.dawn47.equipment.block.BlockMedkit;
-import cn.dawn47.mob.block.BlockSpore;
+import cn.annoreg.mc.RegTileEntity;
+import cn.dawn47.equipment.client.renderer.RenderMedkit;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author WeAthFolD
  *
  */
 @Registrant
-public class DWBlocks {
+@RegTileEntity
+@RegTileEntity.HasRender
+public class TileMedkit extends TileEntity {
+	
+	@RegTileEntity.Render
+	@SideOnly(Side.CLIENT)
+	public static RenderMedkit renderer;
 
-	@RegBlock
-	public static BlockSpore spore;
-	
-	@RegBlock
-	public static BlockMedkit medkit;
-	
-	
+	public TileMedkit() {}
+
 }

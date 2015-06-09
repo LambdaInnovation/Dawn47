@@ -19,7 +19,7 @@
         "parent": "ammo",
         "unlName": "handgun_ammo",
         "textureName": "handgun_ammo",
-        "maxDamage": 30
+        "maxDamage": 12
     },
     "laser_rifle_ammo": {
         "parent": "ammo",

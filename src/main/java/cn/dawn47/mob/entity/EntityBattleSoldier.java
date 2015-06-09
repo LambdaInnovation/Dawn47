@@ -120,7 +120,7 @@ public class EntityBattleSoldier extends LIEntityMob {
 
 	@Override
 	protected double getMoveSpeed() {
-		return 1.8;
+		return 2.4;
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class EntityBattleSoldier extends LIEntityMob {
 
 	@Override
 	protected double getAttackDamage() {
-		return 6;
+		return 4;
 	}
 
 	ResourceLocation texture = DWResources.texture("entities/soldier");
