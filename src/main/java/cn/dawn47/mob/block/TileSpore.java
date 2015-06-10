@@ -101,7 +101,7 @@ public class TileSpore extends TileEntity {
 		
 		if(!world.isRemote) {
 			double spawnX = xCoord + 0.5,
-					spawnY = yCoord + 0.7,
+					spawnY = yCoord + 1,
 					spawnZ = zCoord + 0.5;
 			
 			EntityDrone drone = new EntityDrone(world);

@@ -45,6 +45,8 @@ import cn.weaponry.impl.classic.WeaponClassic;
 @Registrant
 public class HudGui extends AuxGui {
 	
+	private enum Align { LEFT, CENTER, RIGHT };
+	
 	static ResourceLocation[] numbers;
 	static ResourceLocation[] heartbeat;
 	
@@ -95,11 +97,10 @@ public class HudGui extends AuxGui {
 	@GuiCallback("main/area")
 	public void updateHealth(Widget w, FrameEvent event) {
 		DrawTexture drawer = DrawTexture.get(w);
-		
 		float speedMul;
 		if(curHealth > 70) {
 			drawer.color.setColor4i(50, 255, 50, 255);
-			speedMul = 2.2f;
+			speedMul = 2.0f;
 		} else if(curHealth > 30) {
 			drawer.color.setColor4i(255, 216, 50, 255);
 			speedMul = 3.0f;
@@ -115,32 +116,49 @@ public class HudGui extends AuxGui {
 	@GuiCallback("main/area_cur")
 	public void drawCurrent(Widget w, FrameEvent event) {
 		if(curAmmo != -1)
-			drawNumber(curAmmo, 14, -3, 1);
+			drawNumber(curAmmo, 14, 20, 1, Align.RIGHT);
 	}
 	
 	@GuiCallback("main/area_max")
 	public void drawMax(Widget w, FrameEvent event) {
 		if(maxAmmo != -1)
-			drawNumber(maxAmmo, 16, 0, 1);
+			drawNumber(maxAmmo, 15, 0, 1, Align.LEFT);
 	}
 	
 	@GuiCallback("main/area_medkit")
 	public void drawMedkit(Widget w, FrameEvent event) {
-		drawNumber(curMedkit, 13, -5, 0);
+		drawNumber(curMedkit, 12, 5, 0, Align.CENTER);
 	}
 	
-	private void drawNumber(int num, double size, double x, double y) {
+	private void drawNumber(int num, double size, double x, double y, Align align) {
 		double x0 = 0;
 		double step = 0.7;
 		
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, 0);
-		GL11.glScaled(size, size, 1);
+		
 		List<Integer> numbers = new ArrayList();
 		do {
 			numbers.add(num % 10);
 			num /= 10;
 		} while(num != 0);
+		
+		double len = step * numbers.size();
+		double offset = 0;
+		switch(align) {
+		case LEFT:
+			offset = 0;
+			break;
+		case CENTER:
+			offset = -len / 2;
+			break;
+		case RIGHT:
+			offset = -len;
+			break;
+		}
+		
+		GL11.glTranslated(x, y, 0);
+		GL11.glScaled(size, size, 1);
+		GL11.glTranslated(offset, 0, 0);
 		
 		for(int i = numbers.size() - 1; i >= 0; --i) {
 			GL11.glPushMatrix();

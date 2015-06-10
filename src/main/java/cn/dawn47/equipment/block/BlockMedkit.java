@@ -25,6 +25,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.MinecraftForge;
+import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.network.RegNetworkCall;
 import cn.annoreg.mc.s11n.StorageOption.Data;
 import cn.annoreg.mc.s11n.StorageOption.Instance;
@@ -40,6 +41,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 /**
  * @author WeAthFolD
  */
+@Registrant
 public class BlockMedkit extends BlockContainer {
 	
 	static final String SYNC_ID = "dw_medkitCount";
@@ -59,6 +61,7 @@ public class BlockMedkit extends BlockContainer {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onDrawHighlight(DrawBlockHighlightEvent event) {
 		Block b = event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
 		if(this == b)
@@ -116,6 +119,9 @@ public class BlockMedkit extends BlockContainer {
 	
 	public static void setMedkitCount(EntityPlayer player, int c) {
 		player.getEntityData().setInteger(SYNC_ID, c);
+		if(!player.worldObj.isRemote) {
+			received(player, c);
+		}
 	}
 	
 	@RegNetworkCall(side = Side.SERVER)

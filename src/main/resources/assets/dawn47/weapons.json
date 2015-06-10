@@ -4,7 +4,8 @@
     "itemType": "cn.dawn47.weapon.DawnWeapon",
     "weapon": {
         "reloadStartSound": "dawn47:weapons/abort",
-        "jamSound": "dawn47:weapons/abort"
+        "jamSound": "dawn47:weapons/abort",
+        "stockDamage": 3
     },
     "render": {
         "muzzleflash": {
@@ -21,6 +22,7 @@
         "shootDamage": 4,
         "shootScatter": 0.08,
         "reloadTime": 30,
+        "stockDamage": 4,
         "uplift": {
             "upliftRadius": 1.4,
             "recoverSpeed": 0.5
@@ -44,7 +46,8 @@
         "shootInterval": 20,
         "shootDamage": 10,
         "shootScatter": 0,
-        "reloadTime": 30
+        "reloadTime": 30,
+        "stockDamage": 5
     },
     "render": {
         "t_std": {
@@ -70,6 +73,7 @@
         "shootDamage": 3,
         "shootScatter": 0.2,
         "reloadTime": 30,
+        "stockDamage": 3,
         "uplift": {
             "upliftRadius": 2
         }
@@ -101,6 +105,7 @@
         "shootScatter": 1,
         "reloadTime": 30,
         "shootBucks": 6,
+        "stockDamage": 6,
         "uplift": {
             "upliftRadius": 6
         }

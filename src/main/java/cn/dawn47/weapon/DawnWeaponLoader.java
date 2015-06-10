@@ -71,6 +71,8 @@ public class DawnWeaponLoader extends ItemLoader<DawnWeapon> {
 			item.reloadEndSound = item.jamSound = "dawn47:weapons.abort";
 			item.reloadStartSound = "dawn47:weapons." + name + ".magout";
 			item.reloadEndSound = "dawn47:weapons." + name + ".magin";
+			
+			item.stockDamage = ns.getFloat("weapon", "stockDamage");
 		}
 		
 	}

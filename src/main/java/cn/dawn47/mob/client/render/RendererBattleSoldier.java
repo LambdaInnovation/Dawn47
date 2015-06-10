@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import cn.dawn47.core.proxy.DWResources;
+import cn.dawn47.mob.entity.EntityBattleSoldier;
 
 /**
  * @author WeAthFolD
@@ -24,15 +25,15 @@ import cn.dawn47.core.proxy.DWResources;
  */
 public class RendererBattleSoldier extends RenderBiped {
 	
-	ResourceLocation texture = DWResources.texture("entities/soldier");
+	ResourceLocation[] textures = DWResources.getTextures("entities/mutant", 3);
 
 	public RendererBattleSoldier() {
 		super(new ModelBiped(0.0f), 0.5f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return texture;
+	protected ResourceLocation getEntityTexture(Entity e) {
+		return textures[((EntityBattleSoldier)e).texID];
 	}
 
 }

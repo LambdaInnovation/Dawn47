@@ -1,0 +1,38 @@
+﻿# Dawn47 language file
+# 2015/6/10
+
+itemGroup.dawn47=Dawn 47
+
+dw.ammocap.name=Ammo Left
+
+# Blocks
+tile.dw_spore.name=Spore
+tile.dw_medkit.name=Medkit
+
+# Items
+item.superdrink.name=SuperDrink
+item.drone.name=Spawn Drone
+item.rotten_creeper.name=Spawn Rotten Creeper
+item.battle_soldier.name=Spawn Combat Soldier
+item.weapon_soldier.name=Spawn Weapon Soldier
+
+item.shotgun_ammo.name=Shotgun Ammo
+item.laser_rifle_ammo.name=Laser Rifle Ammo
+item.handgun_ammo.name=Handgun Ammo
+item.ar_ammo.name=Assault Rifle Ammo
+
+item.dw_handgun.name=Handgun
+item.dw_shotgun.name=Shotgun
+item.dw_laser_rifle.name=Laser Rifle
+item.dw_ar.name=Assault Rifle
+
+# Posters
+item.dw_poster0.name=Poster 1
+item.dw_poster1.name=Poster 2
+item.dw_poster2.name=Poster 3
+item.dw_poster3.name=Poster 4
+item.dw_poster4.name=Poster 5
+
+# entities
+entity.dawn47.dw_Entity_EntityDrone.name=Drone
+entity.dawn47.dw_Entity_EntityRottenCreeper.name=Rotten Creeper

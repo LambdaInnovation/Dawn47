@@ -14,6 +14,7 @@ package cn.dawn47.mob.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -49,6 +50,7 @@ public class EntityBattleSoldier extends LIEntityMob {
 	boolean synced = false;
 	
 	int weaponID = rand.nextInt(2);
+	public int texID = rand.nextInt(3);
 	int reqTicker = 10;
 
 	public EntityBattleSoldier(World world) {
@@ -75,6 +77,11 @@ public class EntityBattleSoldier extends LIEntityMob {
 			reqTicker = 0;
 		}
 	}
+	
+	@Override
+    protected Item getDropItem() {
+    	return null;
+    }
 	
 	private void updateServer() {
 		
@@ -132,12 +139,10 @@ public class EntityBattleSoldier extends LIEntityMob {
 	protected double getAttackDamage() {
 		return 4;
 	}
-
-	ResourceLocation texture = DWResources.texture("entities/soldier");
 	
 	@Override
 	public ResourceLocation getTexture() {
-		return texture;
+		return null;
 	}
 	
 }

@@ -32,7 +32,7 @@ public class BlockSpore extends BlockContainer {
 		this.setBlockName("dw_spore");
 		setCreativeTab(Dawn47.cct);
 		
-		this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
+		this.setBlockBounds(0, 0, 0, 1, 0.2f, 1);
 	}
 	
 	@Override

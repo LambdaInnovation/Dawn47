@@ -55,7 +55,7 @@ public class EntityDrone extends LIEntityMob {
 	public EntityDrone(World par1World) {
 		super(par1World);
 		style = rand.nextInt(3);
-		this.setSize(0.8F, 0.8F);
+		this.setSize(0.8F, 0.7F);
 	}
 	
 	@Override
@@ -110,7 +110,7 @@ public class EntityDrone extends LIEntityMob {
 		super.onUpdate();
 	}
 	
-    public boolean attackEntityFrom(DamageSource ds, int par2)
+    public boolean attackEntityFrom(DamageSource ds, float par2)
     {
     	if(ds.equals(DamageSource.fall)) return false;
     	return super.attackEntityFrom(ds, par2);

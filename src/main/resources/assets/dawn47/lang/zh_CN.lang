@@ -1,10 +1,13 @@
 # Dawn47 language file
-# 2015/6/2
+# 2015/6/10
+
+itemGroup.dawn47=曙光47
 
 dw.ammocap.name=残弹量
 
 # Blocks
 tile.dw_spore.name=小蜘蛛孢子
+tile.dw_medkit.name=医疗包
 
 # Items
 item.superdrink.name=超能饮料

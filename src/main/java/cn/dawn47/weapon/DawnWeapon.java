@@ -12,7 +12,15 @@
  */
 package cn.dawn47.weapon;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.Vec3;
 import cn.dawn47.Dawn47;
+import cn.liutils.util.generic.VecUtils;
+import cn.liutils.util.mc.WorldUtils;
 import cn.weaponry.api.ctrl.KeyEventType;
 import cn.weaponry.api.state.WeaponState;
 import cn.weaponry.api.state.WeaponStateMachine;
@@ -24,6 +32,8 @@ import cn.weaponry.impl.generic.action.SwingSilencer;
  *
  */
 public class DawnWeapon extends WeaponClassic {
+	
+	public float stockDamage = 3.0f;
 
 	public DawnWeapon() {
 		super();
@@ -36,13 +46,26 @@ public class DawnWeapon extends WeaponClassic {
 		machine.addState("action", new StateStockAttack());
 	}
 	
-	public static class StateStockAttack extends WeaponState {
+	public class StateStockAttack extends WeaponState {
+		
 		public void enterState() {
 			SwingSilencer silencer = getItem().getAction("SwingSilencer");
 			if(silencer != null) {
 				silencer.active = false;
 			}
-			getPlayer().swingItem();
+			EntityPlayer player = getPlayer();
+			player.swingItem();
+			
+			if(!isRemote()) {
+				Vec3 vec1 =	Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight, player.posZ);
+				Vec3 vec2 = VecUtils.add(vec1, VecUtils.scalarMultiply(player.getLookVec(), 1.5));
+				MovingObjectPosition ret = WorldUtils.rayTraceBlocksAndEntities(player.worldObj, vec1, vec2, null, player);
+				if(ret != null && ret.typeOfHit == MovingObjectType.ENTITY) {
+					ret.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(player), stockDamage);
+					player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_attack", 0.5f, 1.0f);
+				} else
+					player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_swing", 0.5f, 1.0f);
+			}
 		}
 		
 		@Override
@@ -63,6 +86,7 @@ public class DawnWeapon extends WeaponClassic {
 				silencer.active = true;
 			}
 		}
+ 		
 	}
 
 }

@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MedkitUsage {
 
 	@SideOnly(Side.CLIENT)
-	@RegKeyHandler(name = "UseMedkit", keyID = Keyboard.KEY_B)
+	@RegKeyHandler(name = "UseMedkit", keyID = Keyboard.KEY_F)
 	public static KH keyHandler;
 	
 	static final float HEAL = 5;
@@ -25,10 +25,11 @@ public class MedkitUsage {
 	@RegNetworkCall(side = Side.SERVER)
 	private static void doHeal(@Instance EntityPlayer player) {
 		int mc = BlockMedkit.getMedkitCount(player);
-		if(mc > 0) {
+		
+		if(mc > 0 && player.getHealth() < 20) {
 			BlockMedkit.setMedkitCount(player, mc - 1);
 			
-			player.worldObj.playSoundAtEntity(player, "dawn47:medkit", 0.5f, 1.0f);
+			player.worldObj.playSoundAtEntity(player, "dawn47:entities.medshot", 0.5f, 1.0f);
 			player.heal(HEAL);
 		}
 	}
