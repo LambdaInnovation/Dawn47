@@ -14,18 +14,13 @@ package cn.dawn47.mob.block;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-
-import org.apache.http.util.EntityUtils;
-
 import cn.annoreg.core.Registrant;
-import cn.annoreg.mc.RegSubmoduleInit;
+import cn.annoreg.mc.RegInit;
 import cn.annoreg.mc.RegTileEntity;
 import cn.annoreg.mc.network.RegNetworkCall;
 import cn.annoreg.mc.s11n.StorageOption;
@@ -50,7 +45,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 @Registrant
-@RegSubmoduleInit(side = RegSubmoduleInit.Side.CLIENT_ONLY)
+@RegInit(side = RegInit.Side.CLIENT_ONLY)
 @RegTileEntity
 @RegTileEntity.HasRender
 public class TileSpore extends TileEntity {

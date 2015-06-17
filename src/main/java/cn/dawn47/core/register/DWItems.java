@@ -16,8 +16,8 @@ package cn.dawn47.core.register;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import cn.annoreg.core.Registrant;
+import cn.annoreg.mc.RegInit;
 import cn.annoreg.mc.RegItem;
-import cn.annoreg.mc.RegSubmoduleInit;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWMobSpawner;
 import cn.dawn47.equipment.item.ItemSuperDrink;
@@ -36,7 +36,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  *
  */
 @Registrant
-@RegSubmoduleInit
+@RegInit
 public class DWItems {
 	
 	public static ItemLoader itemLoader;
