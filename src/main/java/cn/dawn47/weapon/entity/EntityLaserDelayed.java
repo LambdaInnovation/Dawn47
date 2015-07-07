@@ -68,7 +68,7 @@ public class EntityLaserDelayed extends EntityAdvanced implements IAssociatePlay
 		
 		Rigidbody rb = new Rigidbody();
 		addMotionHandler(rb);
-		rb.filter = new IEntitySelector() {
+		rb.entitySel = new IEntitySelector() {
 
 			@Override
 			public boolean isEntityApplicable(Entity entity) {

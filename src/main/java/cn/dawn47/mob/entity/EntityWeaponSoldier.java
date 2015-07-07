@@ -30,6 +30,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -74,8 +75,8 @@ public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob
         super(world);
         if(!loaded) {
         	loaded = true;
-        	weapons.add(DWItems.weaponAR);
-        	weapons.add(DWItems.weaponHandgun);
+        	weapons.add(DWItems.soldierAR);
+        	weapons.add(DWItems.soldierHandgun);
         }
         
         this.tasks.addTask(1, new EntityAISwimming(this));
@@ -204,12 +205,18 @@ public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob
         return super.getEquipmentInSlot(i);
     }
 	
+	@Override
+    protected Item getDropItem() {
+    	return null;
+    }
+	
     /**
      * sets this entity's combat AI.
      */
     public void setCombatTask() {
     	DawnWeapon wpn = getWeapon();
-    	this.tasks.addTask(3, new EntityAIArrowAttack(this, 1.0D, wpn.shootInterval, wpn.shootInterval, 15.0F) {
+    	this.tasks.addTask(3, new EntityAIArrowAttack
+    		(this, 1.0D, wpn.shootInterval, wpn.shootInterval, 15.0F) {
         	
     		int thisMax = 3;
     		

@@ -44,33 +44,43 @@ public class DawnWeaponLoader extends ItemLoader<DawnWeapon> {
 		additionalRules.add(new CustomRenderRule());
 	}
 	
+	private String getWeaponID(String name, ObjectNamespace ns) {
+		String first = ns.getString("weapon", "id");
+		return first != null ? first : ns.name;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	private class CustomRenderRule extends ClassicRenderRule {
 		protected WavefrontObject loadModel() {
-			return new WavefrontObject(new ResourceLocation("dawn47:models/" + name + ".obj"));
+			WavefrontObject sup = super.loadModel();
+			return sup != null ? sup : new WavefrontObject(new ResourceLocation("dawn47:models/" + getWeaponID(name, ns) + ".obj"));
 		}
 		
 		protected ResourceLocation loadTexture() {
-			return new ResourceLocation("dawn47:textures/models/" + name + ".png");
+			ResourceLocation tex = super.loadTexture();
+			return tex != null ? tex : new ResourceLocation("dawn47:textures/models/" + getWeaponID(name, ns) + ".png");
 		}
 	}
 	
-	private static class Rule extends ItemLoadRule<DawnWeapon> {
+	
+	private class Rule extends ItemLoadRule<DawnWeapon> {
 
 		@Override
 		public void load(DawnWeapon item,
 				cn.liutils.loading.Loader.ObjectNamespace ns, String name)
 				throws Exception {
+			String id = getWeaponID(name, ns);
+			
 			//Must be guaranteed that MiscItems are loaded first.
-			item.setUnlocalizedName("dw_" + name);
-			item.setTextureName("dawn47:" + name);
+			item.setUnlocalizedName("dw_" + id);
+			item.setTextureName("dawn47:" + id);
 			item.ammoType = (Item) DWItems.itemLoader.getObject(ns.getString("weapon", "ammo"));
 			
 			//Load sounds
-			item.shootSound = "dawn47:weapons." + name + ".fire";
+			item.shootSound = "dawn47:weapons." + id + ".fire";
 			item.reloadEndSound = item.jamSound = "dawn47:weapons.abort";
-			item.reloadStartSound = "dawn47:weapons." + name + ".magout";
-			item.reloadEndSound = "dawn47:weapons." + name + ".magin";
+			item.reloadStartSound = "dawn47:weapons." + id + ".magout";
+			item.reloadEndSound = "dawn47:weapons." + id + ".magin";
 			
 			item.stockDamage = ns.getFloat("weapon", "stockDamage");
 		}

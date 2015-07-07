@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.MinecraftForge;
 import cn.annoreg.core.Registrant;
+import cn.annoreg.mc.network.Future;
 import cn.annoreg.mc.network.RegNetworkCall;
 import cn.annoreg.mc.s11n.StorageOption.Data;
 import cn.annoreg.mc.s11n.StorageOption.Instance;
@@ -75,7 +76,7 @@ public class BlockMedkit extends BlockContainer {
 		if(player != null) {
 			if(--syncCooldown == 0) {
 				syncCooldown = 20;
-				query(player);
+				doQuery(player);
 			}
 		}
 	}
@@ -98,7 +99,7 @@ public class BlockMedkit extends BlockContainer {
 			setMedkitCount(player, getMedkitCount(player) + 1);
 			
 			if(world.isRemote)
-				query(player);
+				doQuery(player);
 		}
 	}
 	
@@ -124,13 +125,20 @@ public class BlockMedkit extends BlockContainer {
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	private static void doQuery(EntityPlayer player) {
+		query(player, Future.create((Object o) -> {
+			setMedkitCount(player, (Integer) o);
+		}));
+	}
+	
 	@RegNetworkCall(side = Side.SERVER)
-	private static void query(@Instance EntityPlayer player) {
-		received(player, getMedkitCount(player));
+	private static void query(@Instance EntityPlayer player, @Data Future future) {
+		future.setAndSync(getMedkitCount(player));
 	}
 	
 	@RegNetworkCall(side = Side.CLIENT)
-	private static void received(@Target EntityPlayer player, @Data Integer count) {
+	private static void received(@Instance EntityPlayer player, @Data Integer count) {
 		setMedkitCount(player, count);
 	}
 	

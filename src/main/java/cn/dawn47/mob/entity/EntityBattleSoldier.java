@@ -72,7 +72,6 @@ public class EntityBattleSoldier extends LIEntityMob {
 	@SideOnly(Side.CLIENT)
 	private void updateClient() {
 		if(!synced && reqTicker++ == 10) {
-			//TODO: Crash?
 			req(Minecraft.getMinecraft().thePlayer);
 			reqTicker = 0;
 		}

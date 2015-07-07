@@ -41,6 +41,7 @@ public class DWItems {
 	
 	public static ItemLoader itemLoader;
 	public static DawnWeaponLoader weaponLoader;
+	public static DawnWeaponLoader weaponLoader2;
 	
 	//----------Ammo and Weapons--------------
 	
@@ -65,9 +66,8 @@ public class DWItems {
 		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
 	
 	public static DawnWeapon 
-		weaponAR,
-		weaponHandgun;
-	
+		soldierAR,
+		soldierHandgun;
 	
 	public static void init() {
 		
@@ -79,7 +79,13 @@ public class DWItems {
 		weaponLoader = new DawnWeaponLoader();
 		weaponLoader.feed(new ResourceLocation("dawn47:weapons.json"));
 		weaponLoader.loadAll();
+		
+		weaponLoader2 = new DawnWeaponLoader();
+		weaponLoader2.feed(new ResourceLocation("dawn47:soldier_weapons.json"));
+		weaponLoader2.loadAll();
+		
 		Dawn47.log.info("Dawn47 weaponLoader loaded " + weaponLoader.getEnumeration().size() + " items.");
+		Dawn47.log.info("Dawn47 weaponLoader2 loaded " + weaponLoader2.getEnumeration().size() + " items.");
 		
 		posters = new Item[5];
 		for(int i = 0; i < 5; ++i) {
@@ -87,8 +93,8 @@ public class DWItems {
 			GameRegistry.registerItem(posters[i], "dw_poster" + i);
 		}
 		
-		weaponAR = weaponLoader.getObject("ar");
-		weaponHandgun = weaponLoader.getObject("handgun");
+		soldierAR = weaponLoader2.getObject("soldier_ar");
+		soldierHandgun = weaponLoader2.getObject("soldier_handgun");
 	}
 	
 	public static void addRecipes() {

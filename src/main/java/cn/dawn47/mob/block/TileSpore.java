@@ -15,6 +15,7 @@ package cn.dawn47.mob.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -30,12 +31,12 @@ import cn.dawn47.mob.client.render.RendererSpore;
 import cn.dawn47.mob.entity.EntityDrone;
 import cn.liutils.entityx.handlers.Rigidbody;
 import cn.liutils.render.particle.Particle;
-import cn.liutils.render.particle.SimpleParticleFactory;
+import cn.liutils.render.particle.ParticleFactory;
 import cn.liutils.util.generic.RandUtils;
 import cn.liutils.util.generic.VecUtils;
 import cn.liutils.util.helper.BlockPos;
-import cn.liutils.util.helper.IBlockFilter;
 import cn.liutils.util.mc.EntitySelectors;
+import cn.liutils.util.mc.IBlockFilter;
 import cn.liutils.util.mc.WorldUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,12 +64,12 @@ public class TileSpore extends TileEntity {
 	static Random r = new Random();
 	
 	@SideOnly(Side.CLIENT)
-	static SimpleParticleFactory sporeFactory;
+	static ParticleFactory sporeFactory;
 	
 	static IBlockFilter sporeFilter = new IBlockFilter() {
 
 		@Override
-		public boolean accepts(World world, int x, int y, int z) {
+		public boolean accepts(World world, int x, int y, int z, Block block) {
 			return world.getBlock(x, y, z) instanceof BlockSpore;
 		}
 		
@@ -81,7 +82,7 @@ public class TileSpore extends TileEntity {
 		template.texture = DWResources.entityTexture("spore");
 		template.size = 0.06f;
 		
-		sporeFactory = new SimpleParticleFactory(template);
+		sporeFactory = new ParticleFactory(template);
 	}
 	
 	public TileSpore() {
@@ -133,15 +134,13 @@ public class TileSpore extends TileEntity {
 			double xzvel = RandUtils.ranged(0.08, 0.12);
 			double theta = RandUtils.ranged(0, Math.PI * 2);
 			
-			sporeFactory.pos = VecUtils.vec(
+			sporeFactory.setPosition(
 				xCoord + 0.5 + RandUtils.ranged(-0.2, 0.2), 
 				yCoord + 0.2 + RandUtils.ranged(0.1, 0.3),
 				zCoord + 0.5 + RandUtils.ranged(-0.2, 0.2));
-			sporeFactory.vel = VecUtils.vec(xzvel * Math.sin(theta), yvel, xzvel * Math.cos(theta));
+			sporeFactory.setVelocity(xzvel * Math.sin(theta), yvel, xzvel * Math.cos(theta));
 			
-			sporeFactory.world = world;
-			
-			Particle p = sporeFactory.next();
+			Particle p = sporeFactory.next(world);
 			
 			Rigidbody rb = new Rigidbody();
 			rb.gravity = 0.035;
