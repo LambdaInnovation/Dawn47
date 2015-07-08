@@ -26,6 +26,8 @@ item.dw_shotgun.name=霰弹枪
 item.dw_laser_rifle.name=激光步枪
 item.dw_ar.name=步枪
 
+item.electronic_balancer.name=护盾电子平衡器
+
 # Posters
 item.dw_poster0.name=海报 1
 item.dw_poster1.name=海报 2

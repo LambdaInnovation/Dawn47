@@ -26,6 +26,8 @@ item.dw_shotgun.name=Shotgun
 item.dw_laser_rifle.name=Laser Rifle
 item.dw_ar.name=Assault Rifle
 
+item.electronic_balancer.name=Electronic Shield Balancer
+
 # Posters
 item.dw_poster0.name=Poster 1
 item.dw_poster1.name=Poster 2
