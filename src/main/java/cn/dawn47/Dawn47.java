@@ -17,6 +17,7 @@ package cn.dawn47;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
@@ -28,6 +29,7 @@ import cn.annoreg.mc.RegMessageHandler;
 import cn.dawn47.core.events.DWEventListener;
 import cn.dawn47.core.misc.DWCreativeTab;
 import cn.dawn47.core.proxy.DWGeneralProps;
+import cn.liutils.ripple.ScriptProgram;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -65,6 +67,8 @@ public class Dawn47 {
 	@RegMessageHandler.WrapperInstance
 	public static SimpleNetworkWrapper netHandler;
 	
+	public static ScriptProgram script;
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
@@ -72,6 +76,12 @@ public class Dawn47 {
 		log.info("Starting Dawn47 " + VERSION);
 		log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2015");
 		log.info("http://www.li-dev.cn/");
+		
+		script = new ScriptProgram();
+		String scripts[] = { "generic" };
+		for(String s : scripts) {
+			script.loadScript(new ResourceLocation("dawn47:scripts/" + s + ".r"));
+		}
 		
 		netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
 		MinecraftForge.EVENT_BUS.register(new DWEventListener());

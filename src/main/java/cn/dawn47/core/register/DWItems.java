@@ -20,6 +20,7 @@ import cn.annoreg.mc.RegInit;
 import cn.annoreg.mc.RegItem;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.item.DWMobSpawner;
+import cn.dawn47.equipment.item.ItemElectronicBalancer;
 import cn.dawn47.equipment.item.ItemSuperDrink;
 import cn.dawn47.misc.item.ItemPosterPlacer;
 import cn.dawn47.mob.entity.EntityBattleSoldier;
@@ -64,6 +65,9 @@ public class DWItems {
 	public static Item
 		solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D(),
 		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
+	
+	@RegItem
+	public static Item electronicBalancer = new ItemElectronicBalancer();
 	
 	public static DawnWeapon 
 		soldierAR,
