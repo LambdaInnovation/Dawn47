@@ -168,7 +168,11 @@ public class HudGui extends AuxGui {
 		} GL11.glPopMatrix();
 		
 		gui.resize(sr.getScaledWidth_double(), sr.getScaledHeight_double());
+		GL11.glPushMatrix();
+		if(!shieldActivated)
+			GL11.glTranslated(0, 20, 0);
 		gui.draw(0, 0);
+		GL11.glPopMatrix();
 	}
 	
 	@GuiCallback("main/area")

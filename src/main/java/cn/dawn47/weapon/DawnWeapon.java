@@ -58,7 +58,7 @@ public class DawnWeapon extends WeaponClassic {
 			
 			if(!isRemote()) {
 				Vec3 vec1 =	Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight, player.posZ);
-				Vec3 vec2 = VecUtils.add(vec1, VecUtils.scalarMultiply(player.getLookVec(), 1.5));
+				Vec3 vec2 = VecUtils.add(vec1, VecUtils.multiply(player.getLookVec(), 1.5));
 				MovingObjectPosition ret = Raytrace.perform(player.worldObj, vec1, vec2, EntitySelectors.excludeOf(player));
 				if(ret != null && ret.typeOfHit == MovingObjectType.ENTITY) {
 					ret.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(player), stockDamage);

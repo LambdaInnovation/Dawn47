@@ -15,6 +15,24 @@ package cn.dawn47.mob.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.annoreg.core.Registrant;
+import cn.annoreg.mc.RegEntity;
+import cn.annoreg.mc.network.RegNetworkCall;
+import cn.annoreg.mc.s11n.StorageOption.Data;
+import cn.annoreg.mc.s11n.StorageOption.Instance;
+import cn.annoreg.mc.s11n.StorageOption.RangedTarget;
+import cn.dawn47.core.register.DWItems;
+import cn.dawn47.mob.client.render.RenderWeaponSoldier;
+import cn.dawn47.weapon.DawnWeapon;
+import cn.liutils.template.entity.LIEntityMob;
+import cn.liutils.util.generic.RandUtils;
+import cn.liutils.util.generic.VecUtils;
+import cn.liutils.util.helper.Motion3D;
+import cn.liutils.util.mc.EntitySelectors;
+import cn.liutils.util.raytrace.Raytrace;
+import cn.weaponry.impl.generic.entity.EntityBullet;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -33,19 +51,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cn.annoreg.core.Registrant;
-import cn.annoreg.mc.RegEntity;
-import cn.dawn47.core.register.DWItems;
-import cn.dawn47.mob.client.render.RenderWeaponSoldier;
-import cn.dawn47.weapon.DawnWeapon;
-import cn.liutils.template.entity.LIEntityMob;
-import cn.liutils.util.generic.RandUtils;
-import cn.liutils.util.helper.Motion3D;
-import cn.weaponry.impl.generic.entity.EntityBullet;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author WeAthFolD
@@ -148,13 +158,31 @@ public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float wtf) {
-		
 		EntityBullet bullet;
 		if(rand.nextDouble() < 0.3) {
 			double yOffset = 1.5;
 			double dx = target.posX - posX, dy = target.posY + 1.0 - (posY + yOffset), dz = target.posZ - posZ;
-			bullet = new EntityBullet(this, new Motion3D(posX, posY + yOffset, posZ, dx, dy, dz), 0.06, 2);
-			worldObj.spawnEntityInWorld(bullet);
+			
+			Vec3 start = VecUtils.vec(posX, posY + yOffset, posZ), vel = VecUtils.vec(dx, dy, dz).normalize(),
+				end = new Motion3D(start, vel).move(20).getPosVec();
+			
+			// CLIENT
+			spawnBulletEffect(this, this, VecUtils.vec(posX, posY + yOffset, posZ), vel);
+			
+			// SERVER
+			MovingObjectPosition result = Raytrace.perform(worldObj, start, end, 
+				EntitySelectors.combine(EntitySelectors.living, EntitySelectors.excludeOf(this)));
+			if(result != null && result.entityHit != null) {
+				EntityLivingBase hit = (EntityLivingBase) result.entityHit;
+				double lmx = hit.motionX, lmy = hit.motionY, lmz = hit.motionZ;
+				hit.hurtResistantTime = -1;
+				hit.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
+				if(RandUtils.ranged(0, 1) < 0.8) {
+					hit.motionX = lmx;
+					hit.motionY = lmy;
+					hit.motionZ = lmz;
+				}
+			}
 		}
 		worldObj.playSoundAtEntity(this, getWeapon().shootSound, 0.5f, 1.0f);
 		
@@ -234,5 +262,16 @@ public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob
             }
             
         });
+    }
+    
+    @RegNetworkCall(side = Side.CLIENT)
+    private static void spawnBulletEffect(
+    	@RangedTarget(range = 15) EntityLivingBase _player, 
+    	@Instance EntityLivingBase player,
+    	@Data Vec3 pos,
+    	@Data Vec3 vel) {
+    	player.worldObj.spawnEntityInWorld(new EntityBullet(player, new Motion3D(
+    		pos.xCoord, pos.yCoord, pos.zCoord,
+    		vel.xCoord, vel.yCoord, vel.zCoord), 0.06));
     }
 }

@@ -12,9 +12,22 @@
  */
 package cn.dawn47.weapon;
 
-import net.minecraft.entity.Entity;
 import cn.dawn47.weapon.entity.EntityLaserDelayed;
+import cn.liutils.util.helper.Motion3D;
+import cn.liutils.util.mc.EntitySelectors;
+import cn.liutils.util.raytrace.Raytrace;
 import cn.weaponry.api.ItemInfo;
+import cn.weaponry.api.event.WeaponCallback;
+import cn.weaponry.impl.classic.event.ClassicEvents.ShootEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.world.World;
 
 /**
  * @author WeAthFolD
@@ -22,8 +35,23 @@ import cn.weaponry.api.ItemInfo;
  */
 public class LaserRifle extends DawnWeapon {
 
-	public Entity createShootEntity(ItemInfo item) {
+	@Override
+	public Entity createBulletEffect(ItemInfo item) {
 		return new EntityLaserDelayed(item.getPlayer());
 	}
+	
+	@Override
+	public void spawnClientBullet(ItemInfo info, ShootEvent event) {}
+	
+	@Override
+	public void onShootSvr(ItemInfo info, ShootEvent event) {}
+	
+	@WeaponCallback(side = Side.SERVER)
+	public void spawnServerBullet(ItemInfo info, ShootEvent event) {
+		World world = info.getWorld();
+		EntityPlayer player = info.getPlayer();
+		world.spawnEntityInWorld(createBulletEffect(info));
+	}
+	
 	
 }

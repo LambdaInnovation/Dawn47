@@ -103,11 +103,13 @@
         "shootInterval": 20,
         "shootDamage": 4,
         "shootScatter": 1,
-        "reloadTime": 30,
+        "reloadTime": 15,
         "shootBucks": 6,
         "stockDamage": 6,
+        "isBuckReload": true,
         "uplift": {
-            "upliftRadius": 6
+            "upliftRadius": 9,
+            "recoverSpeed": 0.9
         }
     },
     "render": {
