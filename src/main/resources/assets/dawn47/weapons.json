@@ -18,7 +18,7 @@
     "weapon": {
         "ammo": "ar_ammo",
         "maxAmmo": 30,
-        "shootInterval": 3,
+        "shootInterval": 2,
         "shootDamage": 4,
         "shootScatter": 0.08,
         "reloadTime": 30,
@@ -30,8 +30,8 @@
     },
     "render": {
         "t_firstPerson": {
-            "transform": [0.38, -0.06, 0],
-            "rotation": [0, 5, 0]
+            "transform": [-0.55, 0.1, -0.8],
+            "rotation": [3, -4, -10]
         },
         "muzzleflash": {
             "offset": [0.58, 0.29, -0.01]
@@ -54,9 +54,8 @@
             "transform": [0.18, -0.08, 0]
         },
         "t_firstPerson": {
-            "scale": 0.9,
-            "transform": [0.08, -0.04, 0.01],
-            "rotation": [0, 5, 0]
+            "transform": [-0.8, 0.2, -0.8],
+            "rotation": [5, -6, -10]
         },
         "muzzleflash": {
             "texture": "dawn47:textures/muzzle/muz_laser",
@@ -85,8 +84,8 @@
         },
         "t_firstPerson": {
             "scale": 0.9,
-            "transform": [0.16, -0.03, -0.1],
-            "rotation": [0, 5, 0]
+            "transform": [-0.55, 0.15, -0.8],
+            "rotation": [3, -4, -10]
         },
         "muzzleflash": {
             "offset": [0.55, 0.38, 0]
@@ -117,8 +116,8 @@
             "transform": [0, 0.05, 0]
         },
         "t_firstPerson": {
-            "transform": [0, -0.2, 0],
-            "rotation": [0, 5, 0]
+            "transform": [-0.55, 0.15, -0.8],
+            "rotation": [3, -4, -10]
         },
         "muzzleflash": {
             "offset": [0.94, 0.175, 0]
