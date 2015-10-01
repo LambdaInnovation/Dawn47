@@ -15,19 +15,13 @@ package cn.dawn47.equipment.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import cn.annoreg.core.Registrant;
 import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.equipment.block.BlockMedkit;
 import cn.dawn47.equipment.data.ShieldData;
+import cn.dawn47.equipment.event.ShieldAttackEvent;
 import cn.liutils.api.gui.AuxGui;
 import cn.liutils.cgui.gui.LIGui;
 import cn.liutils.cgui.gui.Widget;
@@ -39,9 +33,18 @@ import cn.liutils.cgui.loader.xml.CGUIDocLoader;
 import cn.liutils.registry.AuxGuiRegistry.RegAuxGui;
 import cn.liutils.util.client.HudUtils;
 import cn.liutils.util.client.RenderUtils;
-import cn.liutils.util.generic.MathUtils;
 import cn.liutils.util.helper.GameTimer;
+import cn.liutils.vis.animation.CubicSplineCurve;
+import cn.liutils.vis.animation.LineInterpCurve;
 import cn.weaponry.impl.classic.WeaponClassic;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * @author WeAthFolD
@@ -73,20 +76,34 @@ public class HudGui extends AuxGui {
 	@RegAuxGui
 	public static HudGui instance = new HudGui();
 	
-	boolean shieldActivated;
-	boolean shieldCooldown;
 	float shieldProg;
+	boolean shieldCooldown;
 	int attackCooldown;
 	
 	int curAmmo, maxAmmo;
 	int curHealth;
 	int curMedkit;
 	
-	boolean lastShield;
 	long startShieldTime;
+	
+	CubicSplineCurve curveAlpha = new CubicSplineCurve();
+	LineInterpCurve curveScale = new LineInterpCurve();
 	
 	HudGui() {
 		EventLoader.load(gui, this);
+		
+		curveScale.addPoint(0.0, 1.1);
+		curveScale.addPoint(0.05, 1.3);
+		curveScale.addPoint(0.2, 1.0);
+		curveScale.addPoint(0.6, 1.0);
+		curveScale.addPoint(1, 1.0);
+		
+		curveAlpha.addPoint(0, 0.0);
+		curveAlpha.addPoint(0.1, 1);
+		curveAlpha.addPoint(0.7, 1);
+		curveAlpha.addPoint(1, 0);
+		
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -102,10 +119,10 @@ public class HudGui extends AuxGui {
 		
 		long time = GameTimer.getTime();
 		
-		shieldActivated = sd.isActivated();
-		shieldCooldown = !sd.canRecover();
+		boolean shieldActivated = sd.isActivated();
 		shieldProg = sd.getEnergy() / sd.getMaxEnergy();
 		attackCooldown = sd.getAttackCooldown();
+		shieldCooldown = !sd.canRecover();
 		
 		gui.getWidget("main/shield").transform.doesDraw = shieldActivated;
 		
@@ -124,37 +141,17 @@ public class HudGui extends AuxGui {
 		
 		/* Shield attacked effect */ 
 		GL11.glPushMatrix(); {
-			final long BLEND_TIME = 500;
-			
-			float alpha = 0.0f;
-			float scale = 1.0f;
-			if(shieldCooldown) {
-				if(!lastShield) {
-					lastShield = true;
-				}
-				startShieldTime = time;
+			long dt = time - startShieldTime;
+			final long BLEND_TIME = 2400;
+			if(dt >= 0 && dt < BLEND_TIME) {
+				double alpha = curveAlpha.valueAt((double)dt / BLEND_TIME);
+				double scale = curveScale.valueAt((double)dt / BLEND_TIME);
+				System.out.println("Drawing " + dt + "/" + alpha + "/" + scale);
 				
-				alpha = 1.0f;
-				if(attackCooldown < 8) {
-					scale = MathUtils.lerpf(1.1f, 1f, attackCooldown / 8.0f);
-				}
-				
-			} else {
-				if(lastShield) {
-					if(time - startShieldTime > BLEND_TIME) {
-						lastShield = false;
-					} else {
-						alpha = 1 - (float) (time - startShieldTime) / BLEND_TIME;
-					}
-				}
-			}
-			
-			if(lastShield) {
-				GL11.glColor4f(1, 1, 1, alpha);
+				GL11.glColor4d(1, 1, 1, alpha);
 				
 				GL11.glTranslated(width / 2, height / 2, 0);
-				System.out.println(scale);
-				GL11.glScalef(scale, scale, 1);
+				GL11.glScaled(scale, scale, 1);
 				GL11.glTranslated(-width / 2, -height / 2, 0);
 				
 				if(shieldProg == 0.0f) { //Depleted
@@ -293,6 +290,13 @@ public class HudGui extends AuxGui {
 	private void drawSingleNumber(int num) {
 		RenderUtils.loadTexture(numbers[num]);
 		HudUtils.rect(0, 0, 1, 1);
+	}
+	
+	@SubscribeEvent
+	public void onShieldAttack(ShieldAttackEvent event) {
+		if(event.player.worldObj.isRemote)
+			startShieldTime = GameTimer.getTime();
+		System.out.println("OnShieldAttack");
 	}
 
 }

@@ -12,21 +12,27 @@
  */
 package cn.dawn47.equipment.data;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEventHandler;
 import cn.annoreg.mc.RegEventHandler.Bus;
 import cn.annoreg.mc.RegInit;
+import cn.annoreg.mc.network.RegNetworkCall;
+import cn.annoreg.mc.s11n.StorageOption.Instance;
+import cn.annoreg.mc.s11n.StorageOption.Target;
 import cn.dawn47.Dawn47;
 import cn.dawn47.core.register.DWItems;
+import cn.dawn47.equipment.event.ShieldAttackEvent;
 import cn.liutils.registry.RegDataPart;
 import cn.liutils.ripple.ScriptNamespace;
 import cn.liutils.util.helper.DataPart;
 import cn.liutils.util.helper.PlayerData;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 /**
  * @author WeAthFolD
@@ -50,7 +56,7 @@ public class ShieldData extends DataPart {
 	
 	static float RECOVER_PER_TICK;
 	
-	static final int ATTACK_TIME_CD = 30;
+	static final int ATTACK_TIME_CD = 20;
 	
 	public static void init() {
 		ScriptNamespace ns = Dawn47.script.at("dawn47.shield");
@@ -169,10 +175,19 @@ public class ShieldData extends DataPart {
 				ShieldData sdata = ShieldData.get(player);
 				if(sdata.isActivated()) {
 					event.ammount = sdata.applyDamage(event.ammount);
+					
+					MinecraftForge.EVENT_BUS.post(new ShieldAttackEvent(player));
+					if(!player.worldObj.isRemote)
+						postEvent(player, player);
 				}
 			}
 		}
 		
+	}
+	
+	@RegNetworkCall(side = Side.CLIENT)
+	private static void postEvent(@Target EntityPlayer _player, @Instance EntityPlayer player) {
+		MinecraftForge.EVENT_BUS.post(new ShieldAttackEvent(player));
 	}
 
 }
