@@ -131,11 +131,9 @@ public class EntityLaserDelayed extends EntityAdvanced implements IAssociatePlay
 				ticksAfterHit = b >> 1;
 			}
 			
-			if(player == null) {
-				Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
-				if(e instanceof EntityPlayer) {
-					player = (EntityPlayer) e;
-				}
+			Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
+			if(e instanceof EntityPlayer) {
+				player = (EntityPlayer) e;
 			}
 		} else {
 			if(isHit)

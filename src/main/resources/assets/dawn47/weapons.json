@@ -9,7 +9,7 @@
     },
     "render": {
         "muzzleflash": {
-            "texture": "dawn47:textures/muzzle/muz_handgun.png" 
+            "texture": "dawn47:textures/muzzle/muz#3" 
         }
     }
 },
@@ -59,7 +59,7 @@
             "rotation": [0, 5, 0]
         },
         "muzzleflash": {
-            "texture": "dawn47:textures/muzzle/muz_laser.png",
+            "texture": "dawn47:textures/muzzle/muz_laser",
             "offset": [0.87, 0.3, 0.03],
             "size": 0.65
         }

@@ -37,7 +37,7 @@ public class DawnWeapon extends WeaponClassic {
 
 	public DawnWeapon() {
 		super();
-		setCreativeTab(Dawn47.cct);
+		//setCreativeTab(Dawn47.cct);
 	}
 	
 	@Override
