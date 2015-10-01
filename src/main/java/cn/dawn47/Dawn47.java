@@ -50,7 +50,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 @RegistrationMod(pkg = "cn.dawn47.", res = "dawn47", prefix = "dw_")
 public class Dawn47 {
 
-	public static final String VERSION = "1.0a3";
+	public static final String VERSION = "1.0beta1";
 	
 	@Instance("dawn47")
 	public static Dawn47 INSTANCE;
