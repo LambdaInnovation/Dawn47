@@ -16,6 +16,7 @@ package cn.dawn47.mob.entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import cn.annoreg.core.RegWithName;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.proxy.DWResources;
@@ -30,6 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @Registrant
 @RegEntity
+@RegWithName("RottenCreeper")
 @RegEntity.HasRender
 public class EntityRottenCreeper extends LIEntityMob {
 	
