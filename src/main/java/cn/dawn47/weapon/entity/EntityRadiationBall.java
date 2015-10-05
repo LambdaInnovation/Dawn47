@@ -2,20 +2,30 @@ package cn.dawn47.weapon.entity;
 
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.weapon.client.render.RendererRadiationBall;
 import cn.liutils.entityx.EntityAdvanced;
+import cn.liutils.entityx.EntityCallback;
 import cn.liutils.entityx.event.CollideEvent;
 import cn.liutils.entityx.event.CollideEvent.CollideHandler;
 import cn.liutils.entityx.handlers.Rigidbody;
 import cn.liutils.util.client.ViewOptimize.IAssociatePlayer;
 import cn.liutils.util.generic.MathUtils;
+import cn.liutils.util.helper.Motion3D;
 import cn.liutils.util.mc.EntitySelectors;
 import cn.liutils.util.mc.WorldUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -36,29 +46,56 @@ public class EntityRadiationBall extends EntityAdvanced implements IAssociatePla
 	public boolean isHit;
 	public int ticksAfterHit;
 
-	public EntityRadiationBall(World world, final EntityPlayer ent) {
-		super(world);
+	protected double VELOCITY=3;
+
+	public EntityRadiationBall(final EntityPlayer ent) {
+super(ent.worldObj);
 		
 		spawner = ent;
 		
-		addMotionHandler(new Rigidbody());
-		regEventHandler(new CollideHandler() {
+		this.setSize(0.7F, 0.2F);
+		
+		
+		
+		new Motion3D(ent, true).multiplyMotionBy(VELOCITY).applyToEntity(EntityRadiationBall.this);
+		
+		Rigidbody rb = new Rigidbody();
+		addMotionHandler(rb);
+		rb.entitySel = new IEntitySelector() {
+
+			@Override
+			public boolean isEntityApplicable(Entity entity) {
+				return entity != ent;
+			}
+			
+		};
+		
+		this.regEventHandler(new CollideHandler() {
 
 			@Override
 			public void onEvent(CollideEvent event) {
-				isHit = true;
-				final float range = 4;
 				
-				motionX = motionY = motionZ = 0;
-				List<Entity> list = WorldUtils.getEntities(EntityRadiationBall.this, range, 
-					new EntitySelectors.SelectorList(
-							EntitySelectors.living, 
-							new EntitySelectors.Exclusion(EntityRadiationBall.this, ent)
-				));
-				for(Entity e : list) {
-					float distance = EntityRadiationBall.this.getDistanceToEntity(e);
-					float damage = 8 * MathUtils.lerpf(0.4f, 1, 1 - distance / range);
-					e.attackEntityFrom(DamageSource.causePlayerDamage(ent), damage);
+				isHit = true;
+				
+				MovingObjectPosition res = event.result;
+				if(res.entityHit != null&&res.entityHit != spawner) {
+					res.entityHit.attackEntityFrom(DamageSource.causeMobDamage(ent), 12);
+					EntityRadiationBall.this.setDead();
+					return;
+				}
+				
+				executeAfter(new EntityCallback() {
+					@Override
+					public void execute(Entity target) {
+						setDead();
+					}
+				}, 20);
+				
+				if(res.typeOfHit == MovingObjectType.BLOCK) {
+					Vec3 v = res.hitVec;
+					posX = v.xCoord;
+					posY = v.yCoord;
+					posZ = v.zCoord;
 				}
 			}
 			
@@ -75,6 +112,7 @@ public class EntityRadiationBall extends EntityAdvanced implements IAssociatePla
 			public void onEvent(CollideEvent event) {
 				isHit = true;
 				motionX = motionY = motionZ = 0;
+				
 				//TODO: Spawn particles
 			}
 		});
@@ -83,12 +121,14 @@ public class EntityRadiationBall extends EntityAdvanced implements IAssociatePla
 	@Override
 	public void entityInit() {
 		super.entityInit();
+		
 		dataWatcher.addObject(15, Byte.valueOf((byte) 0));
 		dataWatcher.addObject(16, Integer.valueOf(0));
 	}
 	
 	@Override
 	public void onUpdate() {
+		System.out.println("oh");
 		if(isHit) {
 			++ticksAfterHit;
 			if(ticksAfterHit == 20)
@@ -123,6 +163,12 @@ public class EntityRadiationBall extends EntityAdvanced implements IAssociatePla
 			dataWatcher.updateObject(16, spawner.getEntityId());
 		}
 	}
+	
+	@Override
+	public boolean shouldRenderInPass(int pass){
+		return pass==1;
+		
+	}
 
 	@Override
 	public boolean canBeCollidedWith() {
@@ -141,5 +187,7 @@ public class EntityRadiationBall extends EntityAdvanced implements IAssociatePla
 	public EntityPlayer getPlayer() {
 		return spawner;
 	}
+	
+	
 
 }
