@@ -41,7 +41,10 @@ import cn.liutils.util.client.HudUtils;
 import cn.liutils.util.client.RenderUtils;
 import cn.liutils.util.generic.MathUtils;
 import cn.liutils.util.helper.GameTimer;
+import cn.weaponry.api.ItemInfo;
+import cn.weaponry.api.ItemInfoProxy;
 import cn.weaponry.impl.classic.WeaponClassic;
+import cn.weaponry.impl.generic.action.ScatterUpdater;
 
 /**
  * @author WeAthFolD
@@ -109,12 +112,33 @@ public class HudGui extends AuxGui {
 		
 		gui.getWidget("main/shield").transform.doesDraw = shieldActivated;
 		
+		Widget cross1 = gui.getWidget("crosshair/cross_1");
+		Widget cross2 = gui.getWidget("crosshair/cross_2");
+		Widget cross3 = gui.getWidget("crosshair/cross_3");
+		Widget cross4 = gui.getWidget("crosshair/cross_4");
+		
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() instanceof WeaponClassic) {
 			WeaponClassic weapon = (WeaponClassic) stack.getItem();
 			curAmmo = weapon.ammoStrategy.getAmmo(stack);
 			maxAmmo = weapon.ammoStrategy.getMaxAmmo(stack);
+			//crosshair
+			ItemInfo info = ItemInfoProxy.getInfo(player);
+			double scatter = ((ScatterUpdater)info.getAction("ScatterUpdater")).getCurrentScatter();
+			double crossfix = 50;
+			cross1.visible = true;
+			cross2.visible = true;
+			cross3.visible = true;
+			cross4.visible = true;
+			cross1.transform.pivotX = scatter * crossfix;
+			cross2.transform.pivotY = scatter * crossfix;
+			cross3.transform.pivotX = -scatter * crossfix;
+			cross4.transform.pivotY = -scatter * crossfix;
 		} else {
+			cross1.visible = false;
+			cross2.visible = false;
+			cross3.visible = false;
+			cross4.visible = false;
 			curAmmo = maxAmmo = -1;
 		}
 		
