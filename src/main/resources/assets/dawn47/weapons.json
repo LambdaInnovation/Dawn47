@@ -18,7 +18,7 @@
     "weapon": {
         "ammo": "ar_ammo",
         "maxAmmo": 30,
-        "shootInterval": 1,
+        "shootInterval": 2,
         "shootDamage": 4,
         "shootScatter": 0.08,
         "reloadTime": 30,
@@ -129,33 +129,5 @@
             "time": 600
         }
     }
-},
-
-"radiation_launcher": {
-    "itemType": "cn.dawn47.weapon.RadiationLauncher",
-    "weapon": {
-        "ammo": "laser_rifle_ammo",
-        "maxAmmo": 10,
-        "shootInterval": 30,
-        "shootDamage": 30,
-        "shootScatter": 0,
-        "reloadTime": 30,
-        "stockDamage": 5
-    },
-    "render": {
-        "t_std": {
-            "transform": [0.18, -0.08, 0]
-        },
-        "t_firstPerson": {
-            "transform": [-0.8, 0.2, -0.8],
-            "rotation": [5, -6, -10]
-        },
-        "muzzleflash": {
-            "texture": "dawn47:textures/muzzle/muz_radit",
-            "offset": [0.87, 0.3, 0.03],
-            "size": 0.9
-        }
-    }
 }
-
 }
