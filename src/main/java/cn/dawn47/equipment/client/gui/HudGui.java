@@ -124,7 +124,8 @@ public class HudGui extends AuxGui {
 			maxAmmo = weapon.ammoStrategy.getMaxAmmo(stack);
 			//crosshair
 			ItemInfo info = ItemInfoProxy.getInfo(player);
-			double scatter = ((ScatterUpdater)info.getAction("ScatterUpdater")).getCurrentScatter();
+			//double scatter = ((ScatterUpdater)info.getAction("ScatterUpdater")).getCurrentScatter();
+			double scatter = ((ScatterUpdater)info.getAction("ScatterUpdater")).getRenderScatter();
 			double crossfix = 50;
 			cross1.visible = true;
 			cross2.visible = true;
@@ -193,8 +194,8 @@ public class HudGui extends AuxGui {
 		
 		gui.resize(sr.getScaledWidth_double(), sr.getScaledHeight_double());
 		GL11.glPushMatrix();
-		if(!shieldActivated)
-			GL11.glTranslated(0, 20, 0);
+		/*if(!shieldActivated)
+			GL11.glTranslated(0, 20, 0);*/
 		gui.draw(0, 0);
 		GL11.glPopMatrix();
 	}
