@@ -65,6 +65,7 @@ public class HudGui extends AuxGui {
 	static ResourceLocation coverDepleted;
 	
 	static LIGui gui;
+	static double mainInitY;
 	static {
 		gui = CGUIDocLoader.load(new ResourceLocation("dawn47:guis/hud.xml"));
 		
@@ -74,13 +75,15 @@ public class HudGui extends AuxGui {
 		shieldEnergyBar = DWResources.texture("hud/shield_energy");
 		coverAttacked = DWResources.texture("hud/shield_attacked");
 		coverDepleted = DWResources.texture("hud/shield_depleted");
+		
+		mainInitY = gui.getWidget("main").transform.y;
 	}
 	
 	@RegAuxGui
 	public static HudGui instance = new HudGui();
 	
 	float shieldProg;
-	boolean shieldCooldown;
+	boolean shieldActivated, shieldCooldown;
 	int attackCooldown;
 	
 	int curAmmo, maxAmmo;
@@ -122,7 +125,7 @@ public class HudGui extends AuxGui {
 		
 		long time = GameTimer.getTime();
 		
-		boolean shieldActivated = sd.isActivated();
+		shieldActivated = sd.isActivated();
 		shieldProg = sd.getEnergy() / sd.getMaxEnergy();
 		attackCooldown = sd.getAttackCooldown();
 		shieldCooldown = !sd.canRecover();
@@ -171,7 +174,7 @@ public class HudGui extends AuxGui {
 			if(dt >= 0 && dt < BLEND_TIME) {
 				double alpha = curveAlpha.valueAt((double)dt / BLEND_TIME);
 				double scale = curveScale.valueAt((double)dt / BLEND_TIME);
-				System.out.println("Drawing " + dt + "/" + alpha + "/" + scale);
+				// System.out.println("Drawing " + dt + "/" + alpha + "/" + scale);
 				
 				GL11.glColor4d(1, 1, 1, alpha);
 				
@@ -191,10 +194,20 @@ public class HudGui extends AuxGui {
 		
 		gui.resize(sr.getScaledWidth_double(), sr.getScaledHeight_double());
 		GL11.glPushMatrix();
-		/*if(!shieldActivated)
-			GL11.glTranslated(0, 20, 0);*/
 		gui.draw(0, 0);
 		GL11.glPopMatrix();
+	}
+	
+	@GuiCallback("main")
+	public void udpateMainPos(Widget w, FrameEvent event) {
+		double prevY = w.transform.y;
+		if(shieldActivated) {
+			w.transform.y = mainInitY;
+		} else {
+			w.transform.y = mainInitY + 20;
+		}
+		if(prevY != w.transform.y)
+			w.dirty = true;
 	}
 	
 	@GuiCallback("main/area")
