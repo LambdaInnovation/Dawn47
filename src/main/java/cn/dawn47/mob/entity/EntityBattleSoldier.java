@@ -12,6 +12,18 @@
  */
 package cn.dawn47.mob.entity;
 
+import cn.annoreg.core.RegWithName;
+import cn.annoreg.core.Registrant;
+import cn.annoreg.mc.RegEntity;
+import cn.annoreg.mc.network.RegNetworkCall;
+import cn.annoreg.mc.s11n.StorageOption.Data;
+import cn.annoreg.mc.s11n.StorageOption.Instance;
+import cn.annoreg.mc.s11n.StorageOption.Target;
+import cn.dawn47.core.register.DWItems;
+import cn.dawn47.mob.client.render.RendererBattleSoldier;
+import cn.liutils.template.entity.LIEntityMob;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,18 +31,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import cn.annoreg.core.Registrant;
-import cn.annoreg.mc.RegEntity;
-import cn.annoreg.mc.network.RegNetworkCall;
-import cn.annoreg.mc.s11n.StorageOption.Data;
-import cn.annoreg.mc.s11n.StorageOption.Instance;
-import cn.annoreg.mc.s11n.StorageOption.Target;
-import cn.dawn47.core.proxy.DWResources;
-import cn.dawn47.core.register.DWItems;
-import cn.dawn47.mob.client.render.RendererBattleSoldier;
-import cn.liutils.template.entity.LIEntityMob;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author WeAthFolD
@@ -38,6 +38,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @Registrant
 @RegEntity
+@RegWithName("BattleSoldier")
 @RegEntity.HasRender
 public class EntityBattleSoldier extends LIEntityMob {
 	

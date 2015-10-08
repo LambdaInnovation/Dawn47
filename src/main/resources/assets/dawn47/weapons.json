@@ -9,7 +9,7 @@
     },
     "render": {
         "muzzleflash": {
-            "texture": "dawn47:textures/muzzle/muz_handgun.png" 
+            "texture": "dawn47:textures/muzzle/muz#3" 
         }
     }
 },
@@ -38,7 +38,8 @@
             "rotation": [3, -4, -10]
         },
         "muzzleflash": {
-            "offset": [0.58, 0.29, -0.01]
+            "offset": [0.58, 0.29, -0.01],
+            "size": 0.5
         }
     }
 },
@@ -65,9 +66,9 @@
             "rotation": [5, -6, -10]
         },
         "muzzleflash": {
-            "texture": "dawn47:textures/muzzle/muz_laser.png",
+            "texture": "dawn47:textures/muzzle/muz_laser",
             "offset": [0.87, 0.3, 0.03],
-            "size": 0.65
+            "size": 0.9
         }
     }
 },
@@ -136,7 +137,8 @@
             "rotation": [3, -4, -10]
         },
         "muzzleflash": {
-            "offset": [0.94, 0.175, 0]
+            "offset": [0.94, 0.175, 0],
+            "size": 0.55
         },
         "recoil": {
             "radius": 0.3,
