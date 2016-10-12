@@ -33,14 +33,14 @@ public class ClassicReloadStrategy implements ReloadStrategy {
     public boolean canReload(EntityPlayer player, ItemStack stack) {
         WeaponClassic weapon = (WeaponClassic) stack.getItem();
         AmmoStrategy ammoStrategy = weapon.ammoStrategy;
-        if(ammoStrategy.getAmmo(stack) == ammoStrategy.getMaxAmmo(stack)) {
+        if (ammoStrategy.getAmmo(stack) == ammoStrategy.getMaxAmmo(stack)) {
             return false;
         }
         
-        for(ItemStack i : player.inventory.mainInventory) {
-            if(i != null && i.getItem() == weapon.ammoType) {
-                if(i.isItemStackDamageable()) {
-                    if(i.getItemDamage() < i.getMaxDamage())
+        for (ItemStack i : player.inventory.mainInventory) {
+            if (i != null && i.getItem() == weapon.ammoType) {
+                if (i.isItemStackDamageable()) {
+                    if (i.getItemDamage() < i.getMaxDamage())
                         return true;
                 } else {
                     return true;
@@ -56,24 +56,28 @@ public class ClassicReloadStrategy implements ReloadStrategy {
         AmmoStrategy ammoStrategy = weapon.ammoStrategy;
         
         int need = ammoStrategy.getMaxAmmo(stack) - ammoStrategy.getAmmo(stack);
-        if(weapon.isBuckReload) need = Math.min(1, need);
+        if (weapon.isBuckReload) need = Math.min(1, need);
         
-        int need2 = need;
+        final int need2 = need;
         
         int i = 0;
-        while(need > 0 && i < player.inventory.mainInventory.length) {
+        while (need > 0 && i < player.inventory.mainInventory.length) {
             ItemStack s = player.inventory.mainInventory[i];
             if(s != null && s.getItem() == weapon.ammoType) {
                 if(s.isItemStackDamageable()) {
                     int con = Math.min(s.getMaxDamage() - s.getItemDamage(), need);
                     need -= con;
                     s.setItemDamage(s.getItemDamage() + con);
+                    if (s.getItemDamage() == s.getMaxDamage()) {
+                        player.inventory.mainInventory[i] = null;
+                    }
                 } else {
                     int con = Math.min(s.stackSize, need);
                     need -= con;
                     s.stackSize -= con;
-                    if(s.stackSize == 0)
+                    if(s.stackSize == 0) {
                         player.inventory.mainInventory[i] = null;
+                    }
                 }
             }
             ++i;
