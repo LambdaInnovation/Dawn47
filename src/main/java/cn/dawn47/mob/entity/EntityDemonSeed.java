@@ -28,11 +28,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @RegEntity
 @RegEntity.HasRender
 public class EntityDemonSeed extends EntityFlying implements IMob {
-	
-	@RegEntity.Render
-	@SideOnly(Side.CLIENT)
-	public static RendererDemonSeed renderer;
-	
+    
+    @RegEntity.Render
+    @SideOnly(Side.CLIENT)
+    public static RendererDemonSeed renderer;
+    
     public int courseChangeCooldown;
     public double waypointX;
     public double waypointY;
@@ -59,21 +59,21 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
     }
 
     @Override
-	protected void entityInit()
+    protected void entityInit()
     {
         super.entityInit();
         this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
     }
 
     @Override
-	protected void applyEntityAttributes()
+    protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
     @Override
-	protected void updateEntityActionState()
+    protected void updateEntityActionState()
     {
         if (!this.worldObj.isRemote && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
         {
@@ -141,15 +141,15 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
             {
                 if (this.attackCounter == 10)
                 {
-                	//this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
+                    //this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
                 }
 
                 ++this.attackCounter;
 
                 if (this.attackCounter == 20)
                 {
-                	this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
-                	EntitySeedSpit spit = new EntitySeedSpit(this.worldObj, this, d5, d6, d7);
+                    this.playSound("dawn47:entities.attack", 0.5F, 1.0F);
+                    EntitySeedSpit spit = new EntitySeedSpit(this.worldObj, this, d5, d6, d7);
                   //  entitylargefireball.field_92057_e = this.explosionStrength;
                     double d8 = 4.0D;
                     Vec3 vec3 = this.getLook(1.0F);
@@ -214,7 +214,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Returns the sound this mob makes while it's alive.
      */
     @Override
-	protected String getLivingSound()
+    protected String getLivingSound()
     {
         return "dawn47:entities.ds_howl";
     }
@@ -223,7 +223,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Returns the sound this mob makes when it is hurt.
      */
     @Override
-	protected String getHurtSound()
+    protected String getHurtSound()
     {
         return "dawn47:entities.ds_howl";
     }
@@ -232,7 +232,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Returns the sound this mob makes on death.
      */
     @Override
-	protected String getDeathSound()
+    protected String getDeathSound()
     {
         return "dawn47:entities.ds_death";
     }
@@ -241,7 +241,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Returns the volume for the sounds this mob makes.
      */
     @Override
-	protected float getSoundVolume()
+    protected float getSoundVolume()
     {
         return 10.0F;
     }
@@ -250,7 +250,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Checks if the entity's current position is a valid location to spawn this entity.
      */
     @Override
-	public boolean getCanSpawnHere()
+    public boolean getCanSpawnHere()
     {
         return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL;
     }
@@ -259,7 +259,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * Will return how many at most can spawn in a chunk at once.
      */
     @Override
-	public int getMaxSpawnedInChunk()
+    public int getMaxSpawnedInChunk()
     {
         return 32;
     }
@@ -268,7 +268,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-	public void writeEntityToNBT(NBTTagCompound tag)
+    public void writeEntityToNBT(NBTTagCompound tag)
     {
         super.writeEntityToNBT(tag);
     }
@@ -277,7 +277,7 @@ public class EntityDemonSeed extends EntityFlying implements IMob {
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-	public void readEntityFromNBT(NBTTagCompound tag)
+    public void readEntityFromNBT(NBTTagCompound tag)
     {
         super.readEntityFromNBT(tag);
     }

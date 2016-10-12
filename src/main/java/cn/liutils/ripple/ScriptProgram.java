@@ -28,7 +28,7 @@ public final class ScriptProgram {
     }
     
     public void loadScript(Reader input) {
-    	loadScript(input, "<stream>");
+        loadScript(input, "<stream>");
     }
     
     /**
@@ -49,7 +49,7 @@ public final class ScriptProgram {
      * Load the script from a ResourceLocation.
      */
     public void loadScript(ResourceLocation location) {
-    	loadScript(new InputStreamReader(RegistryUtils.getResourceStream(location)), location.toString());
+        loadScript(new InputStreamReader(RegistryUtils.getResourceStream(location)), location.toString());
     }
     
     public void setNativeFunction(Path path, NativeFunction func) {
@@ -62,7 +62,7 @@ public final class ScriptProgram {
     }
     
     public ScriptNamespace at(String path) {
-    	return new ScriptNamespace(this, new Path(path));
+        return new ScriptNamespace(this, new Path(path));
     }
     
     //may return an FunctionWrapper, Integer, Double, Boolean or null.

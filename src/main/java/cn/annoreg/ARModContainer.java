@@ -33,47 +33,47 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class ARModContainer extends DummyModContainer {
-	
-	public static Logger log = LogManager.getLogger("AnnotationRegistry");
-	public static final String MODID = "AnnoReg";
+    
+    public static Logger log = LogManager.getLogger("AnnotationRegistry");
+    public static final String MODID = "AnnoReg";
 
-	private static ModMetadata getModMetadata() {
+    private static ModMetadata getModMetadata() {
         HashMap def = new HashMap();
         def.put("name", MODID);
         def.put("version", "2.0a");
         return AnnoRegCorePlugin.mc.getMetadataForId(MODID, def);
-	}
-	
-	public ARModContainer() {
-	    super(getModMetadata());
-	}
-	
+    }
+    
+    public ARModContainer() {
+        super(getModMetadata());
+    }
+    
     @Override
     public boolean registerBus(EventBus bus, LoadController controller)
     {
-    	bus.register(this);
+        bus.register(this);
         return true;
     }
 
     @Subscribe
     public void constructMod(FMLConstructionEvent event) {
-    	log.info("AnnotationRegistry is loading.");
-    	
-    	//Get annotation information from forge asm data table.
-    	//This must be done before PreInit stage.
-    	ASMDataTable dt = event.getASMHarvestedData();
-    	RegistrationManager.INSTANCE.addRegistryTypes(dt.getAll("cn.annoreg.core.RegistryTypeDecl"));
-    	RegistrationManager.INSTANCE.annotationList(dt.getAll("cn.annoreg.core.Registrant"));
-    	RegistrationManager.INSTANCE.addAnnotationMod(dt.getAll("cn.annoreg.core.RegistrationMod"));
-    	
-    	// Well, might this be a bit of dirty?
-    	Future.init();
+        log.info("AnnotationRegistry is loading.");
+        
+        //Get annotation information from forge asm data table.
+        //This must be done before PreInit stage.
+        ASMDataTable dt = event.getASMHarvestedData();
+        RegistrationManager.INSTANCE.addRegistryTypes(dt.getAll("cn.annoreg.core.RegistryTypeDecl"));
+        RegistrationManager.INSTANCE.annotationList(dt.getAll("cn.annoreg.core.Registrant"));
+        RegistrationManager.INSTANCE.addAnnotationMod(dt.getAll("cn.annoreg.core.RegistrationMod"));
+        
+        // Well, might this be a bit of dirty?
+        Future.init();
     }
 
     @Subscribe
     public void loadComplete(FMLLoadCompleteEvent event) {
-    	log.info("AnnotationRegistry is loaded. Checking states.");
-    	RegistrationManager.INSTANCE.checkLoadState();
+        log.info("AnnotationRegistry is loaded. Checking states.");
+        RegistrationManager.INSTANCE.checkLoadState();
     }
     
 }

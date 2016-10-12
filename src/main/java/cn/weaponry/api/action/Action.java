@@ -28,110 +28,110 @@ import cn.weaponry.core.Weaponry;
  * @author WeAthFolD
  */
 public abstract class Action {
-	
-	/**
-	 * The itemInfo instance this Action is attached to. DONT MODIFY THIS FIELD!
-	 */
-	@CopyIgnored
-	public ItemInfo itemInfo;
-	
-	/**
-	 * Whether this action is being disposed(Needs to get removed).
-	 *  Do not directly change it, use finishAction() or abortAction().
-	 */
-	@CopyIgnored
-	public boolean disposed = false;
-	
-	int tick;
-	
-	public Action() {}
-	
-	public abstract String getName();
-	
-	//---Events implemented by subclasses
-	
-	public void onStart() {}
-	
-	public void onTick(int tick) {}
-	
-	public void onRenderTick() {}
-	
-	public void onNormalEnd() {}
-	
-	public void onAborted() {}
-	
-	/**
-	 * onFinalize will be called when either onNormalEnd and onAborted is called.
-	 */
-	public void onFinalize() {}
-	
-	//---
-	
-	//---Events to drive this action
-	
-	public final void startAction() {
-		tick = 0;
-		onStart();
-	}
-	
-	public final void finishAction() {
-		disposed = true;
-		onNormalEnd();
-		onFinalize();
-	}
-	
-	public final void abortAction() {
-		disposed = true;
-		onAborted();
-		onFinalize();
-	}
-	
-	public final void tickAction() {
-		++tick;
-		onTick(tick);
-	}
-	
-	//---Sandbox utils
-	public EntityPlayer getPlayer() {
-		return itemInfo.getPlayer();
-	}
-	
-	public World getWorld() {
-		return getPlayer().worldObj;
-	}
-	
-	public ItemStack getStack() {
-		return itemInfo.getStack();
-	}
-	
-	public NBTTagCompound getData() {
-		return itemInfo.dataTag();
-	}
-	
-	public boolean isRemote() {
-		return getPlayer().worldObj.isRemote;
-	}
-	
-	public int getTick() {
-		return tick;
-	}
-	
-	//---
-	public <T extends Action> T copy() {
-		try {
-			T ret = (T) getClass().newInstance();
-			for(Field f : getClass().getFields()) {
-				if(!f.isAnnotationPresent(CopyIgnored.class) && TypeHelper.isTypeSupported(f.getType())) {
-					TypeHelper.set(f, ret, f.get(this));
-				}
-			}
-			return ret;
-		} catch(Exception e) {
-			Weaponry.log.error("Error copying action " + getName());
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public @interface CopyIgnored {}
+    
+    /**
+     * The itemInfo instance this Action is attached to. DONT MODIFY THIS FIELD!
+     */
+    @CopyIgnored
+    public ItemInfo itemInfo;
+    
+    /**
+     * Whether this action is being disposed(Needs to get removed).
+     *  Do not directly change it, use finishAction() or abortAction().
+     */
+    @CopyIgnored
+    public boolean disposed = false;
+    
+    int tick;
+    
+    public Action() {}
+    
+    public abstract String getName();
+    
+    //---Events implemented by subclasses
+    
+    public void onStart() {}
+    
+    public void onTick(int tick) {}
+    
+    public void onRenderTick() {}
+    
+    public void onNormalEnd() {}
+    
+    public void onAborted() {}
+    
+    /**
+     * onFinalize will be called when either onNormalEnd and onAborted is called.
+     */
+    public void onFinalize() {}
+    
+    //---
+    
+    //---Events to drive this action
+    
+    public final void startAction() {
+        tick = 0;
+        onStart();
+    }
+    
+    public final void finishAction() {
+        disposed = true;
+        onNormalEnd();
+        onFinalize();
+    }
+    
+    public final void abortAction() {
+        disposed = true;
+        onAborted();
+        onFinalize();
+    }
+    
+    public final void tickAction() {
+        ++tick;
+        onTick(tick);
+    }
+    
+    //---Sandbox utils
+    public EntityPlayer getPlayer() {
+        return itemInfo.getPlayer();
+    }
+    
+    public World getWorld() {
+        return getPlayer().worldObj;
+    }
+    
+    public ItemStack getStack() {
+        return itemInfo.getStack();
+    }
+    
+    public NBTTagCompound getData() {
+        return itemInfo.dataTag();
+    }
+    
+    public boolean isRemote() {
+        return getPlayer().worldObj.isRemote;
+    }
+    
+    public int getTick() {
+        return tick;
+    }
+    
+    //---
+    public <T extends Action> T copy() {
+        try {
+            T ret = (T) getClass().newInstance();
+            for(Field f : getClass().getFields()) {
+                if(!f.isAnnotationPresent(CopyIgnored.class) && TypeHelper.isTypeSupported(f.getType())) {
+                    TypeHelper.set(f, ret, f.get(this));
+                }
+            }
+            return ret;
+        } catch(Exception e) {
+            Weaponry.log.error("Error copying action " + getName());
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public @interface CopyIgnored {}
 }

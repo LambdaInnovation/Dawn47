@@ -23,16 +23,16 @@ import cn.dawn47.core.register.DWItems;
  */
 public class DWCreativeTab extends CreativeTabs {
 
-	/**
-	 * @param label
-	 */
-	public DWCreativeTab(String label) {
-		super(label);
-	}
+    /**
+     * @param label
+     */
+    public DWCreativeTab(String label) {
+        super(label);
+    }
 
-	@Override
-	public Item getTabIconItem() {
-		return DWItems.logo;
-	}
+    @Override
+    public Item getTabIconItem() {
+        return DWItems.logo;
+    }
 
 }

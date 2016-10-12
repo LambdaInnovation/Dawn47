@@ -28,38 +28,38 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Configurable {
 
-	/**
-	 * Category of the settings shown in the configuration file.
-	 */
-	String category() default "general";
+    /**
+     * Category of the settings shown in the configuration file.
+     */
+    String category() default "general";
 
-	/**
-	 * The name of the settings.
-	 */
-	String key();
+    /**
+     * The name of the settings.
+     */
+    String key();
 
-	/**
-	 * Default value of the setting.
-	 */
-	String defValue() default "";
+    /**
+     * Default value of the setting.
+     */
+    String defValue() default "";
 
-	/**
-	 * Default value of the setting, as an integer.
-	 */
-	int defValueInt() default 0;
-	
-	/**
-	 * Default value of the setting, as a boolean.
-	 */
-	boolean defValueBool() default false;
+    /**
+     * Default value of the setting, as an integer.
+     */
+    int defValueInt() default 0;
+    
+    /**
+     * Default value of the setting, as a boolean.
+     */
+    boolean defValueBool() default false;
 
-	/**
-	 * Default value of the setting, as a double.
-	 */
-	double defValueDouble() default 0.0;
-	
-	/**
-	 * Comment of the setting.
-	 */
-	String comment() default "";
+    /**
+     * Default value of the setting, as a double.
+     */
+    double defValueDouble() default 0.0;
+    
+    /**
+     * Comment of the setting.
+     */
+    String comment() default "";
 }

@@ -24,23 +24,23 @@ import cn.liutils.util.helper.Color;
  * @author WeAthFolD
  */
 public class Outline extends Component {
-	
-	public Color color = Color.WHITE();
-	public float lineWidth = 2;
+    
+    public Color color = Color.WHITE();
+    public float lineWidth = 2;
 
-	public Outline() {
-		super("Outline");
-		
-		addEventHandler(new FrameEventHandler() {
+    public Outline() {
+        super("Outline");
+        
+        addEventHandler(new FrameEventHandler() {
 
-			@Override
-			public void handleEvent(Widget w, FrameEvent event) {
-				color.bind();
-				HudUtils.drawRectOutline(0, 0, w.transform.width, w.transform.height, lineWidth);
-				GL11.glColor4f(1, 1, 1, 1);
-			}
-			
-		});
-	}
+            @Override
+            public void handleEvent(Widget w, FrameEvent event) {
+                color.bind();
+                HudUtils.drawRectOutline(0, 0, w.transform.width, w.transform.height, lineWidth);
+                GL11.glColor4f(1, 1, 1, 1);
+            }
+            
+        });
+    }
 
 }

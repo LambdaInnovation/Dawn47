@@ -20,29 +20,29 @@ import net.minecraftforge.oredict.OreDictionary;
  * @author WeAthFolD
  */
 public class SmeltingRegistry implements IRecipeRegistry {
-	
-	public static final SmeltingRegistry INSTANCE = new SmeltingRegistry();
-	
-	private SmeltingRegistry() {}
+    
+    public static final SmeltingRegistry INSTANCE = new SmeltingRegistry();
+    
+    private SmeltingRegistry() {}
 
-	/* (non-Javadoc)
-	 * @see cn.liutils.crafting.IRecipeRegistry#register(java.lang.String, net.minecraft.item.ItemStack, java.lang.Object[], int, int)
-	 */
-	@Override
-	public void register(String type, ItemStack output, Object[] input,
-			int width, int height, float experience) {
-		if(width != 1 || height != 1) {
-			throw new IllegalArgumentException("You can only specify 1 input for smelting!");
-		}
-		
-		ItemStack in;
-		if(input[0] instanceof String) {
-			in = OreDictionary.getOres((String) input[0]).get(0);
-		} else {
-			in = (ItemStack) input[0];
-		}
-		
-		GameRegistry.addSmelting(in, output, experience);
-	}
+    /* (non-Javadoc)
+     * @see cn.liutils.crafting.IRecipeRegistry#register(java.lang.String, net.minecraft.item.ItemStack, java.lang.Object[], int, int)
+     */
+    @Override
+    public void register(String type, ItemStack output, Object[] input,
+            int width, int height, float experience) {
+        if(width != 1 || height != 1) {
+            throw new IllegalArgumentException("You can only specify 1 input for smelting!");
+        }
+        
+        ItemStack in;
+        if(input[0] instanceof String) {
+            in = OreDictionary.getOres((String) input[0]).get(0);
+        } else {
+            in = (ItemStack) input[0];
+        }
+        
+        GameRegistry.addSmelting(in, output, experience);
+    }
 
 }

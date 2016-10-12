@@ -26,29 +26,29 @@ import cn.annoreg.core.RegistryTypeDecl;
 @RegistryTypeDecl
 public class InitRegistration extends RegistrationClassOrField<RegInit> {
 
-	public InitRegistration() {
-		super(RegInit.class, "SubmoduleInit");
-		this.setLoadStage(LoadStage.INIT);
-	}
-	
-	private boolean onSide(RegInit anno) {
-		return FMLCommonHandler.instance().getSide().isClient() ||
-				anno.side() != RegInit.Side.CLIENT_ONLY;
-	}
+    public InitRegistration() {
+        super(RegInit.class, "SubmoduleInit");
+        this.setLoadStage(LoadStage.INIT);
+    }
+    
+    private boolean onSide(RegInit anno) {
+        return FMLCommonHandler.instance().getSide().isClient() ||
+                anno.side() != RegInit.Side.CLIENT_ONLY;
+    }
 
-	@Override
-	protected void register(Class<?> value, RegInit anno) throws Exception {
-		if (!onSide(anno))
-			return;
-		Method method = value.getDeclaredMethod("init");
-		method.invoke(null);
-	}
+    @Override
+    protected void register(Class<?> value, RegInit anno) throws Exception {
+        if (!onSide(anno))
+            return;
+        Method method = value.getDeclaredMethod("init");
+        method.invoke(null);
+    }
 
-	@Override
-	protected void register(Object value, RegInit anno, String field) throws Exception {
-		if (!onSide(anno))
-			return;
-		Method method = value.getClass().getDeclaredMethod("init");
-		method.invoke(value);
-	}
+    @Override
+    protected void register(Object value, RegInit anno, String field) throws Exception {
+        if (!onSide(anno))
+            return;
+        Method method = value.getClass().getDeclaredMethod("init");
+        method.invoke(value);
+    }
 }

@@ -25,8 +25,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GuiCallback {
-	/**
-	 * Provide the path for looking up the widget.
-	 */
-	String value() default "";
+    /**
+     * Provide the path for looking up the widget.
+     */
+    String value() default "";
 }

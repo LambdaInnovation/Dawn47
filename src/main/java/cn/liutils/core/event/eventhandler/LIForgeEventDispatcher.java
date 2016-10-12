@@ -17,11 +17,11 @@ package cn.liutils.core.event.eventhandler;
  */
 public class LIForgeEventDispatcher {
 
-	/**
-	 * 
-	 */
-	public LIForgeEventDispatcher() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * 
+     */
+    public LIForgeEventDispatcher() {
+        // TODO Auto-generated constructor stub
+    }
 
 }

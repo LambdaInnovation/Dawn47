@@ -39,33 +39,33 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class CommandOpen extends LICommandBase {
 
-	@Override
-	public String getCommandName() {
-		return "cgui";
-	}
+    @Override
+    public String getCommandName() {
+        return "cgui";
+    }
 
-	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
-		return CGUILang.commUsage();
-	}
+    @Override
+    public String getCommandUsage(ICommandSender p_71518_1_) {
+        return CGUILang.commUsage();
+    }
 
-	@Override
-	public void processCommand(ICommandSender ics, String[] args) {
-		if(args.length >= 1) {
-			String path = "cgui/" + args[0];
-			File file = new File(path);
-			String xml = "";
-			try {
-				xml = IOUtils.toString(new FileInputStream(file));
-			} catch (Exception e) {
-				this.sendChat(ics, CGUILang.commFileNotFound());
-				return;
-			}
-			LIGui gui = CGUIDocLoader.load(xml);
-			Minecraft.getMinecraft().displayGuiScreen(new GuiEdit(path, gui));
-		} else {
-			Minecraft.getMinecraft().displayGuiScreen(new GuiEdit());
-		}
-	}
+    @Override
+    public void processCommand(ICommandSender ics, String[] args) {
+        if(args.length >= 1) {
+            String path = "cgui/" + args[0];
+            File file = new File(path);
+            String xml = "";
+            try {
+                xml = IOUtils.toString(new FileInputStream(file));
+            } catch (Exception e) {
+                this.sendChat(ics, CGUILang.commFileNotFound());
+                return;
+            }
+            LIGui gui = CGUIDocLoader.load(xml);
+            Minecraft.getMinecraft().displayGuiScreen(new GuiEdit(path, gui));
+        } else {
+            Minecraft.getMinecraft().displayGuiScreen(new GuiEdit());
+        }
+    }
 
 }

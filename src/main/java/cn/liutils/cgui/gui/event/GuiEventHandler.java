@@ -20,18 +20,18 @@ import cn.liutils.cgui.gui.Widget;
  * @author WeAthFolD
  */
 public abstract class GuiEventHandler<T extends GuiEvent> implements IGuiEventHandler<T> {
-	
-	private final Class<? extends GuiEvent> eventClass;
-	
-	public GuiEventHandler(Class<? extends GuiEvent> _eventClass) {
-		eventClass = _eventClass;
-		Widget w;
-	}
-	
-	public abstract void handleEvent(Widget w, T event);
-	
-	public Class <? extends GuiEvent> getEventClass() {
-		return eventClass;
-	}
-	
+    
+    private final Class<? extends GuiEvent> eventClass;
+    
+    public GuiEventHandler(Class<? extends GuiEvent> _eventClass) {
+        eventClass = _eventClass;
+        Widget w;
+    }
+    
+    public abstract void handleEvent(Widget w, T event);
+    
+    public Class <? extends GuiEvent> getEventClass() {
+        return eventClass;
+    }
+    
 }

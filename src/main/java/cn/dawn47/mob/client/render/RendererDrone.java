@@ -27,25 +27,25 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RendererDrone extends RenderLiving {
 
-	/**
-	 * @param par1ModelBase
-	 * @param par2
-	 */
-	public RendererDrone() {
-		super(new ModelDrone(), 0.6F);
-	}
-	
-	@Override
+    /**
+     * @param par1ModelBase
+     * @param par2
+     */
+    public RendererDrone() {
+        super(new ModelDrone(), 0.6F);
+    }
+    
+    @Override
     public void doRender(EntityLiving a, double b, double c, double d, float e, float f) {
-		EntityDrone drone = (EntityDrone) a;
-		if(drone.updated) {
-			super.doRender(a, b, c, d, e, f);
-		}
+        EntityDrone drone = (EntityDrone) a;
+        if(drone.updated) {
+            super.doRender(a, b, c, d, e, f);
+        }
     }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return DWResources.DRONE_PATH[((EntityDrone)entity).style];
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return DWResources.DRONE_PATH[((EntityDrone)entity).style];
+    }
 
 }

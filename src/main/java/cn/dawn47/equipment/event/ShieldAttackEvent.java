@@ -20,11 +20,11 @@ import net.minecraft.entity.player.EntityPlayer;
  * @author WeAthFolD
  */
 public class ShieldAttackEvent extends Event {
-	
-	public final EntityPlayer player;
-	
-	public ShieldAttackEvent(EntityPlayer _player) {
-		player = _player;
-	}
-	
+    
+    public final EntityPlayer player;
+    
+    public ShieldAttackEvent(EntityPlayer _player) {
+        player = _player;
+    }
+    
 }

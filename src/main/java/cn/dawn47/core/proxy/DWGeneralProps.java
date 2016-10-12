@@ -19,6 +19,6 @@ package cn.dawn47.core.proxy;
  */
 public class DWGeneralProps {
 
-	public static final String NET_CHANNEL = "D47_NET";
-	
+    public static final String NET_CHANNEL = "D47_NET";
+    
 }

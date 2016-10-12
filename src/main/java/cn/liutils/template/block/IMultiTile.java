@@ -19,7 +19,7 @@ package cn.liutils.template.block;
  */
 public interface IMultiTile {
 
-	InfoBlockMulti getBlockInfo();
-	void setBlockInfo(InfoBlockMulti i);
-	
+    InfoBlockMulti getBlockInfo();
+    void setBlockInfo(InfoBlockMulti i);
+    
 }

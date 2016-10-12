@@ -32,123 +32,123 @@ import cn.liutils.util.generic.VecUtils;
  */
 public abstract class RendererSidedCube extends TileEntitySpecialRenderer {
 
-	/** The minimum X value for rendering (default 0.0). */
-	private double minX;
+    /** The minimum X value for rendering (default 0.0). */
+    private double minX;
 
-	/** The maximum X value for rendering (default 1.0). */
-	private double maxX;
+    /** The maximum X value for rendering (default 1.0). */
+    private double maxX;
 
-	/** The minimum Y value for rendering (default 0.0). */
-	private double minY;
+    /** The minimum Y value for rendering (default 0.0). */
+    private double minY;
 
-	/** The maximum Y value for rendering (default 1.0). */
-	private double maxY;
+    /** The maximum Y value for rendering (default 1.0). */
+    private double maxY;
 
-	/** The minimum Z value for rendering (default 0.0). */
-	private double minZ;
+    /** The minimum Z value for rendering (default 0.0). */
+    private double minZ;
 
-	/** The maximum Z value for rendering (default 1.0). */
-	private double maxZ;
+    /** The maximum Z value for rendering (default 1.0). */
+    private double maxZ;
 
-	protected Block block;
+    protected Block block;
 
-	public RendererSidedCube(Block blockType) {
-		block = blockType;
-	}
+    public RendererSidedCube(Block blockType) {
+        block = blockType;
+    }
 
-	public static void addVertex(Vec3 vec3, double texU, double texV) {
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord,
-				texU, texV);
-	}
+    public static void addVertex(Vec3 vec3, double texU, double texV) {
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord,
+                texU, texV);
+    }
 
-	protected void setBound(Block block) {
-		minX = block.getBlockBoundsMinX();
-		minY = block.getBlockBoundsMinY();
-		minZ = block.getBlockBoundsMinZ();
-		maxX = block.getBlockBoundsMaxX();
-		maxY = block.getBlockBoundsMaxY();
-		maxZ = block.getBlockBoundsMaxZ();
-	}
+    protected void setBound(Block block) {
+        minX = block.getBlockBoundsMinX();
+        minY = block.getBlockBoundsMinY();
+        minZ = block.getBlockBoundsMinZ();
+        maxX = block.getBlockBoundsMaxX();
+        maxY = block.getBlockBoundsMaxY();
+        maxZ = block.getBlockBoundsMaxZ();
+    }
 
-	public abstract ResourceLocation getTexture(TileEntity te, int side, int metadata);
+    public abstract ResourceLocation getTexture(TileEntity te, int side, int metadata);
 
-	public void doRender(TileEntity tileEntity, double x, double y, double z,
-			float f) {
-		Tessellator t = Tessellator.instance;
-		int var5 = tileEntity.getBlockMetadata();
-		block.setBlockBoundsBasedOnState(tileEntity.getWorldObj(),tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-		setBound(block);
+    public void doRender(TileEntity tileEntity, double x, double y, double z,
+            float f) {
+        Tessellator t = Tessellator.instance;
+        int var5 = tileEntity.getBlockMetadata();
+        block.setBlockBoundsBasedOnState(tileEntity.getWorldObj(),tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        setBound(block);
 
-		Vec3 v1, v2, v3, v4, v5, v6, v7, v8;
-		v1 = VecUtils.vec(minX, minY, minZ);
-		v2 = VecUtils.vec(minX, minY, maxZ);
-		v3 = VecUtils.vec(minX, maxY, maxZ);
-		v4 = VecUtils.vec(minX, maxY, minZ);
+        Vec3 v1, v2, v3, v4, v5, v6, v7, v8;
+        v1 = VecUtils.vec(minX, minY, minZ);
+        v2 = VecUtils.vec(minX, minY, maxZ);
+        v3 = VecUtils.vec(minX, maxY, maxZ);
+        v4 = VecUtils.vec(minX, maxY, minZ);
 
-		v5 = VecUtils.vec(maxX, minY, minZ);
-		v6 = VecUtils.vec(maxX, minY, maxZ);
-		v7 = VecUtils.vec(maxX, maxY, maxZ);
-		v8 = VecUtils.vec(maxX, maxY, minZ);
+        v5 = VecUtils.vec(maxX, minY, minZ);
+        v6 = VecUtils.vec(maxX, minY, maxZ);
+        v7 = VecUtils.vec(maxX, maxY, maxZ);
+        v8 = VecUtils.vec(maxX, maxY, minZ);
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+        GL11.glPushMatrix();
+        GL11.glTranslated(x, y, z);
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 4, var5));
-		t.startDrawingQuads();
-		t.setNormal(-1, 0, 0);
-		addVertex(v1, 0, 1);
-		addVertex(v2, 1, 1);
-		addVertex(v3, 1, 0);
-		addVertex(v4, 0, 0);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 4, var5));
+        t.startDrawingQuads();
+        t.setNormal(-1, 0, 0);
+        addVertex(v1, 0, 1);
+        addVertex(v2, 1, 1);
+        addVertex(v3, 1, 0);
+        addVertex(v4, 0, 0);
+        t.draw();
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 5, var5));
-		t.startDrawingQuads();
-		t.setNormal(1, 0, 0);
-		addVertex(v8, 1, 0);
-		addVertex(v7, 0, 0);
-		addVertex(v6, 0, 1);
-		addVertex(v5, 1, 1);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 5, var5));
+        t.startDrawingQuads();
+        t.setNormal(1, 0, 0);
+        addVertex(v8, 1, 0);
+        addVertex(v7, 0, 0);
+        addVertex(v6, 0, 1);
+        addVertex(v5, 1, 1);
+        t.draw();
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 2, var5));
-		t.startDrawingQuads();
-		t.setNormal(0, 0, -1);
-		addVertex(v4, 1, 0);
-		addVertex(v8, 0, 0);
-		addVertex(v5, 0, 1);
-		addVertex(v1, 1, 1);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 2, var5));
+        t.startDrawingQuads();
+        t.setNormal(0, 0, -1);
+        addVertex(v4, 1, 0);
+        addVertex(v8, 0, 0);
+        addVertex(v5, 0, 1);
+        addVertex(v1, 1, 1);
+        t.draw();
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 3, var5));
-		t.startDrawingQuads();
-		t.setNormal(0, 0, 1);
-		addVertex(v3, 0, 0);
-		addVertex(v2, 0, 1);
-		addVertex(v6, 1, 1);
-		addVertex(v7, 1, 0);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 3, var5));
+        t.startDrawingQuads();
+        t.setNormal(0, 0, 1);
+        addVertex(v3, 0, 0);
+        addVertex(v2, 0, 1);
+        addVertex(v6, 1, 1);
+        addVertex(v7, 1, 0);
+        t.draw();
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 1, var5));
-		t.startDrawingQuads();
-		t.setNormal(0, 1, 0);
-		addVertex(v3, 0, 0);
-		addVertex(v7, 1, 0);
-		addVertex(v8, 1, 1);
-		addVertex(v4, 0, 1);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 1, var5));
+        t.startDrawingQuads();
+        t.setNormal(0, 1, 0);
+        addVertex(v3, 0, 0);
+        addVertex(v7, 1, 0);
+        addVertex(v8, 1, 1);
+        addVertex(v4, 0, 1);
+        t.draw();
 
-		RenderUtils.loadTexture(getTexture(tileEntity, 0, var5));
-		t.startDrawingQuads();
-		t.setNormal(0, -1, 0);
-		addVertex(v1, 0, 1);
-		addVertex(v5, 1, 1);
-		addVertex(v6, 1, 0);
-		addVertex(v2, 0, 0);
-		t.draw();
+        RenderUtils.loadTexture(getTexture(tileEntity, 0, var5));
+        t.startDrawingQuads();
+        t.setNormal(0, -1, 0);
+        addVertex(v1, 0, 1);
+        addVertex(v5, 1, 1);
+        addVertex(v6, 1, 0);
+        addVertex(v2, 0, 0);
+        t.draw();
 
-		GL11.glPopMatrix();
-	}
+        GL11.glPopMatrix();
+    }
 
 }

@@ -25,17 +25,17 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RenderRottenCreeper extends RenderLiving {
 
-	/**
-	 * @param par1ModelBase
-	 * @param par2
-	 */
-	public RenderRottenCreeper() {
-		super(new ModelRottenCreeper(), 0.6F);
-	}
+    /**
+     * @param par1ModelBase
+     * @param par2
+     */
+    public RenderRottenCreeper() {
+        super(new ModelRottenCreeper(), 0.6F);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return DWResources.ROTTEN_CREEPER_MOB;
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return DWResources.ROTTEN_CREEPER_MOB;
+    }
 
 }

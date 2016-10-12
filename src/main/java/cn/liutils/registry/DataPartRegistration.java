@@ -25,22 +25,22 @@ import cn.liutils.util.helper.PlayerData;
 @RegistryTypeDecl
 public class DataPartRegistration extends RegistryType {
 
-	public DataPartRegistration() {
-		super(RegDataPart.class, "ac_DataPart");
-		setLoadStage(LoadStage.INIT);
-	}
+    public DataPartRegistration() {
+        super(RegDataPart.class, "ac_DataPart");
+        setLoadStage(LoadStage.INIT);
+    }
 
-	@Override
-	public boolean registerClass(AnnotationData data) throws Exception {
-		Class c = data.getTheClass();
-		RegDataPart anno = data.getAnnotation();
-		PlayerData.register(anno.value(), c);
-		return true;
-	}
+    @Override
+    public boolean registerClass(AnnotationData data) throws Exception {
+        Class c = data.getTheClass();
+        RegDataPart anno = data.getAnnotation();
+        PlayerData.register(anno.value(), c);
+        return true;
+    }
 
-	@Override
-	public boolean registerField(AnnotationData data) throws Exception {
-		throw new RuntimeException();
-	}
+    @Override
+    public boolean registerField(AnnotationData data) throws Exception {
+        throw new RuntimeException();
+    }
 
 }

@@ -20,17 +20,17 @@ import net.minecraft.item.ItemStack;
  * @author WeAthFolD
  */
 public interface AmmoStrategy {
-	
-	int getAmmo(ItemStack stack);
-	
-	int getMaxAmmo(ItemStack stack);
-	
-	void setAmmo(ItemStack stack, int n);
-	
-	boolean canConsume(EntityPlayer player, ItemStack stack, int amt);
-	
-	boolean consumeAmmo(EntityPlayer player, ItemStack stack, int amt);
-	
-	String getDescription(ItemStack stack);
-	
+    
+    int getAmmo(ItemStack stack);
+    
+    int getMaxAmmo(ItemStack stack);
+    
+    void setAmmo(ItemStack stack, int n);
+    
+    boolean canConsume(EntityPlayer player, ItemStack stack, int amt);
+    
+    boolean consumeAmmo(EntityPlayer player, ItemStack stack, int amt);
+    
+    String getDescription(ItemStack stack);
+    
 }

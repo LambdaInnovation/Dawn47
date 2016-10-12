@@ -15,16 +15,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Registrant
 @RegEventHandler(Bus.Forge)
 public class DWRenderOverlayListener {
-	
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
+    
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Pre event) {
-		//System.out.println("updating");
-		if(event.type == ElementType.CROSSHAIRS){
-			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-			if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof WeaponClassic)
-				event.setCanceled(true);
-		}
+        //System.out.println("updating");
+        if(event.type == ElementType.CROSSHAIRS){
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof WeaponClassic)
+                event.setCanceled(true);
+        }
     }
 
 }

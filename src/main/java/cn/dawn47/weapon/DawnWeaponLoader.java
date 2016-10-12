@@ -31,60 +31,60 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class DawnWeaponLoader extends ItemLoader<DawnWeapon> {
 
-	public DawnWeaponLoader() {
-		additionalRules.add(new ClassicWeaponRule());
-		additionalRules.add(new Rule());
-		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			addRenderRule();
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private void addRenderRule() {
-		additionalRules.add(new CustomRenderRule());
-	}
-	
-	private String getWeaponID(String name, ObjectNamespace ns) {
-		String first = ns.getString("weapon", "id");
-		return first != null ? first : ns.name;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private class CustomRenderRule extends ClassicRenderRule {
-		protected WavefrontObject loadModel() {
-			WavefrontObject sup = super.loadModel();
-			return sup != null ? sup : new WavefrontObject(new ResourceLocation("dawn47:models/" + getWeaponID(name, ns) + ".obj"));
-		}
-		
-		protected ResourceLocation loadTexture() {
-			ResourceLocation tex = super.loadTexture();
-			return tex != null ? tex : new ResourceLocation("dawn47:textures/models/" + getWeaponID(name, ns) + ".png");
-		}
-	}
-	
-	
-	private class Rule extends ItemLoadRule<DawnWeapon> {
+    public DawnWeaponLoader() {
+        additionalRules.add(new ClassicWeaponRule());
+        additionalRules.add(new Rule());
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            addRenderRule();
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private void addRenderRule() {
+        additionalRules.add(new CustomRenderRule());
+    }
+    
+    private String getWeaponID(String name, ObjectNamespace ns) {
+        String first = ns.getString("weapon", "id");
+        return first != null ? first : ns.name;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private class CustomRenderRule extends ClassicRenderRule {
+        protected WavefrontObject loadModel() {
+            WavefrontObject sup = super.loadModel();
+            return sup != null ? sup : new WavefrontObject(new ResourceLocation("dawn47:models/" + getWeaponID(name, ns) + ".obj"));
+        }
+        
+        protected ResourceLocation loadTexture() {
+            ResourceLocation tex = super.loadTexture();
+            return tex != null ? tex : new ResourceLocation("dawn47:textures/models/" + getWeaponID(name, ns) + ".png");
+        }
+    }
+    
+    
+    private class Rule extends ItemLoadRule<DawnWeapon> {
 
-		@Override
-		public void load(DawnWeapon item,
-				cn.liutils.loading.Loader.ObjectNamespace ns, String name)
-				throws Exception {
-			String id = getWeaponID(name, ns);
-			
-			//Must be guaranteed that MiscItems are loaded first.
-			item.setUnlocalizedName("dw_" + id);
-			item.setTextureName("dawn47:" + id);
-			item.ammoType = (Item) DWItems.itemLoader.getObject(ns.getString("weapon", "ammo"));
-			
-			//Load sounds
-			item.shootSound = "dawn47:weapons." + id + ".fire";
-			item.reloadEndSound = item.jamSound = "dawn47:weapons.abort";
-			item.reloadStartSound = "dawn47:weapons." + id + ".magout";
-			item.reloadEndSound = "dawn47:weapons." + id + ".magin";
-			
-			item.stockDamage = ns.getFloat("weapon", "stockDamage");
-		}
-		
-	}
-	
+        @Override
+        public void load(DawnWeapon item,
+                cn.liutils.loading.Loader.ObjectNamespace ns, String name)
+                throws Exception {
+            String id = getWeaponID(name, ns);
+            
+            //Must be guaranteed that MiscItems are loaded first.
+            item.setUnlocalizedName("dw_" + id);
+            item.setTextureName("dawn47:" + id);
+            item.ammoType = (Item) DWItems.itemLoader.getObject(ns.getString("weapon", "ammo"));
+            
+            //Load sounds
+            item.shootSound = "dawn47:weapons." + id + ".fire";
+            item.reloadEndSound = item.jamSound = "dawn47:weapons.abort";
+            item.reloadStartSound = "dawn47:weapons." + id + ".magout";
+            item.reloadEndSound = "dawn47:weapons." + id + ".magin";
+            
+            item.stockDamage = ns.getFloat("weapon", "stockDamage");
+        }
+        
+    }
+    
 }

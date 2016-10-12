@@ -6,9 +6,9 @@ import cn.liutils.cgui.gui.Widget;
 import net.minecraft.util.ResourceLocation;
 
 public interface IEditorProp<T> {
-	
-	ResourceLocation getIcon();
-	Widget createPropEditor(T object);
-	List<IEditorProp> getChilds();
-	
+    
+    ResourceLocation getIcon();
+    Widget createPropEditor(T object);
+    List<IEditorProp> getChilds();
+    
 }

@@ -18,9 +18,9 @@ import cn.dawn47.core.item.DWGenericItem;
  * @author WeAthFolD
  */
 public class ItemElectronicBalancer extends DWGenericItem {
-	
-	public ItemElectronicBalancer() {
-		this.setIAndU("electronic_balancer");
-	}
-	
+    
+    public ItemElectronicBalancer() {
+        this.setIAndU("electronic_balancer");
+    }
+    
 }

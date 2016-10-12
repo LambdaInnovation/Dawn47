@@ -23,77 +23,77 @@ import cn.weaponry.core.Weaponry;
  * @author WeAthFolD
  */
 public class WeaponStateMachine extends Action {
-	
-	Map<String, WeaponState> states = new HashMap();
-	
-	int startTick = 0;
-	
-	WeaponState currentState = null;
-	boolean init = false;
+    
+    Map<String, WeaponState> states = new HashMap();
+    
+    int startTick = 0;
+    
+    WeaponState currentState = null;
+    boolean init = false;
 
-	public void transitState(String name) {
-		currentState.leaveState();
-		
-		currentState = getState(name);
-		init = false;
-		startTick = this.getTick();
-		//Weaponry.log.info("S->" + name + " #" + isRemote());
-	}
-	
-	public void addState(String name, WeaponState state) {
-		if(states.containsKey(name)) {
-			throw new RuntimeException("Duplicate state name " + name);
-		}
-		
-		if(currentState == null) {
-			currentState = state;
-		}
-		state.machine = this;
-		states.put(name, state);
-	}
-	
-	/**
-	 * Must be called AFTER all state were loaded.
-	 */
-	public void setInitState(String n) {
-		currentState = getState(n);
-	}
-	
-	public WeaponState getState(String name) {
-		return states.get(name);
-	}
-	
-	public boolean hasState(String name) {
-		return states.containsKey(name);
-	}
-	
-	public void onCtrl(int keyID, KeyEventType type) {
-		//System.out.println("onCtrl[" + keyID + "] " + type);
-		currentState.onCtrl(keyID, type);
-	}
-	
-	@Override
-	public void onTick(int tick) {
-		if(!init) {
-			currentState.enterState();
-			startTick = tick;
-			init  = true;
-		}
-		currentState.tickState(tick - startTick);
-	}
-	
-	@Override
-	public void onFinalize() {
-		currentState.leaveState();
-	}
-	
-	public WeaponState getCurrentState() {
-		return currentState;
-	}
+    public void transitState(String name) {
+        currentState.leaveState();
+        
+        currentState = getState(name);
+        init = false;
+        startTick = this.getTick();
+        //Weaponry.log.info("S->" + name + " #" + isRemote());
+    }
+    
+    public void addState(String name, WeaponState state) {
+        if(states.containsKey(name)) {
+            throw new RuntimeException("Duplicate state name " + name);
+        }
+        
+        if(currentState == null) {
+            currentState = state;
+        }
+        state.machine = this;
+        states.put(name, state);
+    }
+    
+    /**
+     * Must be called AFTER all state were loaded.
+     */
+    public void setInitState(String n) {
+        currentState = getState(n);
+    }
+    
+    public WeaponState getState(String name) {
+        return states.get(name);
+    }
+    
+    public boolean hasState(String name) {
+        return states.containsKey(name);
+    }
+    
+    public void onCtrl(int keyID, KeyEventType type) {
+        //System.out.println("onCtrl[" + keyID + "] " + type);
+        currentState.onCtrl(keyID, type);
+    }
+    
+    @Override
+    public void onTick(int tick) {
+        if(!init) {
+            currentState.enterState();
+            startTick = tick;
+            init  = true;
+        }
+        currentState.tickState(tick - startTick);
+    }
+    
+    @Override
+    public void onFinalize() {
+        currentState.leaveState();
+    }
+    
+    public WeaponState getCurrentState() {
+        return currentState;
+    }
 
-	@Override
-	public String getName() {
-		return "StateMachine";
-	}
-	
+    @Override
+    public String getName() {
+        return "StateMachine";
+    }
+    
 }

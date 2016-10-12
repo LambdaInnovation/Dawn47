@@ -27,14 +27,14 @@ import cpw.mods.fml.relauncher.Side;
  *
  */
 public final class Future {
-	
-	static SimpleNetworkWrapper wrapper;
-	
-	public static void init() {
-		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel("core_ar_futuresync");
-		wrapper.registerMessage(FutureSyncMessageHandler.class, FutureSyncMessage.class, 1, Side.SERVER);
+    
+    static SimpleNetworkWrapper wrapper;
+    
+    public static void init() {
+        wrapper = NetworkRegistry.INSTANCE.newSimpleChannel("core_ar_futuresync");
+        wrapper.registerMessage(FutureSyncMessageHandler.class, FutureSyncMessage.class, 1, Side.SERVER);
         wrapper.registerMessage(FutureSyncMessageHandler.class, FutureSyncMessage.class, 2, Side.CLIENT);
-	}
+    }
     
     public static interface FutureCallback<T> {
         /**

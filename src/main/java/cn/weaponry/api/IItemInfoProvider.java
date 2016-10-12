@@ -16,7 +16,7 @@ package cn.weaponry.api;
  * @author WeAthFolD
  */
 public interface IItemInfoProvider {
-	
-	public void onInfoStart(ItemInfo info);
-	
+    
+    public void onInfoStart(ItemInfo info);
+    
 }

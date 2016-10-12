@@ -21,27 +21,27 @@ import cn.liutils.loading.Loader.ObjectNamespace;
  */
 public class LoaderUtils {
 
-	public static Vec3 loadVec3(ObjectNamespace ns, String ...searchRule) {
-		Object[] objs = new Object[searchRule.length + 1];
-		for(int i = 0; i < searchRule.length; ++i) {
-			objs[i] = searchRule[i];
-		}
-		Double x, y, z;
-		
-		int len = searchRule.length;
-		objs[len] = 0;
-		x = ns.getDouble(objs);
-		
-		objs[len] = 1;
-		y = ns.getDouble(objs);
-		
-		objs[len] = 2;
-		z = ns.getDouble(objs);
-		
-		if(x != null && y != null && z != null) {
-			return Vec3.createVectorHelper(x, y, z);
-		}
-		return null;
-	}
-	
+    public static Vec3 loadVec3(ObjectNamespace ns, String ...searchRule) {
+        Object[] objs = new Object[searchRule.length + 1];
+        for(int i = 0; i < searchRule.length; ++i) {
+            objs[i] = searchRule[i];
+        }
+        Double x, y, z;
+        
+        int len = searchRule.length;
+        objs[len] = 0;
+        x = ns.getDouble(objs);
+        
+        objs[len] = 1;
+        y = ns.getDouble(objs);
+        
+        objs[len] = 2;
+        z = ns.getDouble(objs);
+        
+        if(x != null && y != null && z != null) {
+            return Vec3.createVectorHelper(x, y, z);
+        }
+        return null;
+    }
+    
 }

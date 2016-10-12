@@ -18,17 +18,17 @@ package cn.weaponry.api.action;
  */
 public abstract class InstantAction extends Action {
 
-	public final void onStart() {
-		execute();
-		disposed = true;
-	}
-	
-	public final void onTick() {}
-	
-	public final void onNormalEnd() {}
-	
-	public final void onAborted() {}
-	
-	public abstract void execute();
+    public final void onStart() {
+        execute();
+        disposed = true;
+    }
+    
+    public final void onTick() {}
+    
+    public final void onNormalEnd() {}
+    
+    public final void onAborted() {}
+    
+    public abstract void execute();
 
 }

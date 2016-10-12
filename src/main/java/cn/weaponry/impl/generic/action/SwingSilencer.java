@@ -19,18 +19,18 @@ import cn.weaponry.api.action.Action;
  * @author WeAthFolD
  */
 public class SwingSilencer extends Action {
-	
-	public boolean active = true;
+    
+    public boolean active = true;
 
-	public void onTick(int tick) {
-		if(active) {
-			getPlayer().isSwingInProgress = false;
-		}
-	}
-	
-	@Override
-	public String getName() {
-		return "SwingSilencer";
-	}
+    public void onTick(int tick) {
+        if(active) {
+            getPlayer().isSwingInProgress = false;
+        }
+    }
+    
+    @Override
+    public String getName() {
+        return "SwingSilencer";
+    }
 
 }

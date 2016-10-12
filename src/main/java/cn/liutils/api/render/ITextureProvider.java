@@ -21,6 +21,6 @@ import net.minecraft.util.ResourceLocation;
  * @author WeAthFolD
  */
 public interface ITextureProvider {
-	@SideOnly(Side.CLIENT)
-	ResourceLocation getTexture();
+    @SideOnly(Side.CLIENT)
+    ResourceLocation getTexture();
 }

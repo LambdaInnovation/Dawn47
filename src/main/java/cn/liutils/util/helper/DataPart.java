@@ -50,111 +50,111 @@ import cpw.mods.fml.relauncher.Side;
 @RegSerializable(instance = DataPart.Serializer.class)
 public abstract class DataPart {
 
-	/**
-	 * Internal sync flag, used to determine whether this part is init in client.
-	 */
-	boolean dirty = true;
-	
-	int tickUntilQuery = 0;
-	
-	/**
-	 * The player instance when this data is available. Do NOT modify this field!
-	 */
-	PlayerData data;
-	
-	public DataPart() {}
-	
-	/**
-	 * Invoked every tick
-	 */
-	public void tick() {}
-	
-	public EntityPlayer getPlayer() {
-		return data.player;
-	}
-	
-	public boolean isRemote() {
-		return getPlayer().worldObj.isRemote;
-	}
-	
-	public <T extends DataPart> T getPart(String name) {
-		return data.getPart(name);
-	}
-	
-	public String getName() {
-		return data.getName(this);
-	}
-	
-	/**
-	 * Return true if this data has received the initial sync.
-	 * ALWAYS true in server.
-	 */
-	protected boolean isSynced() {
-		return !dirty;
-	}
-	
-	protected void sync() {
-		if(isRemote()) {
-			syncFromClient(toNBTSync());
-		} else {
-			syncFromServer(getPlayer(), toNBTSync());
-		}
-	}
-	
-	@RegNetworkCall(side = Side.SERVER)
-	private void syncFromClient(@Data NBTTagCompound tag) {
-		fromNBTSync(tag);
-	}
-	
-	@RegNetworkCall(side = Side.CLIENT)
-	private void syncFromServer(@Target EntityPlayer player, @Data NBTTagCompound tag) {
-		fromNBTSync(tag);
-	}
-	
-	public abstract void fromNBT(NBTTagCompound tag);
-	
-	public abstract NBTTagCompound toNBT();
-	
-	public void fromNBTSync(NBTTagCompound tag) { fromNBT(tag); }
-	
-	public NBTTagCompound toNBTSync() { return toNBT(); }
-	
-	protected void checkSide(boolean isRemote) {
-		if(isRemote ^ isRemote()) {
-			throw new IllegalStateException("Wrong side: " + isRemote());
-		}
-	}
-	
-	public static class Serializer implements InstanceSerializer<DataPart> {
-		
-		InstanceSerializer entitySer = SerializationManager.INSTANCE.getInstanceSerializer(Entity.class);
+    /**
+     * Internal sync flag, used to determine whether this part is init in client.
+     */
+    boolean dirty = true;
+    
+    int tickUntilQuery = 0;
+    
+    /**
+     * The player instance when this data is available. Do NOT modify this field!
+     */
+    PlayerData data;
+    
+    public DataPart() {}
+    
+    /**
+     * Invoked every tick
+     */
+    public void tick() {}
+    
+    public EntityPlayer getPlayer() {
+        return data.player;
+    }
+    
+    public boolean isRemote() {
+        return getPlayer().worldObj.isRemote;
+    }
+    
+    public <T extends DataPart> T getPart(String name) {
+        return data.getPart(name);
+    }
+    
+    public String getName() {
+        return data.getName(this);
+    }
+    
+    /**
+     * Return true if this data has received the initial sync.
+     * ALWAYS true in server.
+     */
+    protected boolean isSynced() {
+        return !dirty;
+    }
+    
+    protected void sync() {
+        if(isRemote()) {
+            syncFromClient(toNBTSync());
+        } else {
+            syncFromServer(getPlayer(), toNBTSync());
+        }
+    }
+    
+    @RegNetworkCall(side = Side.SERVER)
+    private void syncFromClient(@Data NBTTagCompound tag) {
+        fromNBTSync(tag);
+    }
+    
+    @RegNetworkCall(side = Side.CLIENT)
+    private void syncFromServer(@Target EntityPlayer player, @Data NBTTagCompound tag) {
+        fromNBTSync(tag);
+    }
+    
+    public abstract void fromNBT(NBTTagCompound tag);
+    
+    public abstract NBTTagCompound toNBT();
+    
+    public void fromNBTSync(NBTTagCompound tag) { fromNBT(tag); }
+    
+    public NBTTagCompound toNBTSync() { return toNBT(); }
+    
+    protected void checkSide(boolean isRemote) {
+        if(isRemote ^ isRemote()) {
+            throw new IllegalStateException("Wrong side: " + isRemote());
+        }
+    }
+    
+    public static class Serializer implements InstanceSerializer<DataPart> {
+        
+        InstanceSerializer entitySer = SerializationManager.INSTANCE.getInstanceSerializer(Entity.class);
 
-		@Override
-		public DataPart readInstance(NBTBase nbt) throws Exception {
-			NBTTagCompound tag = (NBTTagCompound) nbt;
-			NBTBase entityTag = tag.getTag("e");
-			if(entityTag != null) {
-				Entity e = (Entity) entitySer.readInstance(entityTag);
-				if(e instanceof EntityPlayer) {
-					return PlayerData.get((EntityPlayer) e).getPart(tag.getString("n"));
-				}
-			}
-			
-			return null;
-		}
+        @Override
+        public DataPart readInstance(NBTBase nbt) throws Exception {
+            NBTTagCompound tag = (NBTTagCompound) nbt;
+            NBTBase entityTag = tag.getTag("e");
+            if(entityTag != null) {
+                Entity e = (Entity) entitySer.readInstance(entityTag);
+                if(e instanceof EntityPlayer) {
+                    return PlayerData.get((EntityPlayer) e).getPart(tag.getString("n"));
+                }
+            }
+            
+            return null;
+        }
 
-		@Override
-		public NBTBase writeInstance(DataPart obj) throws Exception {
-			NBTTagCompound ret = new NBTTagCompound();
-			
-			NBTBase entityTag = entitySer.writeInstance(obj.getPlayer());
-			
-			ret.setTag("e", entityTag);
-			ret.setString("n", obj.getName());
-			
-			return ret;
-		}
-		
-	}
-	
+        @Override
+        public NBTBase writeInstance(DataPart obj) throws Exception {
+            NBTTagCompound ret = new NBTTagCompound();
+            
+            NBTBase entityTag = entitySer.writeInstance(obj.getPlayer());
+            
+            ret.setTag("e", entityTag);
+            ret.setString("n", obj.getName());
+            
+            return ret;
+        }
+        
+    }
+    
 }

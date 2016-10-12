@@ -41,108 +41,108 @@ import net.minecraft.world.World;
 @RegWithName("BattleSoldier")
 @RegEntity.HasRender
 public class EntityBattleSoldier extends LIEntityMob {
-	
-	@RegEntity.Render
-	@SideOnly(Side.CLIENT)
-	public static RendererBattleSoldier renderer;
-	
-	boolean isCharging = false;
-	
-	boolean synced = false;
-	
-	int weaponID = rand.nextInt(2);
-	public int texID = rand.nextInt(3);
-	int reqTicker = 10;
+    
+    @RegEntity.Render
+    @SideOnly(Side.CLIENT)
+    public static RendererBattleSoldier renderer;
+    
+    boolean isCharging = false;
+    
+    boolean synced = false;
+    
+    int weaponID = rand.nextInt(2);
+    public int texID = rand.nextInt(3);
+    int reqTicker = 10;
 
-	public EntityBattleSoldier(World world) {
-		super(world);
-		updateWeapon();
-	}
-
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		
-		if(worldObj.isRemote) {
-			updateClient();
-		} else {
-			
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private void updateClient() {
-		if(!synced && reqTicker++ == 10) {
-			req(Minecraft.getMinecraft().thePlayer);
-			reqTicker = 0;
-		}
-	}
-	
-	@Override
-    protected Item getDropItem() {
-    	return null;
+    public EntityBattleSoldier(World world) {
+        super(world);
+        updateWeapon();
     }
-	
-	private void updateServer() {
-		
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag) {
-		super.writeToNBT(tag);
-		tag.setInteger("weapon", weaponID);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound tag) {
-		super.readFromNBT(tag);
-		weaponID = tag.getInteger("weapon");
-	}
-	
-	@RegNetworkCall(side = Side.SERVER)
-	private void req(@Instance EntityPlayer player) {
-		get(player, weaponID);
-	}
-	
-	@RegNetworkCall(side = Side.CLIENT)
-	private void get(@Target EntityPlayer player, @Data Integer wid) {
-		weaponID = wid;
-		updateWeapon();
-		synced = true;
-	}
-	
-	private void updateWeapon() {
-		this.setCurrentItemOrArmor(0, new ItemStack(weaponID == 0 ? DWItems.solCrowbar : DWItems.solAxe));
-	}
 
-	@Override
-	protected double getMaxHealth2() {
-		return 15;
-	}
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        
+        if(worldObj.isRemote) {
+            updateClient();
+        } else {
+            
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private void updateClient() {
+        if(!synced && reqTicker++ == 10) {
+            req(Minecraft.getMinecraft().thePlayer);
+            reqTicker = 0;
+        }
+    }
+    
+    @Override
+    protected Item getDropItem() {
+        return null;
+    }
+    
+    private void updateServer() {
+        
+    }
+    
+    @Override
+    public void writeToNBT(NBTTagCompound tag) {
+        super.writeToNBT(tag);
+        tag.setInteger("weapon", weaponID);
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        weaponID = tag.getInteger("weapon");
+    }
+    
+    @RegNetworkCall(side = Side.SERVER)
+    private void req(@Instance EntityPlayer player) {
+        get(player, weaponID);
+    }
+    
+    @RegNetworkCall(side = Side.CLIENT)
+    private void get(@Target EntityPlayer player, @Data Integer wid) {
+        weaponID = wid;
+        updateWeapon();
+        synced = true;
+    }
+    
+    private void updateWeapon() {
+        this.setCurrentItemOrArmor(0, new ItemStack(weaponID == 0 ? DWItems.solCrowbar : DWItems.solAxe));
+    }
 
-	@Override
-	protected double getFollowRange() {
-		return 10;
-	}
+    @Override
+    protected double getMaxHealth2() {
+        return 15;
+    }
 
-	@Override
-	protected double getMoveSpeed() {
-		return 2.4;
-	}
+    @Override
+    protected double getFollowRange() {
+        return 10;
+    }
 
-	@Override
-	protected double getKnockBackResistance() {
-		return 5;
-	}
+    @Override
+    protected double getMoveSpeed() {
+        return 2.4;
+    }
 
-	@Override
-	protected double getAttackDamage() {
-		return 4;
-	}
-	
-	@Override
-	public ResourceLocation getTexture() {
-		return null;
-	}
-	
+    @Override
+    protected double getKnockBackResistance() {
+        return 5;
+    }
+
+    @Override
+    protected double getAttackDamage() {
+        return 4;
+    }
+    
+    @Override
+    public ResourceLocation getTexture() {
+        return null;
+    }
+    
 }

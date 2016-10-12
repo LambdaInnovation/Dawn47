@@ -19,6 +19,6 @@ import java.util.Collection;
  */
 public interface ItemLoadRuleProvider {
 
-	ItemLoadRule[] getRules();
-	
+    ItemLoadRule[] getRules();
+    
 }

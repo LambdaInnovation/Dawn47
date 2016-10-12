@@ -24,46 +24,46 @@ import cn.liutils.util.helper.Motion3D;
  * @author WeAthFolD
  */
 public class PlayerUtils {
-	
-	/**
-	 * Try to merge an itemStack into the player inventory. The merging uses strict
-	 * equality, that is, only when item instances are equal and NBT datas are equal can 
-	 * this stack merge to an another stack in the inventory.
-	 * Return: how many not merged
-	 */
-	public static int mergeStackable(InventoryPlayer inv, ItemStack stack) {
-		for(int i = 0; i < inv.getSizeInventory() - 4 && stack.stackSize > 0; ++i) {
-			ItemStack is = inv.getStackInSlot(i);
-			if(is != null && StackUtils.isStackDataEqual(stack, is)) {
-				is.stackSize += stack.stackSize;
-				int left = Math.max(0, is.stackSize - is.getMaxStackSize());
-				stack.stackSize = left;
-				is.stackSize -= left;
-			}
-		}
-		if(stack.stackSize > 0) {
-			int id = inv.getFirstEmptyStack();
-			if(id == -1) {
-				return stack.stackSize;
-			}
-			inv.setInventorySlotContents(id, stack.copy());
-			return 0;
-		}
-		return 0;
-	}
-	
-	/**
-	 * Try to find the index of a item in player's inventory. if fail, return -1.
-	 */
-	public static int getSlotByStack(ItemStack item, EntityPlayer player) {
-		InventoryPlayer inv = player.inventory;
-		for(int i = 0; i < inv.mainInventory.length; i++) {
-			ItemStack is = inv.mainInventory[i];
-			if(is != null && item == is)
-				return i;
-		}
-		return -1;
-	}
+    
+    /**
+     * Try to merge an itemStack into the player inventory. The merging uses strict
+     * equality, that is, only when item instances are equal and NBT datas are equal can 
+     * this stack merge to an another stack in the inventory.
+     * Return: how many not merged
+     */
+    public static int mergeStackable(InventoryPlayer inv, ItemStack stack) {
+        for(int i = 0; i < inv.getSizeInventory() - 4 && stack.stackSize > 0; ++i) {
+            ItemStack is = inv.getStackInSlot(i);
+            if(is != null && StackUtils.isStackDataEqual(stack, is)) {
+                is.stackSize += stack.stackSize;
+                int left = Math.max(0, is.stackSize - is.getMaxStackSize());
+                stack.stackSize = left;
+                is.stackSize -= left;
+            }
+        }
+        if(stack.stackSize > 0) {
+            int id = inv.getFirstEmptyStack();
+            if(id == -1) {
+                return stack.stackSize;
+            }
+            inv.setInventorySlotContents(id, stack.copy());
+            return 0;
+        }
+        return 0;
+    }
+    
+    /**
+     * Try to find the index of a item in player's inventory. if fail, return -1.
+     */
+    public static int getSlotByStack(ItemStack item, EntityPlayer player) {
+        InventoryPlayer inv = player.inventory;
+        for(int i = 0; i < inv.mainInventory.length; i++) {
+            ItemStack is = inv.mainInventory[i];
+            if(is != null && item == is)
+                return i;
+        }
+        return -1;
+    }
 
-	
+    
 }

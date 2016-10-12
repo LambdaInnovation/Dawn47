@@ -34,7 +34,7 @@ public class Font {
     private static FontRenderer theFont;
     
     FontRenderer mcFont() {
-    	return Minecraft.getMinecraft().fontRenderer;
+        return Minecraft.getMinecraft().fontRenderer;
     }
     
     public enum Align { LEFT, CENTER, RIGHT };
@@ -68,41 +68,41 @@ public class Font {
         List<String> list = split(str, limit * font.FONT_HEIGHT / size);
         //System.out.println("---{" + list.size());
         for(String s : list) {
-        	//System.out.println(str);
-        	draw(s, x, y, size, color);
-        	y += size;
+            //System.out.println(str);
+            draw(s, x, y, size, color);
+            y += size;
         } 
         //System.out.println("---}");
     }
     
     private List<String> split(final String str, double limit) {
-    	List<String> ret = new ArrayList();
-    	
-    	FontRenderer font = mcFont();
-    	int begin = 0;
-    	int lastword = 0;
-    	
-    	double len = 0;
-    	for(int i = 0; i != str.length(); ++i) {
-    		char ch = str.charAt(i);
-    		if(ch == ' ')
-    			lastword = i;
-    		len += font.getCharWidth(ch);
-    		
-    		if(len > limit || i == str.length() - 1) {
-    			if(begin == lastword) {
-    				;
-    			} else if(len > limit){
-    				i = lastword;
-    			}
-    			ret.add(str.substring(begin, i + 1).trim());
-    			
-    			len = 0;
-    			begin = lastword = i + 1;
-    		}
-    	}
-    	
-    	return ret;
+        List<String> ret = new ArrayList();
+        
+        FontRenderer font = mcFont();
+        int begin = 0;
+        int lastword = 0;
+        
+        double len = 0;
+        for(int i = 0; i != str.length(); ++i) {
+            char ch = str.charAt(i);
+            if(ch == ' ')
+                lastword = i;
+            len += font.getCharWidth(ch);
+            
+            if(len > limit || i == str.length() - 1) {
+                if(begin == lastword) {
+                    ;
+                } else if(len > limit){
+                    i = lastword;
+                }
+                ret.add(str.substring(begin, i + 1).trim());
+                
+                len = 0;
+                begin = lastword = i + 1;
+            }
+        }
+        
+        return ret;
     }
     
     /**
@@ -185,7 +185,7 @@ public class Font {
      * Get the length of the string on the screen when ordinarily drawn.
      */
     public double strLen(String str, double size) {
-    	return mcFont().getStringWidth(str) * size / mcFont().FONT_HEIGHT;
+        return mcFont().getStringWidth(str) * size / mcFont().FONT_HEIGHT;
     }
 
 }

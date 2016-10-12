@@ -34,79 +34,79 @@ import cpw.mods.fml.relauncher.SideOnly;
 @RegWithName("RottenCreeper")
 @RegEntity.HasRender
 public class EntityRottenCreeper extends LIEntityMob {
-	
-	@SideOnly(Side.CLIENT)
-	@RegEntity.Render
-	public static RenderRottenCreeper renderer;
-	
-	int JUDGE_JUMP_TIME = 40;
-	
-	boolean jumped;
-	int lastJumpTick;
+    
+    @SideOnly(Side.CLIENT)
+    @RegEntity.Render
+    public static RenderRottenCreeper renderer;
+    
+    int JUDGE_JUMP_TIME = 40;
+    
+    boolean jumped;
+    int lastJumpTick;
 
-	/**
-	 * @param par1World
-	 */
-	public EntityRottenCreeper(World par1World) {
-		super(par1World);
-		
-	}
-	
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		if(ticksExisted - lastJumpTick > JUDGE_JUMP_TIME)
-			jumped = false;
-		
-		if(this.worldObj.isRemote && (!this.worldObj.blockExists((int)this.posX, 0, (int)this.posZ) || 
-				!this.worldObj.getChunkFromBlockCoords((int)this.posX, (int)this.posZ).isChunkLoaded)) {	
-			
-		} else if(!this.handleWaterMovement() && !this.handleLavaMovement() && !this.onGround && jumped){
-			this.motionY += 0.07D;
-		}
-	}
-	
+    /**
+     * @param par1World
+     */
+    public EntityRottenCreeper(World par1World) {
+        super(par1World);
+        
+    }
+    
     @Override
-	protected void jump()
+    public void onUpdate() {
+        super.onUpdate();
+        if(ticksExisted - lastJumpTick > JUDGE_JUMP_TIME)
+            jumped = false;
+        
+        if(this.worldObj.isRemote && (!this.worldObj.blockExists((int)this.posX, 0, (int)this.posZ) || 
+                !this.worldObj.getChunkFromBlockCoords((int)this.posX, (int)this.posZ).isChunkLoaded)) {    
+            
+        } else if(!this.handleWaterMovement() && !this.handleLavaMovement() && !this.onGround && jumped){
+            this.motionY += 0.07D;
+        }
+    }
+    
+    @Override
+    protected void jump()
     {
-    	this.motionY = 0.14;
+        this.motionY = 0.14;
         this.isAirBorne = true;
         ForgeHooks.onLivingJump(this);
         jumped = true;
         lastJumpTick = ticksExisted;
     }
 
-	/* (non-Javadoc)
-	 * @see net.minecraft.entity.EntityLiving#getMaxHealth()
-	 */
-	@Override
-	public double getMaxHealth2() {
-		return 12;
-	}
-	
-	@Override
-	public ResourceLocation getTexture() {
-		return DWResources.ROTTEN_CREEPER_MOB;
-	}
+    /* (non-Javadoc)
+     * @see net.minecraft.entity.EntityLiving#getMaxHealth()
+     */
+    @Override
+    public double getMaxHealth2() {
+        return 12;
+    }
+    
+    @Override
+    public ResourceLocation getTexture() {
+        return DWResources.ROTTEN_CREEPER_MOB;
+    }
 
-	@Override
-	protected double getFollowRange() {
-		return 10.0D;
-	}
+    @Override
+    protected double getFollowRange() {
+        return 10.0D;
+    }
 
-	@Override
-	protected double getMoveSpeed() {
-		return 0.4D;
-	}
+    @Override
+    protected double getMoveSpeed() {
+        return 0.4D;
+    }
 
-	@Override
-	protected double getKnockBackResistance() {
-		return 1.0D;
-	}
+    @Override
+    protected double getKnockBackResistance() {
+        return 1.0D;
+    }
 
-	@Override
-	protected double getAttackDamage() {
-		return 5D;
-	}
+    @Override
+    protected double getAttackDamage() {
+        return 5D;
+    }
 
 }

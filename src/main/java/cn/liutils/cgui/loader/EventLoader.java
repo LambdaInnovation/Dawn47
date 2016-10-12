@@ -27,58 +27,58 @@ import cn.liutils.core.LIUtils;
  */
 public class EventLoader {
 
-	public static void load(WidgetContainer widget, Object callbackProvider) {
-		for(Method m : callbackProvider.getClass().getMethods()) {
-			if(m.isAnnotationPresent(GuiCallback.class)) {
-				//Check signature
-				Class<?>[] pars = m.getParameterTypes();
-				if(pars.length != 2) {
-					throw new IllegalArgumentException("Invalid par size for callback method " + m.getName());
-				}
-				if(pars[0] != Widget.class) {
-					throw new IllegalArgumentException("par1 not a widget for " + m.getName());
-				}
-				if(!GuiEvent.class.isAssignableFrom(pars[1])) {
-					throw new IllegalArgumentException("par2 not a GuiEvent for " + m.getName());
-				}
-				
-				String path = m.getAnnotation(GuiCallback.class).value();
-				Widget target = (Widget) (path.equals("") ? (widget instanceof Widget ? widget : null) : widget.getWidget(path));
-				if(target == null) {
-					LIUtils.log.error("Didn't find widget named " + path + ".");
-				} else {
-					target.regEventHandler(new MethodWrapper(m, callbackProvider, pars[1]));
-				}
-			}
-		}
-	}
-	
-	private static class MethodWrapper extends GuiEventHandler {
-		
-		final Method method;
-		final Object instance;
+    public static void load(WidgetContainer widget, Object callbackProvider) {
+        for(Method m : callbackProvider.getClass().getMethods()) {
+            if(m.isAnnotationPresent(GuiCallback.class)) {
+                //Check signature
+                Class<?>[] pars = m.getParameterTypes();
+                if(pars.length != 2) {
+                    throw new IllegalArgumentException("Invalid par size for callback method " + m.getName());
+                }
+                if(pars[0] != Widget.class) {
+                    throw new IllegalArgumentException("par1 not a widget for " + m.getName());
+                }
+                if(!GuiEvent.class.isAssignableFrom(pars[1])) {
+                    throw new IllegalArgumentException("par2 not a GuiEvent for " + m.getName());
+                }
+                
+                String path = m.getAnnotation(GuiCallback.class).value();
+                Widget target = (Widget) (path.equals("") ? (widget instanceof Widget ? widget : null) : widget.getWidget(path));
+                if(target == null) {
+                    LIUtils.log.error("Didn't find widget named " + path + ".");
+                } else {
+                    target.regEventHandler(new MethodWrapper(m, callbackProvider, pars[1]));
+                }
+            }
+        }
+    }
+    
+    private static class MethodWrapper extends GuiEventHandler {
+        
+        final Method method;
+        final Object instance;
 
-		public MethodWrapper(Method m, Object i, Class ec) {
-			super(ec);
-			method = m;
-			instance = i;
-		}
+        public MethodWrapper(Method m, Object i, Class ec) {
+            super(ec);
+            method = m;
+            instance = i;
+        }
 
-		@Override
-		public void handleEvent(Widget w, GuiEvent event) {
-			try {
-				method.invoke(instance, w, event);
-			} catch (Exception e) {
-				LIUtils.log.error("Exception occured trying to do event callback");
-				e.printStackTrace();
-				
-				if(e instanceof InvocationTargetException) {
-					LIUtils.log.error("Target stack trace:");
-					((InvocationTargetException)e).getTargetException().printStackTrace();
-				}
-			}
-		}
-		
-	}
-	
+        @Override
+        public void handleEvent(Widget w, GuiEvent event) {
+            try {
+                method.invoke(instance, w, event);
+            } catch (Exception e) {
+                LIUtils.log.error("Exception occured trying to do event callback");
+                e.printStackTrace();
+                
+                if(e instanceof InvocationTargetException) {
+                    LIUtils.log.error("Target stack trace:");
+                    ((InvocationTargetException)e).getTargetException().printStackTrace();
+                }
+            }
+        }
+        
+    }
+    
 }

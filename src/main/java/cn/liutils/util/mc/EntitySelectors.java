@@ -28,155 +28,155 @@ import net.minecraft.entity.player.EntityPlayer;
  */
 public class EntitySelectors {
 
-	public static IEntitySelector living = new SelectorOfType(EntityLivingBase.class);
-	
-	public static IEntitySelector player = new SelectorOfType(EntityPlayer.class);
-	
-	public static IEntitySelector survivalPlayer = new IEntitySelector() {
+    public static IEntitySelector living = new SelectorOfType(EntityLivingBase.class);
+    
+    public static IEntitySelector player = new SelectorOfType(EntityPlayer.class);
+    
+    public static IEntitySelector survivalPlayer = new IEntitySelector() {
 
-		@Override
-		public boolean isEntityApplicable(Entity e) {
-			return (e instanceof EntityPlayer && !((EntityPlayer)e).capabilities.isCreativeMode);
-		}
-		
-	};
-	
-	public static IEntitySelector nothing = new IEntitySelector() {
+        @Override
+        public boolean isEntityApplicable(Entity e) {
+            return (e instanceof EntityPlayer && !((EntityPlayer)e).capabilities.isCreativeMode);
+        }
+        
+    };
+    
+    public static IEntitySelector nothing = new IEntitySelector() {
 
-		@Override
-		public boolean isEntityApplicable(Entity p_82704_1_) {
-			return false;
-		}
-		
-	};
-	
-	public static IEntitySelector everything = new IEntitySelector() {
+        @Override
+        public boolean isEntityApplicable(Entity p_82704_1_) {
+            return false;
+        }
+        
+    };
+    
+    public static IEntitySelector everything = new IEntitySelector() {
 
-		@Override
-		public boolean isEntityApplicable(Entity p_82704_1_) {
-			return true;
-		}
-		
-	};
-	
-	public static class SelectorOfType implements IEntitySelector {
-		
-		final Class<? extends Entity> klass;
-		
-		public SelectorOfType(Class<? extends Entity> _klass) {
-			klass = _klass;
-		}
+        @Override
+        public boolean isEntityApplicable(Entity p_82704_1_) {
+            return true;
+        }
+        
+    };
+    
+    public static class SelectorOfType implements IEntitySelector {
+        
+        final Class<? extends Entity> klass;
+        
+        public SelectorOfType(Class<? extends Entity> _klass) {
+            klass = _klass;
+        }
 
-		@Override
-		public boolean isEntityApplicable(Entity entity) {
-			return klass.isInstance(entity);
-		}
-		
-	}
-	
-	public static class ExcludeType implements IEntitySelector {
-		
-		final Class<? extends Entity> klass;
+        @Override
+        public boolean isEntityApplicable(Entity entity) {
+            return klass.isInstance(entity);
+        }
+        
+    }
+    
+    public static class ExcludeType implements IEntitySelector {
+        
+        final Class<? extends Entity> klass;
 
-		public ExcludeType(Class<? extends Entity> _klass) {
-			klass = _klass;
-		}
-		
-		@Override
-		public boolean isEntityApplicable(Entity entity) {
-			return !klass.isInstance(entity);
-		}
-		
-	}
-	
-	public static class RestrictRange implements IEntitySelector {
-		
-		final double x, y, z;
-		final double rangeSq;
-		
-		public RestrictRange(Entity e, double range) {
-			this(e.posX, e.posY, e.posZ, range);
-		}
-		
-		public RestrictRange(double _x, double _y, double _z, double _range) {
-			x = _x;
-			y = _y;
-			z = _z;
-			rangeSq = _range * _range;
-		}
+        public ExcludeType(Class<? extends Entity> _klass) {
+            klass = _klass;
+        }
+        
+        @Override
+        public boolean isEntityApplicable(Entity entity) {
+            return !klass.isInstance(entity);
+        }
+        
+    }
+    
+    public static class RestrictRange implements IEntitySelector {
+        
+        final double x, y, z;
+        final double rangeSq;
+        
+        public RestrictRange(Entity e, double range) {
+            this(e.posX, e.posY, e.posZ, range);
+        }
+        
+        public RestrictRange(double _x, double _y, double _z, double _range) {
+            x = _x;
+            y = _y;
+            z = _z;
+            rangeSq = _range * _range;
+        }
 
-		@Override
-		public boolean isEntityApplicable(Entity entity) {
-			double dx = entity.posX - x,
-					dy = entity.posY - y,
-					dz = entity.posZ - z;
-			return dx * dx + dy * dy + dz * dz <= rangeSq;
-		}
-		
-	}
-	
-	public static class Exclusion implements IEntitySelector {
-		
-		final Set<Entity> exclusions = new HashSet();
-		
-		public Exclusion(Entity ...excls) {
-			for(Entity e : excls)
-				exclusions.add(e);
-		}
-		
-		public Exclusion add(Entity e) {
-			exclusions.add(e);
-			return this;
-		}
+        @Override
+        public boolean isEntityApplicable(Entity entity) {
+            double dx = entity.posX - x,
+                    dy = entity.posY - y,
+                    dz = entity.posZ - z;
+            return dx * dx + dy * dy + dz * dz <= rangeSq;
+        }
+        
+    }
+    
+    public static class Exclusion implements IEntitySelector {
+        
+        final Set<Entity> exclusions = new HashSet();
+        
+        public Exclusion(Entity ...excls) {
+            for(Entity e : excls)
+                exclusions.add(e);
+        }
+        
+        public Exclusion add(Entity e) {
+            exclusions.add(e);
+            return this;
+        }
 
-		@Override
-		public boolean isEntityApplicable(Entity entity) {
-			return !exclusions.contains(entity);
-		}
-		
-	}
-	
-	public static class SelectorList implements IEntitySelector {
-		
-		List<IEntitySelector> list = new ArrayList();
-		
-		public SelectorList(IEntitySelector ...sels) {
-			for(IEntitySelector i : sels)
-				list.add(i);
-		}
-		
-		public SelectorList append(IEntitySelector selector) {
-			list.add(selector);
-			return this;
-		}
+        @Override
+        public boolean isEntityApplicable(Entity entity) {
+            return !exclusions.contains(entity);
+        }
+        
+    }
+    
+    public static class SelectorList implements IEntitySelector {
+        
+        List<IEntitySelector> list = new ArrayList();
+        
+        public SelectorList(IEntitySelector ...sels) {
+            for(IEntitySelector i : sels)
+                list.add(i);
+        }
+        
+        public SelectorList append(IEntitySelector selector) {
+            list.add(selector);
+            return this;
+        }
 
-		@Override
-		public boolean isEntityApplicable(Entity entity) {
-			
-			for(IEntitySelector i : list)
-				if(!i.isEntityApplicable(entity))
-					return false;
-			return true;
-		}
-		
-	}
-	
-	/**
-	 * Combine a set of entitySelectors (logical AND) to create a new EntitySelector.
-	 */
-	public static IEntitySelector combine(IEntitySelector ...sels) {
-		return new SelectorList(sels);
-	}
-	
-	/**
-	 * Create an EntitySelector that excludes the passed in entities.
-	 */
-	public static IEntitySelector excludeOf(Entity ...ents) {
-		return new Exclusion(ents);
-	}
-	
-	public static IEntitySelector excludeType(Class<? extends Entity> klass) {
-		return new ExcludeType(klass);
-	}
-	
+        @Override
+        public boolean isEntityApplicable(Entity entity) {
+            
+            for(IEntitySelector i : list)
+                if(!i.isEntityApplicable(entity))
+                    return false;
+            return true;
+        }
+        
+    }
+    
+    /**
+     * Combine a set of entitySelectors (logical AND) to create a new EntitySelector.
+     */
+    public static IEntitySelector combine(IEntitySelector ...sels) {
+        return new SelectorList(sels);
+    }
+    
+    /**
+     * Create an EntitySelector that excludes the passed in entities.
+     */
+    public static IEntitySelector excludeOf(Entity ...ents) {
+        return new Exclusion(ents);
+    }
+    
+    public static IEntitySelector excludeType(Class<? extends Entity> klass) {
+        return new ExcludeType(klass);
+    }
+    
 }

@@ -20,16 +20,16 @@ import cpw.mods.fml.common.eventhandler.Event;
  */
 public abstract class WpnEventHandler {
 
-	private final Class<? extends Event> handledEvent;
-	
-	public WpnEventHandler(Class<? extends Event> klass) {
-		handledEvent = klass;
-	}
-	
-	public abstract void handleEvent(ItemInfo item, Event event);
-	
-	public Class<?> getHandledEvent() {
-		return handledEvent;
-	}
-	
+    private final Class<? extends Event> handledEvent;
+    
+    public WpnEventHandler(Class<? extends Event> klass) {
+        handledEvent = klass;
+    }
+    
+    public abstract void handleEvent(ItemInfo item, Event event);
+    
+    public Class<?> getHandledEvent() {
+        return handledEvent;
+    }
+    
 }

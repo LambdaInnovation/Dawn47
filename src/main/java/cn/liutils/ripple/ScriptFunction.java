@@ -66,7 +66,7 @@ public final class ScriptFunction {
     }
     
     public float callFloat(Object ...args) {
-    	return (float) callDouble(args);
+        return (float) callDouble(args);
     }
     
     public double callDouble(Object... args) {

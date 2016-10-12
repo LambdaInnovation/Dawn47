@@ -19,30 +19,30 @@ import net.minecraftforge.client.model.IModelCustom;
  */
 public class CustomModelPart implements IModel {
 
-	public final IModelCustom model;
-	public final String name;
-	public final CompTransform transform = new CompTransform();
-	public boolean doesDraw = true;
-	
-	public CustomModelPart(IModelCustom _model) {
-		this(_model, null);
-	}
-	
-	public CustomModelPart(IModelCustom _model, String _part) {
-		model = _model;
-		name = _part;
-	}
-	
-	@Override
-	public void draw() {
-		if(!doesDraw)
-			return;
-		if(name == null) {
-			model.renderAll();
-		} else {
-			model.renderPart(name);
-		}
-	}
-	
+    public final IModelCustom model;
+    public final String name;
+    public final CompTransform transform = new CompTransform();
+    public boolean doesDraw = true;
+    
+    public CustomModelPart(IModelCustom _model) {
+        this(_model, null);
+    }
+    
+    public CustomModelPart(IModelCustom _model, String _part) {
+        model = _model;
+        name = _part;
+    }
+    
+    @Override
+    public void draw() {
+        if(!doesDraw)
+            return;
+        if(name == null) {
+            model.renderAll();
+        } else {
+            model.renderPart(name);
+        }
+    }
+    
 
 }

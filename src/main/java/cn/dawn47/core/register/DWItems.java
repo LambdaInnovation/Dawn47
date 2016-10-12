@@ -39,69 +39,69 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @Registrant
 @RegInit
 public class DWItems {
-	
-	public static ItemLoader itemLoader;
-	public static DawnWeaponLoader weaponLoader;
-	public static DawnWeaponLoader weaponLoader2;
-	
-	//----------Ammo and Weapons--------------
-	
-	public static Item[] posters;
+    
+    public static ItemLoader itemLoader;
+    public static DawnWeaponLoader weaponLoader;
+    public static DawnWeaponLoader weaponLoader2;
+    
+    //----------Ammo and Weapons--------------
+    
+    public static Item[] posters;
 
-	@RegItem
-	public static Item logo = new Item().setTextureName("dawn47:logo");
-	
-	@RegItem
-	public static ItemSuperDrink superdrink;
-	
-	@RegItem
-	public static Item
-		spawnerRottenCreeper = new DWMobSpawner(EntityRottenCreeper.class, "rotten_creeper", 1),
-		spawnerDrone = new DWMobSpawner(EntityDrone.class, "drone", 0),
-		spawnerSoldier = new DWMobSpawner(EntityBattleSoldier.class, "battle_soldier", 3),
-		spawnerWSoldier = new DWMobSpawner(EntityWeaponSoldier.class, "weapon_soldier", 4);
-	
-	@RegItem
-	public static Item
-		solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D(),
-		solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
-	
-	@RegItem
-	public static Item electronicBalancer = new ItemElectronicBalancer();
-	
-	public static DawnWeapon 
-		soldierAR,
-		soldierHandgun;
-	
-	public static void init() {
-		
-		itemLoader = new ItemLoader();
-		itemLoader.feed(new ResourceLocation("dawn47:items.json"));
-		itemLoader.loadAll();
-		Dawn47.log.info("Dawn47 itemLoader loaded " + itemLoader.getEnumeration().size() + " items.");
-		
-		weaponLoader = new DawnWeaponLoader();
-		weaponLoader.feed(new ResourceLocation("dawn47:weapons.json"));
-		weaponLoader.loadAll();
-		
-		weaponLoader2 = new DawnWeaponLoader();
-		weaponLoader2.feed(new ResourceLocation("dawn47:soldier_weapons.json"));
-		weaponLoader2.loadAll();
-		
-		Dawn47.log.info("Dawn47 weaponLoader loaded " + weaponLoader.getEnumeration().size() + " items.");
-		Dawn47.log.info("Dawn47 weaponLoader2 loaded " + weaponLoader2.getEnumeration().size() + " items.");
-		
-		posters = new Item[5];
-		for(int i = 0; i < 5; ++i) {
-			posters[i] = new ItemPosterPlacer(i);
-			GameRegistry.registerItem(posters[i], "dw_poster" + i);
-		}
-		
-		soldierAR = weaponLoader2.getObject("soldier_ar");
-		soldierHandgun = weaponLoader2.getObject("soldier_handgun");
-	}
-	
-	public static void addRecipes() {
-	}
+    @RegItem
+    public static Item logo = new Item().setTextureName("dawn47:logo");
+    
+    @RegItem
+    public static ItemSuperDrink superdrink;
+    
+    @RegItem
+    public static Item
+        spawnerRottenCreeper = new DWMobSpawner(EntityRottenCreeper.class, "rotten_creeper", 1),
+        spawnerDrone = new DWMobSpawner(EntityDrone.class, "drone", 0),
+        spawnerSoldier = new DWMobSpawner(EntityBattleSoldier.class, "battle_soldier", 3),
+        spawnerWSoldier = new DWMobSpawner(EntityWeaponSoldier.class, "weapon_soldier", 4);
+    
+    @RegItem
+    public static Item
+        solCrowbar = new Item().setTextureName("dawn47:crowbar").setFull3D(),
+        solAxe = new Item().setTextureName("dawn47:axe").setFull3D();
+    
+    @RegItem
+    public static Item electronicBalancer = new ItemElectronicBalancer();
+    
+    public static DawnWeapon 
+        soldierAR,
+        soldierHandgun;
+    
+    public static void init() {
+        
+        itemLoader = new ItemLoader();
+        itemLoader.feed(new ResourceLocation("dawn47:items.json"));
+        itemLoader.loadAll();
+        Dawn47.log.info("Dawn47 itemLoader loaded " + itemLoader.getEnumeration().size() + " items.");
+        
+        weaponLoader = new DawnWeaponLoader();
+        weaponLoader.feed(new ResourceLocation("dawn47:weapons.json"));
+        weaponLoader.loadAll();
+        
+        weaponLoader2 = new DawnWeaponLoader();
+        weaponLoader2.feed(new ResourceLocation("dawn47:soldier_weapons.json"));
+        weaponLoader2.loadAll();
+        
+        Dawn47.log.info("Dawn47 weaponLoader loaded " + weaponLoader.getEnumeration().size() + " items.");
+        Dawn47.log.info("Dawn47 weaponLoader2 loaded " + weaponLoader2.getEnumeration().size() + " items.");
+        
+        posters = new Item[5];
+        for(int i = 0; i < 5; ++i) {
+            posters[i] = new ItemPosterPlacer(i);
+            GameRegistry.registerItem(posters[i], "dw_poster" + i);
+        }
+        
+        soldierAR = weaponLoader2.getObject("soldier_ar");
+        soldierHandgun = weaponLoader2.getObject("soldier_handgun");
+    }
+    
+    public static void addRecipes() {
+    }
 
 }

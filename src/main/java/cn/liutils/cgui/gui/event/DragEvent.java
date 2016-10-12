@@ -9,11 +9,11 @@ package cn.liutils.cgui.gui.event;
  * @author WeAthFolD
  */
 public class DragEvent implements GuiEvent { 
-	 public DragEvent() {}
-	 
-	 public static abstract class DragEventHandler extends GuiEventHandler<DragEvent> {
-		public DragEventHandler() {
-			super(DragEvent.class);
-		}
-	 }
+     public DragEvent() {}
+     
+     public static abstract class DragEventHandler extends GuiEventHandler<DragEvent> {
+        public DragEventHandler() {
+            super(DragEvent.class);
+        }
+     }
 }

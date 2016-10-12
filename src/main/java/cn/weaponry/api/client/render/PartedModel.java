@@ -22,78 +22,78 @@ import org.lwjgl.opengl.GL11;
  */
 public abstract class PartedModel {
 
-	CompTransform transformAll = new CompTransform();
-	Map<String, CompTransform> transformData = new HashMap();
-	
-	public PartedModel(String ...partNames) {
-		for(String s : partNames) {
-			regPart(s);
-		}
-	}
-	
-	protected void regPart(String name) {
-		transformData.put(name, new CompTransform());
-	}
-	
-	public void renderAll() {
-		renderAll("__niconiconi__");
-	}
-	
-	public void renderAll(String exception) {
-		GL11.glPushMatrix();
-		{
-			transformAll.doTransform();
-			for(String s : transformData.keySet()) {
-				if(!s.equals(exception))
-					renderPart(s);
-				//System.out.println("render part " + s);
-			}
-		}
-		GL11.glPopMatrix();
-	}
-	
-	public void pushTransformState() {
-		transformAll.store();
-		for(CompTransform t : transformData.values()) {
-			t.store();
-		}
-	}
-	
-	public void popTransformState() {
-		transformAll.restore();
-		for(CompTransform t : transformData.values()) {
-			t.restore();
-		}
-	}
-	
-	/**
-	 * Render the part at the origin, then peform the following transform sequence:
-	 * move to pivot->scale->rotate->transform->move back from pivot
-	 * @throws NullPointerException if no such model part
-	 * @param name The part name
-	 */
-	public void renderPart(String name) {
-		CompTransform t = transformData.get(name);
-		GL11.glPushMatrix();
-		
-		t.doTransform();
-		renderAtCenter(name);
-		
-		GL11.glPopMatrix();
-	}
-	
-	public CompTransform getTransform(String name) {
-		return transformData.get(name);
-	}
-	
-	public CompTransform getAllTransform() {
-		return transformAll;
-	}
-	
-	protected abstract void renderAtCenter(String name);
-	
-	public static interface Callback {
-		public void invoke();
-	}
-	
+    CompTransform transformAll = new CompTransform();
+    Map<String, CompTransform> transformData = new HashMap();
+    
+    public PartedModel(String ...partNames) {
+        for(String s : partNames) {
+            regPart(s);
+        }
+    }
+    
+    protected void regPart(String name) {
+        transformData.put(name, new CompTransform());
+    }
+    
+    public void renderAll() {
+        renderAll("__niconiconi__");
+    }
+    
+    public void renderAll(String exception) {
+        GL11.glPushMatrix();
+        {
+            transformAll.doTransform();
+            for(String s : transformData.keySet()) {
+                if(!s.equals(exception))
+                    renderPart(s);
+                //System.out.println("render part " + s);
+            }
+        }
+        GL11.glPopMatrix();
+    }
+    
+    public void pushTransformState() {
+        transformAll.store();
+        for(CompTransform t : transformData.values()) {
+            t.store();
+        }
+    }
+    
+    public void popTransformState() {
+        transformAll.restore();
+        for(CompTransform t : transformData.values()) {
+            t.restore();
+        }
+    }
+    
+    /**
+     * Render the part at the origin, then peform the following transform sequence:
+     * move to pivot->scale->rotate->transform->move back from pivot
+     * @throws NullPointerException if no such model part
+     * @param name The part name
+     */
+    public void renderPart(String name) {
+        CompTransform t = transformData.get(name);
+        GL11.glPushMatrix();
+        
+        t.doTransform();
+        renderAtCenter(name);
+        
+        GL11.glPopMatrix();
+    }
+    
+    public CompTransform getTransform(String name) {
+        return transformData.get(name);
+    }
+    
+    public CompTransform getAllTransform() {
+        return transformAll;
+    }
+    
+    protected abstract void renderAtCenter(String name);
+    
+    public static interface Callback {
+        public void invoke();
+    }
+    
 }

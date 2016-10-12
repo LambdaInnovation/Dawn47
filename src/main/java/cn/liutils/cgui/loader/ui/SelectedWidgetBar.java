@@ -42,207 +42,207 @@ import cn.liutils.util.helper.Font.Align;
  *
  */
 public class SelectedWidgetBar extends Window {
-	
-	static final ResourceLocation TEX_REMOVE = GuiEdit.tex("remove");
-	
-	final Widget target;
-	
-	static final double HT = 10;
-	
-	final GuiEdit guiEdit;
+    
+    static final ResourceLocation TEX_REMOVE = GuiEdit.tex("remove");
+    
+    final Widget target;
+    
+    static final double HT = 10;
+    
+    final GuiEdit guiEdit;
 
-	public SelectedWidgetBar(GuiEdit _guiEdit, Widget _target) {
-		super(_guiEdit, "Properties", false, new double[] { 220, 20 });
-		guiEdit = _guiEdit;
-		target = _target;
-		transform.width = 100;
-		transform.height = HT;
-		
-		initWidgets();
-		initEvents();
-		
-		guiEdit.changeSelectedEditor(this);
-	}
-	
-	private List<Component> getCanAddList() {
-		List<Component> ret = new ArrayList(CGUIEditor.getComponents());
-		Iterator<Component> iter = ret.iterator();
-		while(iter.hasNext()) {
-			Component c = iter.next();
-			if(target.getComponent(c.name) != null) {
-				iter.remove();
-			}
-		}
-		return ret;
-	}
-	
-	private void initWidgets() {
-		addWidget(new ComponentSelection());
-	}
-	
-	private void initEvents() {
-		regEventHandler(new FrameEventHandler() {
-			@Override
-			public void handleEvent(Widget w, FrameEvent event) {
-				if(target.disposed || target != guiEdit.toEdit.getFocus()) {
-					w.dispose();
-				}
-			}
-		});
-	}
-	
-	private class ComponentSelection extends Window {
-		
-		Widget curEditor;
-		boolean listSpawned = false;
-		
-		public ComponentSelection() {
-			super(SelectedWidgetBar.this.guiEdit, "Components", false);
-			transform.x = 0;
-			transform.y = HT;
-			transform.width = 100;
-			transform.height = 24 + target.getComponentList().size() * 11;
-			
-			int i = 0;
-			for(Component prop : target.getComponentList()) {
-				if(prop.canEdit)
-					addWidget(new ComponentButton(prop, i++));
-			}
-			//SO SAD
-			{
-				Widget add = new Widget();
-				add.transform.setPos(0, 11 + i * 11);
-				add.transform.setSize(100, 10);
-				add.addComponent(new Tint());
-				add.regEventHandler(new FrameEventHandler() {
-					ResourceLocation tex = GuiEdit.tex("toolbar/add");
-					@Override
-					public void handleEvent(Widget w, FrameEvent event) {
-						RenderUtils.loadTexture(tex);
-						GL11.glColor4d(1, 1, 1, 1);
-						HudUtils.rect(45, 0, 10, 10);
-					}
-				});
-				
-				final int y = 11 * (i + 2);
-				add.regEventHandler(new MouseDownHandler() {
+    public SelectedWidgetBar(GuiEdit _guiEdit, Widget _target) {
+        super(_guiEdit, "Properties", false, new double[] { 220, 20 });
+        guiEdit = _guiEdit;
+        target = _target;
+        transform.width = 100;
+        transform.height = HT;
+        
+        initWidgets();
+        initEvents();
+        
+        guiEdit.changeSelectedEditor(this);
+    }
+    
+    private List<Component> getCanAddList() {
+        List<Component> ret = new ArrayList(CGUIEditor.getComponents());
+        Iterator<Component> iter = ret.iterator();
+        while(iter.hasNext()) {
+            Component c = iter.next();
+            if(target.getComponent(c.name) != null) {
+                iter.remove();
+            }
+        }
+        return ret;
+    }
+    
+    private void initWidgets() {
+        addWidget(new ComponentSelection());
+    }
+    
+    private void initEvents() {
+        regEventHandler(new FrameEventHandler() {
+            @Override
+            public void handleEvent(Widget w, FrameEvent event) {
+                if(target.disposed || target != guiEdit.toEdit.getFocus()) {
+                    w.dispose();
+                }
+            }
+        });
+    }
+    
+    private class ComponentSelection extends Window {
+        
+        Widget curEditor;
+        boolean listSpawned = false;
+        
+        public ComponentSelection() {
+            super(SelectedWidgetBar.this.guiEdit, "Components", false);
+            transform.x = 0;
+            transform.y = HT;
+            transform.width = 100;
+            transform.height = 24 + target.getComponentList().size() * 11;
+            
+            int i = 0;
+            for(Component prop : target.getComponentList()) {
+                if(prop.canEdit)
+                    addWidget(new ComponentButton(prop, i++));
+            }
+            //SO SAD
+            {
+                Widget add = new Widget();
+                add.transform.setPos(0, 11 + i * 11);
+                add.transform.setSize(100, 10);
+                add.addComponent(new Tint());
+                add.regEventHandler(new FrameEventHandler() {
+                    ResourceLocation tex = GuiEdit.tex("toolbar/add");
+                    @Override
+                    public void handleEvent(Widget w, FrameEvent event) {
+                        RenderUtils.loadTexture(tex);
+                        GL11.glColor4d(1, 1, 1, 1);
+                        HudUtils.rect(45, 0, 10, 10);
+                    }
+                });
+                
+                final int y = 11 * (i + 2);
+                add.regEventHandler(new MouseDownHandler() {
 
-					@Override
-					public void handleEvent(Widget w, MouseDownEvent event) {
-						if(listSpawned)
-							return;
-						listSpawned = true;
-						
-						//Setup background list
-						Widget list = new Widget();
-						list.regEventHandler(new LostFocusHandler() {
-							@Override
-							public void handleEvent(Widget w, LostFocusEvent event) {
-								w.dispose();
-							}
-						});
-						list.addComponent(new DrawTexture().setTex(null).setColor4d(.8, .8, 1, 0.3));
-						Collection<Component> components = CGUIEditor.getComponents();
-						list.transform.setSize(80, 10 * components.size());
-						list.transform.setPos(10, y);
-						
-						//Use a loop to setup all the sub-components.
-						int i = 0;
-						for(final Component c : getCanAddList()) {
-							Widget one = new Widget();
-							one.transform.y = (i++) * 10;
-							one.transform.setSize(80, 10);
-							one.addComponent(new Tint());
-							one.regEventHandler(new FrameEventHandler() {
-								@Override
-								public void handleEvent(Widget w, FrameEvent event) {
-									String text = c.name;
-									Font.font.draw(text, 40, 1, 8, 0xffffff, Align.CENTER);
-								}
-							});
-							one.regEventHandler(new MouseDownHandler() {
-								@Override
-								public void handleEvent(Widget w,
-										MouseDownEvent event) {
-									target.addComponent(c.copy());
-									//Rebuild the component selection GUI
-									ComponentSelection.this.dispose();
-									SelectedWidgetBar.this.addWidget(new ComponentSelection());
-								}
-							});
-							list.addWidget(one);
-						}
-						
-						ComponentSelection.this.addWidget(list);
-						//getGui().gainFocus(list);
-					}
-					
-				});
-				addWidget(add);
-			}
-		}
-		
-		void setPropertyEditor(Widget ce) {
-			if(curEditor != null) {
-				curEditor.dispose();
-			}
-			curEditor = ce;
-			ce.transform.y = -10;
-			addWidget(curEditor);
-		}
-		
-		private class ComponentButton extends Widget {
-			
-			final Component c;
-			
-			public ComponentButton(Component _c, int n) {
-				c = _c;
-				
-				transform.x = 0;
-				transform.y = 11 + n * 11;
-				transform.width = 100;
-				transform.height = 10;
-				
-				addComponent(new Tint());
-				
-				regEventHandler(new MouseDownHandler() {
-					@Override
-					public void handleEvent(Widget w, MouseDownEvent event) {
-						setPropertyEditor(new ComponentEditor(guiEdit, target, c));
-					}
-				});
-				
-				regEventHandler(new FrameEventHandler() {
-					@Override
-					public void handleEvent(Widget w, FrameEvent event) {
-						Font.font.draw(c.name, 50, 2, 7, 0xffffff, Align.CENTER);
-					}
-				});
-				
-				addSubWidgets();
-			}
-			
-			private void addSubWidgets() {
-				//Add the remove button, if needed to.
-				if(c.name.equals("Transform"))
-					return;
-				Widget w = new Widget();
-				w.transform.setSize(10, 10).setPos(85, 0);
-				w.addComponent(new DrawTexture().setTex(TEX_REMOVE));
-				w.addComponent(new Tint());
-				w.regEventHandler(new MouseDownHandler() {
-					@Override
-					public void handleEvent(Widget w, MouseDownEvent event) {
-						target.removeComponent(c);
-						ComponentSelection.this.dispose();
-						SelectedWidgetBar.this.addWidget(new ComponentSelection());
-					}
-				});
-				addWidget(w);
-			}
-			
-		}
-		
-	}
-	
+                    @Override
+                    public void handleEvent(Widget w, MouseDownEvent event) {
+                        if(listSpawned)
+                            return;
+                        listSpawned = true;
+                        
+                        //Setup background list
+                        Widget list = new Widget();
+                        list.regEventHandler(new LostFocusHandler() {
+                            @Override
+                            public void handleEvent(Widget w, LostFocusEvent event) {
+                                w.dispose();
+                            }
+                        });
+                        list.addComponent(new DrawTexture().setTex(null).setColor4d(.8, .8, 1, 0.3));
+                        Collection<Component> components = CGUIEditor.getComponents();
+                        list.transform.setSize(80, 10 * components.size());
+                        list.transform.setPos(10, y);
+                        
+                        //Use a loop to setup all the sub-components.
+                        int i = 0;
+                        for(final Component c : getCanAddList()) {
+                            Widget one = new Widget();
+                            one.transform.y = (i++) * 10;
+                            one.transform.setSize(80, 10);
+                            one.addComponent(new Tint());
+                            one.regEventHandler(new FrameEventHandler() {
+                                @Override
+                                public void handleEvent(Widget w, FrameEvent event) {
+                                    String text = c.name;
+                                    Font.font.draw(text, 40, 1, 8, 0xffffff, Align.CENTER);
+                                }
+                            });
+                            one.regEventHandler(new MouseDownHandler() {
+                                @Override
+                                public void handleEvent(Widget w,
+                                        MouseDownEvent event) {
+                                    target.addComponent(c.copy());
+                                    //Rebuild the component selection GUI
+                                    ComponentSelection.this.dispose();
+                                    SelectedWidgetBar.this.addWidget(new ComponentSelection());
+                                }
+                            });
+                            list.addWidget(one);
+                        }
+                        
+                        ComponentSelection.this.addWidget(list);
+                        //getGui().gainFocus(list);
+                    }
+                    
+                });
+                addWidget(add);
+            }
+        }
+        
+        void setPropertyEditor(Widget ce) {
+            if(curEditor != null) {
+                curEditor.dispose();
+            }
+            curEditor = ce;
+            ce.transform.y = -10;
+            addWidget(curEditor);
+        }
+        
+        private class ComponentButton extends Widget {
+            
+            final Component c;
+            
+            public ComponentButton(Component _c, int n) {
+                c = _c;
+                
+                transform.x = 0;
+                transform.y = 11 + n * 11;
+                transform.width = 100;
+                transform.height = 10;
+                
+                addComponent(new Tint());
+                
+                regEventHandler(new MouseDownHandler() {
+                    @Override
+                    public void handleEvent(Widget w, MouseDownEvent event) {
+                        setPropertyEditor(new ComponentEditor(guiEdit, target, c));
+                    }
+                });
+                
+                regEventHandler(new FrameEventHandler() {
+                    @Override
+                    public void handleEvent(Widget w, FrameEvent event) {
+                        Font.font.draw(c.name, 50, 2, 7, 0xffffff, Align.CENTER);
+                    }
+                });
+                
+                addSubWidgets();
+            }
+            
+            private void addSubWidgets() {
+                //Add the remove button, if needed to.
+                if(c.name.equals("Transform"))
+                    return;
+                Widget w = new Widget();
+                w.transform.setSize(10, 10).setPos(85, 0);
+                w.addComponent(new DrawTexture().setTex(TEX_REMOVE));
+                w.addComponent(new Tint());
+                w.regEventHandler(new MouseDownHandler() {
+                    @Override
+                    public void handleEvent(Widget w, MouseDownEvent event) {
+                        target.removeComponent(c);
+                        ComponentSelection.this.dispose();
+                        SelectedWidgetBar.this.addWidget(new ComponentSelection());
+                    }
+                });
+                addWidget(w);
+            }
+            
+        }
+        
+    }
+    
 }

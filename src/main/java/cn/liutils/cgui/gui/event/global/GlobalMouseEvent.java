@@ -19,22 +19,22 @@ import cn.liutils.cgui.gui.event.GuiEventHandler;
  * @author WeAthFolD
  */
 public class GlobalMouseEvent implements GuiEvent {
-	
-	public final double x, y;
-	public final int key;
-	
-	public GlobalMouseEvent(double _x, double _y, int _key) {
-		x = _x;
-		y = _y;
-		key = _key;
-	}
-	
-	public static abstract class GlobalMouseHandler extends GuiEventHandler<GlobalMouseEvent> {
+    
+    public final double x, y;
+    public final int key;
+    
+    public GlobalMouseEvent(double _x, double _y, int _key) {
+        x = _x;
+        y = _y;
+        key = _key;
+    }
+    
+    public static abstract class GlobalMouseHandler extends GuiEventHandler<GlobalMouseEvent> {
 
-		public GlobalMouseHandler() {
-			super(GlobalMouseEvent.class);
-		}
-		
-	}
-	
+        public GlobalMouseHandler() {
+            super(GlobalMouseEvent.class);
+        }
+        
+    }
+    
 }

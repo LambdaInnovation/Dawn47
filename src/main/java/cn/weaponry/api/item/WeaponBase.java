@@ -37,71 +37,71 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author WeAthFolD
  */
 public abstract class WeaponBase extends ItemSword implements IItemInfoProvider, IItemCtrlListener {
-	
-	private Map< Class<?>, List<WpnEventHandler> > handledEvents = new HashMap();
-	
-	public WeaponBase() {
-		super(ToolMaterial.IRON);
-	}
-	
-	public abstract void initStates(WeaponStateMachine machine);
-	
-	@SideOnly(Side.CLIENT)
-	public abstract void initDefaultAnims(RenderInfo render);
-	
-	@Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-    	return stack;
+    
+    private Map< Class<?>, List<WpnEventHandler> > handledEvents = new HashMap();
+    
+    public WeaponBase() {
+        super(ToolMaterial.IRON);
     }
-	
-	@Override
-	public void onKeyEvent(EntityPlayer player, int key, KeyEventType type) {
-		ItemInfo info = ItemInfoProxy.getInfo(player);
-		WeaponStateMachine wsm = info.getAction("StateMachine");
-		//System.out.println("BasicKeyEvent " + wsm); 
-		if(wsm != null) {
-			wsm.onCtrl(key, type);
-		}
-	}
+    
+    public abstract void initStates(WeaponStateMachine machine);
+    
+    @SideOnly(Side.CLIENT)
+    public abstract void initDefaultAnims(RenderInfo render);
+    
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        return stack;
+    }
+    
+    @Override
+    public void onKeyEvent(EntityPlayer player, int key, KeyEventType type) {
+        ItemInfo info = ItemInfoProxy.getInfo(player);
+        WeaponStateMachine wsm = info.getAction("StateMachine");
+        //System.out.println("BasicKeyEvent " + wsm); 
+        if(wsm != null) {
+            wsm.onCtrl(key, type);
+        }
+    }
 
-	@Override
-	public void onInfoStart(ItemInfo info) {
-		WeaponStateMachine wsm = new WeaponStateMachine();
-		initStates(wsm);
-		info.addAction(wsm);
-		
-		if(info.getWorld().isRemote) { 
-			//Dispatch render info component in client side.
-			RenderInfo ri = new RenderInfo();
-			initDefaultAnims(ri);
-			info.addAction(ri);
-		}
-	}
-	
-	//Very simple event bus
-	public void regEventHandler(WpnEventHandler handler) {
-		lazy(handler.getHandledEvent()).add(handler);
-	}
-	
-	public boolean post(ItemInfo item, Event event) {
-		List<WpnEventHandler> list = handledEvents.get(event.getClass());
-		if(list != null) {
-			for(WpnEventHandler handler : list) {
-				//System.out.println("Handle " + handler + "/" + item.getPlayer().worldObj.isRemote);
-				handler.handleEvent(item, event);
-			}
-			return !event.isCanceled();
-		}
-		return true;
-	}
-	
-	private List<WpnEventHandler> lazy(Class<?> klass) {
-		List<WpnEventHandler> ret = handledEvents.get(klass);
-		if(ret == null) {
-			ret = new ArrayList();
-			handledEvents.put(klass, ret);
-		}
-		return ret;
-	}
-	
+    @Override
+    public void onInfoStart(ItemInfo info) {
+        WeaponStateMachine wsm = new WeaponStateMachine();
+        initStates(wsm);
+        info.addAction(wsm);
+        
+        if(info.getWorld().isRemote) { 
+            //Dispatch render info component in client side.
+            RenderInfo ri = new RenderInfo();
+            initDefaultAnims(ri);
+            info.addAction(ri);
+        }
+    }
+    
+    //Very simple event bus
+    public void regEventHandler(WpnEventHandler handler) {
+        lazy(handler.getHandledEvent()).add(handler);
+    }
+    
+    public boolean post(ItemInfo item, Event event) {
+        List<WpnEventHandler> list = handledEvents.get(event.getClass());
+        if(list != null) {
+            for(WpnEventHandler handler : list) {
+                //System.out.println("Handle " + handler + "/" + item.getPlayer().worldObj.isRemote);
+                handler.handleEvent(item, event);
+            }
+            return !event.isCanceled();
+        }
+        return true;
+    }
+    
+    private List<WpnEventHandler> lazy(Class<?> klass) {
+        List<WpnEventHandler> ret = handledEvents.get(klass);
+        if(ret == null) {
+            ret = new ArrayList();
+            handledEvents.put(klass, ret);
+        }
+        return ret;
+    }
+    
 }

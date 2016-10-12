@@ -39,70 +39,70 @@ import cn.liutils.util.helper.GameTimer;
  *
  */
 public class SaveAsScreen extends Window {
-	
-	TextBox textBox;
-	
-	//String warnMessage;
-	long lastWarningTime;
+    
+    TextBox textBox;
+    
+    //String warnMessage;
+    long lastWarningTime;
 
-	public SaveAsScreen(GuiEdit _guiEdit) {
-		super(_guiEdit, CGUILang.butSaveAs(), true);
-		transform.setCenteredAlign();
-		transform.setSize(100, 40);
-		addWidgets();
-	}
-	
-	private void addWidgets() {
-		Widget tb = new Widget();
-		tb.transform.setPos(10, 15).setSize(80, 10);
-		
-		DrawTexture drawer = new DrawTexture();
-		drawer.setTex(null).setColor4d(1, 1, 1, 0.3);
-		tb.addComponent(drawer);
-		
-		textBox = new TextBox();
-		textBox.content = "cgui/unnamed_0.xml";
-		textBox.size = 9;
-		tb.addComponent(textBox);
-		addWidget(tb);
-		
-		Widget button = new Widget();
-		button.transform.setSize(18, 8).setPos(41, 30);
-		
-		Tint tint = new Tint();
-		tint.idleColor = new Color(1, 1, 1, 0.3);
-		button.addComponent(tint);
-		
-		button.regEventHandler(new MouseDownHandler() {
-			@Override
-			public void handleEvent(Widget w, MouseDownEvent event) {
-				File file = new File(textBox.content);
-				if(file.exists()) {
-					lastWarningTime = GameTimer.getAbsTime();
-				} else {
-					if(!CGUIDocWriter.save(guiEdit.toEdit, file))
-						Minecraft.getMinecraft().thePlayer.sendChatMessage(CGUILang.commSaveFailed() + textBox.content);
-					else
-						Minecraft.getMinecraft().thePlayer.sendChatMessage(CGUILang.commSaved() + textBox.content);
-					guiEdit.path = textBox.content;
-					SaveAsScreen.this.dispose();
-				}
-			}
-		});
-		
-		button.regEventHandler(new FrameEventHandler() {
-			@Override
-			public void handleEvent(Widget w, FrameEvent event) {
-				Font.font.draw(CGUILang.butSave(), 9, 1, 6, 0xffffff, Align.CENTER);
-				if(GameTimer.getAbsTime() - lastWarningTime < 1000L) {
-					GL11.glColor4d(1, .3, .3, .3);
-					HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
-					GL11.glColor4d(1, 1, 1, 1);
-				}
-			}
-		});
-		
-		addWidget(button);
-	}
+    public SaveAsScreen(GuiEdit _guiEdit) {
+        super(_guiEdit, CGUILang.butSaveAs(), true);
+        transform.setCenteredAlign();
+        transform.setSize(100, 40);
+        addWidgets();
+    }
+    
+    private void addWidgets() {
+        Widget tb = new Widget();
+        tb.transform.setPos(10, 15).setSize(80, 10);
+        
+        DrawTexture drawer = new DrawTexture();
+        drawer.setTex(null).setColor4d(1, 1, 1, 0.3);
+        tb.addComponent(drawer);
+        
+        textBox = new TextBox();
+        textBox.content = "cgui/unnamed_0.xml";
+        textBox.size = 9;
+        tb.addComponent(textBox);
+        addWidget(tb);
+        
+        Widget button = new Widget();
+        button.transform.setSize(18, 8).setPos(41, 30);
+        
+        Tint tint = new Tint();
+        tint.idleColor = new Color(1, 1, 1, 0.3);
+        button.addComponent(tint);
+        
+        button.regEventHandler(new MouseDownHandler() {
+            @Override
+            public void handleEvent(Widget w, MouseDownEvent event) {
+                File file = new File(textBox.content);
+                if(file.exists()) {
+                    lastWarningTime = GameTimer.getAbsTime();
+                } else {
+                    if(!CGUIDocWriter.save(guiEdit.toEdit, file))
+                        Minecraft.getMinecraft().thePlayer.sendChatMessage(CGUILang.commSaveFailed() + textBox.content);
+                    else
+                        Minecraft.getMinecraft().thePlayer.sendChatMessage(CGUILang.commSaved() + textBox.content);
+                    guiEdit.path = textBox.content;
+                    SaveAsScreen.this.dispose();
+                }
+            }
+        });
+        
+        button.regEventHandler(new FrameEventHandler() {
+            @Override
+            public void handleEvent(Widget w, FrameEvent event) {
+                Font.font.draw(CGUILang.butSave(), 9, 1, 6, 0xffffff, Align.CENTER);
+                if(GameTimer.getAbsTime() - lastWarningTime < 1000L) {
+                    GL11.glColor4d(1, .3, .3, .3);
+                    HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
+                    GL11.glColor4d(1, 1, 1, 1);
+                }
+            }
+        });
+        
+        addWidget(button);
+    }
 
 }

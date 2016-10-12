@@ -28,48 +28,48 @@ import cn.weaponry.api.client.render.RenderInfo.Animation;
  */
 public class Recoil extends Animation {
 
-	public int recoilTime = 400;
-	
-	public Vec3 recoilVec = VecUtils.vec(-1, 0.4, 0).normalize();
-	
-	public double wiggleRadius = 0.12;
-	
-	@Override
-	public void start(ItemInfo info) {
-		setLifetime(recoilTime);
-	}
-	
-	@Override
-	public void render(ItemInfo info, PartedModel model, boolean firstPerson) {
-		long time = getTime();
-		double phase = time * 2 * Math.PI / recoilTime;
-		double progress = (double)time / recoilTime;
-		double offset = Math.sin(phase) * wiggleRadius * 1 / (1 + 8 * progress * progress * progress);
-		
-		GL11.glTranslated(recoilVec.xCoord * offset, recoilVec.yCoord * offset, 0);
-	}
-	
-	@Override
-	public void load(ObjectNamespace ns) {
-		Vec3 v = LoaderUtils.loadVec3(ns, "render", "recoil", "direction");
-		if(v != null) {
-			recoilVec = v.normalize();
-		}
-		
-		Integer time = ns.getInt("render", "recoil", "time");
-		if(time != null) {
-			recoilTime = time;
-		}
-		
-		Double radius = ns.getDouble("render", "recoil", "radius");
-		if(radius != null) {
-			wiggleRadius = radius;
-		}
-	}
-	
-	@Override
-	public boolean shouldRenderInPass(int pass) {
-		return pass == 0;
-	}
-	
+    public int recoilTime = 400;
+    
+    public Vec3 recoilVec = VecUtils.vec(-1, 0.4, 0).normalize();
+    
+    public double wiggleRadius = 0.12;
+    
+    @Override
+    public void start(ItemInfo info) {
+        setLifetime(recoilTime);
+    }
+    
+    @Override
+    public void render(ItemInfo info, PartedModel model, boolean firstPerson) {
+        long time = getTime();
+        double phase = time * 2 * Math.PI / recoilTime;
+        double progress = (double)time / recoilTime;
+        double offset = Math.sin(phase) * wiggleRadius * 1 / (1 + 8 * progress * progress * progress);
+        
+        GL11.glTranslated(recoilVec.xCoord * offset, recoilVec.yCoord * offset, 0);
+    }
+    
+    @Override
+    public void load(ObjectNamespace ns) {
+        Vec3 v = LoaderUtils.loadVec3(ns, "render", "recoil", "direction");
+        if(v != null) {
+            recoilVec = v.normalize();
+        }
+        
+        Integer time = ns.getInt("render", "recoil", "time");
+        if(time != null) {
+            recoilTime = time;
+        }
+        
+        Double radius = ns.getDouble("render", "recoil", "radius");
+        if(radius != null) {
+            wiggleRadius = radius;
+        }
+    }
+    
+    @Override
+    public boolean shouldRenderInPass(int pass) {
+        return pass == 0;
+    }
+    
 }

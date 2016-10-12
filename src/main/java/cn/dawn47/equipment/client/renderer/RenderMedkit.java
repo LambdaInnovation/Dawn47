@@ -28,29 +28,29 @@ import cn.liutils.util.client.RenderUtils;
  */
 @Registrant
 public class RenderMedkit extends TileEntitySpecialRenderer {
-	
-	IModelCustom model;
-	ResourceLocation texture;
+    
+    IModelCustom model;
+    ResourceLocation texture;
 
-	public RenderMedkit() {
-		model = DWResources.loadModel("medkit");
-		texture = DWResources.getMdlTexture("medkit");	
-	}
+    public RenderMedkit() {
+        model = DWResources.loadModel("medkit");
+        texture = DWResources.getMdlTexture("medkit");  
+    }
 
-	@Override
-	public void renderTileEntityAt(TileEntity te, double x,
-			double y, double z, float f) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(x + 0.5, y, z + 0.5);
-		
-		float scale = 0.4f;
-		GL11.glScaled(scale, scale, scale);
-		GL11.glRotated(90 + 90 * te.getBlockMetadata(), 0, 1, 0);
-		
-		RenderUtils.loadTexture(texture);
-		model.renderAll();
-		
-		GL11.glPopMatrix();
-	}
+    @Override
+    public void renderTileEntityAt(TileEntity te, double x,
+            double y, double z, float f) {
+        GL11.glPushMatrix();
+        GL11.glTranslated(x + 0.5, y, z + 0.5);
+        
+        float scale = 0.4f;
+        GL11.glScaled(scale, scale, scale);
+        GL11.glRotated(90 + 90 * te.getBlockMetadata(), 0, 1, 0);
+        
+        RenderUtils.loadTexture(texture);
+        model.renderAll();
+        
+        GL11.glPopMatrix();
+    }
 
 }

@@ -36,119 +36,119 @@ import cn.liutils.util.helper.Font.Align;
  *
  */
 public class Toolbar extends Window {
-	
-	boolean isLocked = false;
-	
-	public Toolbar(final GuiEdit guiEdit) {
-		super(guiEdit, CGUILang.guiToolbar(), false, new double[] { 10, 10 });
-		transform.setSize(200, 30);
-		
-		addWidget(new Button(0, "save", CGUILang.butSave()) {
-			@Override public void triggerEvent() {
-				if(guiEdit.path != null) {
-					guiEdit.saveResult();
-				} else {
-					guiEdit.getGui().addWidget("SaveAs", new SaveAsScreen(guiEdit));
-				}
-			}
-		});
-		addWidget(new Button(1, "saveas", CGUILang.butSaveAs()) {
-			@Override public void triggerEvent() {
-				guiEdit.getGui().addWidget("SaveAs", new SaveAsScreen(guiEdit));
-			}
-		});
-		addWidget(new Button(2, "add", CGUILang.butAdd()) {
-			@Override public void triggerEvent() {
-				isLocked = true;
-				Widget tl = new TemplateList();
-				Toolbar.this.addWidget(tl);
-				getGui().gainFocus(tl);
-			}
-		});
-		addWidget(new Button(3, "hierarchy", CGUILang.butHierarchy()) {
-			@Override public void triggerEvent() {
-				if(!getGui().hasWidget("hierarchy")) {
-					getGui().addWidget("hierarchy", new Hierarchy(gui()));
-				}
-			}
-		});
-		addWidget(new Button(4, "background", CGUILang.butBackground()) {
-			@Override public void triggerEvent() {
-				guiEdit.toggleBlack = !guiEdit.toggleBlack;
-			}
-		});
-	}
-	
-	class Button extends Widget {
-		public Button(int i, final String tn, final String name) {
-			transform.setSize(18, 18).setPos(5 + i * 20, 10);
-			this.addComponent(new DrawTexture().setTex(GuiEdit.tex("toolbar/" + tn)).setColor4i(127, 190, 255, 255));
-			regEventHandler(new FrameEventHandler() {
-				@Override
-				public void handleEvent(Widget widget, FrameEvent event) {
-					if(event.hovering && !isLocked) {
-						GL11.glColor4d(1, 1, 1, .5);
-						HudUtils.colorRect(0, 0, transform.width, transform.height);
-						Font.font.draw(name, 9, 19, 10, 0x9fceff, Align.CENTER);
-					}
-				}
-			});
-			regEventHandler(new MouseDownHandler() {
-				@Override
-				public void handleEvent(Widget w, MouseDownEvent event) {
-					if(!isLocked)
-						triggerEvent();
-				}
-			});
-		}
-		
-		public void triggerEvent() {}
-	}
-	
-	class TemplateList extends Widget {
-		public TemplateList() {
-			transform.x = 30;
-			transform.y = 30;
-			
-			final double width = 50, height = 12; //For a single subelement
-			
-			int i = 0;
-			for(final Entry<String, Widget> e : CGUIEditor.getTemplates()) {
-				Widget one = new Widget();
-				final String name = e.getKey();
-				one.regEventHandler(new FrameEventHandler() {
-					@Override
-					public void handleEvent(Widget w, FrameEvent event) {
-						GL11.glColor4d(.3, .3, .3, event.hovering ? 0.8 : 0.5);
-						HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
-						
-						Font.font.draw(name, 25, 1.5, 10, 0x98b8e2, Align.CENTER);
-					}
-				});
-				one.regEventHandler(new MouseDownHandler() {
-					@Override
-					public void handleEvent(Widget w, MouseDownEvent event) {
-						isLocked = false;
-						TemplateList.this.dispose();
-						gui().toEdit.addWidget(CGUIEditor.createFromTemplate(name));
-					}
-				});
-				Transform ot = one.transform;
-				ot.x = 0;
-				ot.y = (i++) * height;
-				ot.width = width;
-				ot.height = height;
-				addWidget(one);
-			}
-			
-			regEventHandler(new LostFocusHandler() {
-				@Override
-				public void handleEvent(Widget w, LostFocusEvent event) {
-					isLocked = false;
-					w.dispose();
-				}
-			});
-		}
-	}
-	
+    
+    boolean isLocked = false;
+    
+    public Toolbar(final GuiEdit guiEdit) {
+        super(guiEdit, CGUILang.guiToolbar(), false, new double[] { 10, 10 });
+        transform.setSize(200, 30);
+        
+        addWidget(new Button(0, "save", CGUILang.butSave()) {
+            @Override public void triggerEvent() {
+                if(guiEdit.path != null) {
+                    guiEdit.saveResult();
+                } else {
+                    guiEdit.getGui().addWidget("SaveAs", new SaveAsScreen(guiEdit));
+                }
+            }
+        });
+        addWidget(new Button(1, "saveas", CGUILang.butSaveAs()) {
+            @Override public void triggerEvent() {
+                guiEdit.getGui().addWidget("SaveAs", new SaveAsScreen(guiEdit));
+            }
+        });
+        addWidget(new Button(2, "add", CGUILang.butAdd()) {
+            @Override public void triggerEvent() {
+                isLocked = true;
+                Widget tl = new TemplateList();
+                Toolbar.this.addWidget(tl);
+                getGui().gainFocus(tl);
+            }
+        });
+        addWidget(new Button(3, "hierarchy", CGUILang.butHierarchy()) {
+            @Override public void triggerEvent() {
+                if(!getGui().hasWidget("hierarchy")) {
+                    getGui().addWidget("hierarchy", new Hierarchy(gui()));
+                }
+            }
+        });
+        addWidget(new Button(4, "background", CGUILang.butBackground()) {
+            @Override public void triggerEvent() {
+                guiEdit.toggleBlack = !guiEdit.toggleBlack;
+            }
+        });
+    }
+    
+    class Button extends Widget {
+        public Button(int i, final String tn, final String name) {
+            transform.setSize(18, 18).setPos(5 + i * 20, 10);
+            this.addComponent(new DrawTexture().setTex(GuiEdit.tex("toolbar/" + tn)).setColor4i(127, 190, 255, 255));
+            regEventHandler(new FrameEventHandler() {
+                @Override
+                public void handleEvent(Widget widget, FrameEvent event) {
+                    if(event.hovering && !isLocked) {
+                        GL11.glColor4d(1, 1, 1, .5);
+                        HudUtils.colorRect(0, 0, transform.width, transform.height);
+                        Font.font.draw(name, 9, 19, 10, 0x9fceff, Align.CENTER);
+                    }
+                }
+            });
+            regEventHandler(new MouseDownHandler() {
+                @Override
+                public void handleEvent(Widget w, MouseDownEvent event) {
+                    if(!isLocked)
+                        triggerEvent();
+                }
+            });
+        }
+        
+        public void triggerEvent() {}
+    }
+    
+    class TemplateList extends Widget {
+        public TemplateList() {
+            transform.x = 30;
+            transform.y = 30;
+            
+            final double width = 50, height = 12; //For a single subelement
+            
+            int i = 0;
+            for(final Entry<String, Widget> e : CGUIEditor.getTemplates()) {
+                Widget one = new Widget();
+                final String name = e.getKey();
+                one.regEventHandler(new FrameEventHandler() {
+                    @Override
+                    public void handleEvent(Widget w, FrameEvent event) {
+                        GL11.glColor4d(.3, .3, .3, event.hovering ? 0.8 : 0.5);
+                        HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
+                        
+                        Font.font.draw(name, 25, 1.5, 10, 0x98b8e2, Align.CENTER);
+                    }
+                });
+                one.regEventHandler(new MouseDownHandler() {
+                    @Override
+                    public void handleEvent(Widget w, MouseDownEvent event) {
+                        isLocked = false;
+                        TemplateList.this.dispose();
+                        gui().toEdit.addWidget(CGUIEditor.createFromTemplate(name));
+                    }
+                });
+                Transform ot = one.transform;
+                ot.x = 0;
+                ot.y = (i++) * height;
+                ot.width = width;
+                ot.height = height;
+                addWidget(one);
+            }
+            
+            regEventHandler(new LostFocusHandler() {
+                @Override
+                public void handleEvent(Widget w, LostFocusEvent event) {
+                    isLocked = false;
+                    w.dispose();
+                }
+            });
+        }
+    }
+    
 }

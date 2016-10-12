@@ -5,7 +5,7 @@ package cn.liutils.vis.animation;
  * @author WeAthFolD
  */
 public interface IAnimation {
-	
-	void perform(long timePoint);
-	
+    
+    void perform(long timePoint);
+    
 }

@@ -32,61 +32,61 @@ import cn.weaponry.impl.generic.action.SwingSilencer;
  *
  */
 public class DawnWeapon extends WeaponClassic {
-	
-	public float stockDamage = 3.0f;
+    
+    public float stockDamage = 3.0f;
 
-	public DawnWeapon() {
-		super();
-		//setCreativeTab(Dawn47.cct);
-	}
-	
-	@Override
-	public void initStates(WeaponStateMachine machine) {
-		super.initStates(machine);
-		machine.addState("action", new StateStockAttack());
-	}
-	
-	public class StateStockAttack extends WeaponState {
-		
-		public void enterState() {
-			SwingSilencer silencer = getItem().getAction("SwingSilencer");
-			if(silencer != null) {
-				silencer.active = false;
-			}
-			EntityPlayer player = getPlayer();
-			player.swingItem();
-			
-			if(!isRemote()) {
-				Vec3 vec1 =	Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight, player.posZ);
-				Vec3 vec2 = VecUtils.add(vec1, VecUtils.multiply(player.getLookVec(), 1.5));
-				MovingObjectPosition ret = Raytrace.perform(player.worldObj, vec1, vec2, EntitySelectors.excludeOf(player));
-				if(ret != null && ret.typeOfHit == MovingObjectType.ENTITY) {
-					ret.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(player), stockDamage);
-					player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_attack", 0.5f, 1.0f);
-				} else
-					player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_swing", 0.5f, 1.0f);
-			}
-		}
-		
-		@Override
-		public void onCtrl(int key, KeyEventType type) {
-			//transitState("idle");
-		}
-		
-		@Override
-		public void tickState(int ticks) {
-			if(ticks == 15) {
-				transitState("idle");
-			}
-		}
-		
- 		public void leaveState() {
-			SwingSilencer silencer = getItem().getAction("SwingSilencer");
-			if(silencer != null) {
-				silencer.active = true;
-			}
-		}
- 		
-	}
+    public DawnWeapon() {
+        super();
+        //setCreativeTab(Dawn47.cct);
+    }
+    
+    @Override
+    public void initStates(WeaponStateMachine machine) {
+        super.initStates(machine);
+        machine.addState("action", new StateStockAttack());
+    }
+    
+    public class StateStockAttack extends WeaponState {
+        
+        public void enterState() {
+            SwingSilencer silencer = getItem().getAction("SwingSilencer");
+            if(silencer != null) {
+                silencer.active = false;
+            }
+            EntityPlayer player = getPlayer();
+            player.swingItem();
+            
+            if(!isRemote()) {
+                Vec3 vec1 = Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight, player.posZ);
+                Vec3 vec2 = VecUtils.add(vec1, VecUtils.multiply(player.getLookVec(), 1.5));
+                MovingObjectPosition ret = Raytrace.perform(player.worldObj, vec1, vec2, EntitySelectors.excludeOf(player));
+                if(ret != null && ret.typeOfHit == MovingObjectType.ENTITY) {
+                    ret.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(player), stockDamage);
+                    player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_attack", 0.5f, 1.0f);
+                } else
+                    player.worldObj.playSoundAtEntity(player, "dawn47:weapons.stock_swing", 0.5f, 1.0f);
+            }
+        }
+        
+        @Override
+        public void onCtrl(int key, KeyEventType type) {
+            //transitState("idle");
+        }
+        
+        @Override
+        public void tickState(int ticks) {
+            if(ticks == 15) {
+                transitState("idle");
+            }
+        }
+        
+        public void leaveState() {
+            SwingSilencer silencer = getItem().getAction("SwingSilencer");
+            if(silencer != null) {
+                silencer.active = true;
+            }
+        }
+        
+    }
 
 }

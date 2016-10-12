@@ -23,55 +23,55 @@ import cn.weaponry.api.item.WeaponBase;
  * @author WeAthFolD
  */
 public abstract class WeaponState {
-	
-	/**
-	 * instance injected when added into WSM.
-	 */
-	protected WeaponStateMachine machine;
-	
-	public WeaponState() {}
-	
-	//---Event---
-	public void enterState() {}
-	
-	public void leaveState() {}
-	
-	public void tickState(int tick) {}
-	
-	public void onCtrl(int key, KeyEventType type) {}
-	
-	//---Sandbox---
+    
+    /**
+     * instance injected when added into WSM.
+     */
+    protected WeaponStateMachine machine;
+    
+    public WeaponState() {}
+    
+    //---Event---
+    public void enterState() {}
+    
+    public void leaveState() {}
+    
+    public void tickState(int tick) {}
+    
+    public void onCtrl(int key, KeyEventType type) {}
+    
+    //---Sandbox---
 
-	public void transitState(String stateName) {
-		machine.transitState(stateName);
-	}
-	
-	public WeaponStateMachine stateMachine() {
-		return machine;
-	}
-	
-	public EntityPlayer getPlayer() {
-		return machine.getPlayer();
-	}
+    public void transitState(String stateName) {
+        machine.transitState(stateName);
+    }
+    
+    public WeaponStateMachine stateMachine() {
+        return machine;
+    }
+    
+    public EntityPlayer getPlayer() {
+        return machine.getPlayer();
+    }
 
-	public ItemStack getStack() {
-		return machine.getStack();
-	}
-	
-	public ItemInfo getItem() {
-		return machine.itemInfo;
-	}
-	
-	public World getWorld() {
-		return machine.getWorld();
-	}
-	
-	public <T extends WeaponBase> T getWeapon() {
-		return (T) getStack().getItem();
-	}
-	
-	public boolean isRemote() {
-		return machine.isRemote();
-	}
-	
+    public ItemStack getStack() {
+        return machine.getStack();
+    }
+    
+    public ItemInfo getItem() {
+        return machine.itemInfo;
+    }
+    
+    public World getWorld() {
+        return machine.getWorld();
+    }
+    
+    public <T extends WeaponBase> T getWeapon() {
+        return (T) getStack().getItem();
+    }
+    
+    public boolean isRemote() {
+        return machine.isRemote();
+    }
+    
 }

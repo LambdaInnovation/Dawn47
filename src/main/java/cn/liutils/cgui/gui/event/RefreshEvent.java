@@ -18,9 +18,9 @@ package cn.liutils.cgui.gui.event;
  * @author WeAthFolD
  */
 public class RefreshEvent implements GuiEvent {
-	public static abstract class RefreshFunc extends GuiEventHandler<RefreshEvent> {
-		public RefreshFunc() {
-			super(RefreshEvent.class);
-		}
-	}
+    public static abstract class RefreshFunc extends GuiEventHandler<RefreshEvent> {
+        public RefreshFunc() {
+            super(RefreshEvent.class);
+        }
+    }
 }

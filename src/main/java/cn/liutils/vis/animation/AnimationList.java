@@ -20,22 +20,22 @@ import java.util.List;
  * @author WeAthFolD
  */
 public class AnimationList implements IAnimation {
-	
-	private List<IAnimation> anims = new ArrayList();	
-	
-	public AnimationList(IAnimation ..._anims) {
-		for(IAnimation a : _anims)
-			anims.add(a);
-	}
-	
-	public AnimationList(Collection<IAnimation> _anims) {
-		anims.addAll(_anims);
-	}
+    
+    private List<IAnimation> anims = new ArrayList();   
+    
+    public AnimationList(IAnimation ..._anims) {
+        for(IAnimation a : _anims)
+            anims.add(a);
+    }
+    
+    public AnimationList(Collection<IAnimation> _anims) {
+        anims.addAll(_anims);
+    }
 
-	@Override
-	public void perform(long timePoint) {
-		for(IAnimation a : anims)
-			a.perform(timePoint);
-	}
-	
+    @Override
+    public void perform(long timePoint) {
+        for(IAnimation a : anims)
+            a.perform(timePoint);
+    }
+    
 }

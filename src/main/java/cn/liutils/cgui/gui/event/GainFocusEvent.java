@@ -18,9 +18,9 @@ package cn.liutils.cgui.gui.event;
  * @author WeAthFolD
  */
 public class GainFocusEvent implements GuiEvent {
-	public static abstract class GainFocusHandler extends GuiEventHandler<GainFocusEvent> {
-		public GainFocusHandler() {
-			super(GainFocusEvent.class);
-		}
-	}
+    public static abstract class GainFocusHandler extends GuiEventHandler<GainFocusEvent> {
+        public GainFocusHandler() {
+            super(GainFocusEvent.class);
+        }
+    }
 }

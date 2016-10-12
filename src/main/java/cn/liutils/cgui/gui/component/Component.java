@@ -35,110 +35,110 @@ import cn.liutils.util.helper.TypeHelper;
  * @author WeAthFolD
  */
 public class Component {
-	
-	static Map<Class, List<Field>> copiedFields = new HashMap();
+    
+    static Map<Class, List<Field>> copiedFields = new HashMap();
 
-	private GuiEventBus eventBus;
-	
-	public final String name;
-	
-	public boolean enabled = true;
-	
-	@EditIgnore
-	public boolean canEdit = true;
-	
-	/**
-	 * This SHOULD NOT be edited after creation, represents the widget instance this component is in.
-	 */
-	@EditIgnore
-	@CopyIgnore
-	public Widget widget;
-	
-	public Component(String _name) {
-		name = _name;
-		checkCopyFields();
-		eventBus = new GuiEventBus();
-	}
+    private GuiEventBus eventBus;
+    
+    public final String name;
+    
+    public boolean enabled = true;
+    
+    @EditIgnore
+    public boolean canEdit = true;
+    
+    /**
+     * This SHOULD NOT be edited after creation, represents the widget instance this component is in.
+     */
+    @EditIgnore
+    @CopyIgnore
+    public Widget widget;
+    
+    public Component(String _name) {
+        name = _name;
+        checkCopyFields();
+        eventBus = new GuiEventBus();
+    }
 
-	private List<Field> checkCopyFields() {
-		if(copiedFields.containsKey(getClass()))
-			return copiedFields.get(getClass());
-		List<Field> ret = new ArrayList<Field>();
-		for(Field f : getClass().getFields()) {
-			if(((f.getModifiers() & Modifier.FINAL) == 0)
-			&& !f.isAnnotationPresent(CopyIgnore.class) && TypeHelper.isTypeSupported(f.getType())) {
-				ret.add(f);
-			}
-		}
-		copiedFields.put(getClass(), ret);
-		return ret;
-	}
-	
-	protected void addEventHandler(GuiEventHandler handler) {
-		eventBus.regEventHandler(handler);
-	}
-	
-	/**
-	 * Called when the component is added into a widget, and the widget field is correctly set.
-	 */
-	public void onAdded() {
-		
-	}
-	
-	public void onRemoved() {
-		
-	}
-	
-	public void postEvent(Widget w, GuiEvent event) {
-		eventBus.postEvent(w, event);
-	}
-	
-	public Component copy() {
-		try {
-			Component c = getClass().newInstance();
-			for(Field f : copiedFields.get(getClass())) {
-				TypeHelper.set(f, c, TypeHelper.copy(f, this));
-			}
-			return c;
-		} catch(Exception e) {
-			LIUtils.log.error("Unexpected error occured copying component of type " + getClass());
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public boolean canStore() {
-		return true;
-	}
-	
-	/**
-	 * Recover all the data fields within the component with the data map specified.
-	 */
-	public void fromPropertyMap(Map<String, String> map) {
-		List<Field> fields = checkCopyFields();
-		for(Field f : fields) {
-			String val = map.get(f.getName());
-			if(val != null) {
-				TypeHelper.edit(f, this, val);
-			}
-		}
-	}
-	
-	public Map<String, String> getPropertyMap() {
-		Map<String, String> ret = new HashMap();
-		for(Field f : checkCopyFields()) {
-			String val = TypeHelper.repr(f, this);
-			if(val != null) {
-				ret.put(f.getName(), val);
-			}
-		}
-		
-		return ret;
-	}
-	
-	public Collection<Field> getPropertyList() {
-		return copiedFields.get(getClass());
-	}
-	
+    private List<Field> checkCopyFields() {
+        if(copiedFields.containsKey(getClass()))
+            return copiedFields.get(getClass());
+        List<Field> ret = new ArrayList<Field>();
+        for(Field f : getClass().getFields()) {
+            if(((f.getModifiers() & Modifier.FINAL) == 0)
+            && !f.isAnnotationPresent(CopyIgnore.class) && TypeHelper.isTypeSupported(f.getType())) {
+                ret.add(f);
+            }
+        }
+        copiedFields.put(getClass(), ret);
+        return ret;
+    }
+    
+    protected void addEventHandler(GuiEventHandler handler) {
+        eventBus.regEventHandler(handler);
+    }
+    
+    /**
+     * Called when the component is added into a widget, and the widget field is correctly set.
+     */
+    public void onAdded() {
+        
+    }
+    
+    public void onRemoved() {
+        
+    }
+    
+    public void postEvent(Widget w, GuiEvent event) {
+        eventBus.postEvent(w, event);
+    }
+    
+    public Component copy() {
+        try {
+            Component c = getClass().newInstance();
+            for(Field f : copiedFields.get(getClass())) {
+                TypeHelper.set(f, c, TypeHelper.copy(f, this));
+            }
+            return c;
+        } catch(Exception e) {
+            LIUtils.log.error("Unexpected error occured copying component of type " + getClass());
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean canStore() {
+        return true;
+    }
+    
+    /**
+     * Recover all the data fields within the component with the data map specified.
+     */
+    public void fromPropertyMap(Map<String, String> map) {
+        List<Field> fields = checkCopyFields();
+        for(Field f : fields) {
+            String val = map.get(f.getName());
+            if(val != null) {
+                TypeHelper.edit(f, this, val);
+            }
+        }
+    }
+    
+    public Map<String, String> getPropertyMap() {
+        Map<String, String> ret = new HashMap();
+        for(Field f : checkCopyFields()) {
+            String val = TypeHelper.repr(f, this);
+            if(val != null) {
+                ret.put(f.getName(), val);
+            }
+        }
+        
+        return ret;
+    }
+    
+    public Collection<Field> getPropertyList() {
+        return copiedFields.get(getClass());
+    }
+    
 }
 

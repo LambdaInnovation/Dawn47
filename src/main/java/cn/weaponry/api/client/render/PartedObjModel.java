@@ -21,19 +21,19 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
  *
  */
 public class PartedObjModel extends PartedModel {
-	
-	WavefrontObject obj;
-	
-	public PartedObjModel(WavefrontObject _obj) {
-		obj = _obj;
-		for(GroupObject groups : obj.groupObjects) {
-			this.regPart(groups.name);
-		}
-	}
+    
+    WavefrontObject obj;
+    
+    public PartedObjModel(WavefrontObject _obj) {
+        obj = _obj;
+        for(GroupObject groups : obj.groupObjects) {
+            this.regPart(groups.name);
+        }
+    }
 
-	@Override
-	protected void renderAtCenter(String name) {
-		obj.renderPart(name);
-	}
+    @Override
+    protected void renderAtCenter(String name) {
+        obj.renderPart(name);
+    }
 
 }

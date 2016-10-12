@@ -21,32 +21,32 @@ import cn.dawn47.core.DamageUtils;
  */
 @Registrant
 @RegWithName("SeedSpit")
-@RegEntity	
+@RegEntity  
 public class EntitySeedSpit extends EntityLargeFireball {
 
-	public EntitySeedSpit(World par1World) {
-		super(par1World);
-	}
+    public EntitySeedSpit(World par1World) {
+        super(par1World);
+    }
 
-	public EntitySeedSpit(World par1World, double par2, double par4,
-			double par6, double par8, double par10, double par12) {
-		super(par1World, par2, par4, par6, par8, par10, par12);
-	}
+    public EntitySeedSpit(World par1World, double par2, double par4,
+            double par6, double par8, double par10, double par12) {
+        super(par1World, par2, par4, par6, par8, par10, par12);
+    }
 
-	public EntitySeedSpit(World par1World,
-			EntityLivingBase par2EntityLivingBase, double par3, double par5,
-			double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
-	}
-	
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		this.extinguish();
-	}
+    public EntitySeedSpit(World par1World,
+            EntityLivingBase par2EntityLivingBase, double par3, double par5,
+            double par7) {
+        super(par1World, par2EntityLivingBase, par3, par5, par7);
+    }
+    
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        this.extinguish();
+    }
 
-	@Override
-	protected void onImpact(MovingObjectPosition res) {
+    @Override
+    protected void onImpact(MovingObjectPosition res) {
         if (!this.worldObj.isRemote)
         {
             if (res.entityHit != null)
@@ -54,9 +54,9 @@ public class EntitySeedSpit extends EntityLargeFireball {
                 res.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 4.0F);
             }
             DamageUtils.doRangeDamage(worldObj, DamageSource.generic, 
-            		posX, posY, posZ,
-            		11.0F, 4, this);
+                    posX, posY, posZ,
+                    11.0F, 4, this);
         }
-	}
+    }
 
 }

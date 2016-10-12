@@ -26,26 +26,26 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 public class AnnoRegCorePlugin implements IFMLLoadingPlugin {
     public static MetadataCollection mc = MetadataCollection.from(null,"");
-	
-	@Override
-	public String[] getASMTransformerClass() {
-		return new String[] {"cn.annoreg.asm.RegistryTransformer"};
-	}
+    
+    @Override
+    public String[] getASMTransformerClass() {
+        return new String[] {"cn.annoreg.asm.RegistryTransformer"};
+    }
 
-	@Override
-	public String getModContainerClass() {
-		return "cn.annoreg.ARModContainer";
-	}
+    @Override
+    public String getModContainerClass() {
+        return "cn.annoreg.ARModContainer";
+    }
 
-	@Override
-	public String getSetupClass() {
-		return null;
-	}
-	
-	@Override
-	public void injectData(Map<String, Object> data) {
-	    File modFile = (File) data.get("coremodLocation");
-	    if (modFile.isDirectory()) {
+    @Override
+    public String getSetupClass() {
+        return null;
+    }
+    
+    @Override
+    public void injectData(Map<String, Object> data) {
+        File modFile = (File) data.get("coremodLocation");
+        if (modFile.isDirectory()) {
             FileInputStream fis;
             try {
                 fis = new FileInputStream(new File(modFile, "mcmod.info"));
@@ -54,8 +54,8 @@ public class AnnoRegCorePlugin implements IFMLLoadingPlugin {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-	    } else {
-	        JarFile jar = null;
+        } else {
+            JarFile jar = null;
             try {
                 jar = new JarFile(modFile);
                 ZipEntry modInfo = jar.getEntry("mcmod.info");
@@ -71,12 +71,12 @@ public class AnnoRegCorePlugin implements IFMLLoadingPlugin {
                     }
                 }
             }
-	    }
-	}
+        }
+    }
 
-	@Override
-	public String getAccessTransformerClass() {
-		return null;
-	}
+    @Override
+    public String getAccessTransformerClass() {
+        return null;
+    }
 
 }

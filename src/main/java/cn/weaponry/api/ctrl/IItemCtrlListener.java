@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
  * @author WeAthFolD
  */
 public interface IItemCtrlListener {
-	
-	void onKeyEvent(EntityPlayer player, int key, KeyEventType type);
-	
+    
+    void onKeyEvent(EntityPlayer player, int key, KeyEventType type);
+    
 }

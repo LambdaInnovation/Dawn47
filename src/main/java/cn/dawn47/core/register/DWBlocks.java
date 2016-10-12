@@ -24,11 +24,11 @@ import cn.dawn47.mob.block.BlockSpore;
 @Registrant
 public class DWBlocks {
 
-	@RegBlock
-	public static BlockSpore spore;
-	
-	@RegBlock
-	public static BlockMedkit medkit;
-	
-	
+    @RegBlock
+    public static BlockSpore spore;
+    
+    @RegBlock
+    public static BlockMedkit medkit;
+    
+    
 }

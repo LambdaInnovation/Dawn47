@@ -50,81 +50,81 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 @RegistrationMod(pkg = "cn.dawn47.", res = "dawn47", prefix = "dw_")
 public class Dawn47 {
 
-	public static final String VERSION = "1.0beta1";
-	
-	@Instance("dawn47")
-	public static Dawn47 INSTANCE;
-	
-	public static CreativeTabs cct = new DWCreativeTab("dawn47");
-	
-	/**
-	 * 日志
-	 */
-	public static Logger log = FMLLog.getLogger();
-	
-	public static Configuration config;
-	
-	@RegMessageHandler.WrapperInstance
-	public static SimpleNetworkWrapper netHandler;
-	
-	public static ScriptProgram script;
-	
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		config = new Configuration(event.getSuggestedConfigurationFile());
-		
-		log.info("Starting Dawn47 " + VERSION);
-		log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2015");
-		log.info("http://www.li-dev.cn/");
-		
-		script = new ScriptProgram();
-		String scripts[] = { "generic" };
-		for(String s : scripts) {
-			script.loadScript(new ResourceLocation("dawn47:scripts/" + s + ".r"));
-		}
-		
-		netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
-		MinecraftForge.EVENT_BUS.register(new DWEventListener());
-		
-		RegistrationManager.INSTANCE.registerAll(this, "PreInit");
-	}
-	
-	/**
-	 * 加载（方块、物品、网络处理、其他)
-	 * 
-	 * @param Init
-	 */
-	@EventHandler
-	public void init(FMLInitializationEvent Init) {
-		RegistrationManager.INSTANCE.registerAll(this, "Init");
-	}
-	 
-	private int nextEntityID = -1;
-	
-	protected void registerEntity(Class<? extends Entity> entClass, String entName) {
-		EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, 48, 3, true);
-	}
-	
-	protected void registerEntity(Class<? extends Entity> entClass, String entName, int trackingRange, int updateFreq, boolean velUpdate) {
-		EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, trackingRange, updateFreq, velUpdate);
-	}
-	
-	private static int nextId = 0;
-	public static int getNextNetID() {
-		return nextId++;
-	}
-	
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent Init) {
-		RegistrationManager.INSTANCE.registerAll(this, "PostInit");
-	}
-	
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event) {
-		CommandHandler commandManager = (CommandHandler) event.getServer()
-				.getCommandManager();
-		RegistrationManager.INSTANCE.registerAll(this, "StartServer");
-	}
+    public static final String VERSION = "1.0beta1";
+    
+    @Instance("dawn47")
+    public static Dawn47 INSTANCE;
+    
+    public static CreativeTabs cct = new DWCreativeTab("dawn47");
+    
+    /**
+     * 日志
+     */
+    public static Logger log = FMLLog.getLogger();
+    
+    public static Configuration config;
+    
+    @RegMessageHandler.WrapperInstance
+    public static SimpleNetworkWrapper netHandler;
+    
+    public static ScriptProgram script;
+    
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        config = new Configuration(event.getSuggestedConfigurationFile());
+        
+        log.info("Starting Dawn47 " + VERSION);
+        log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2015");
+        log.info("http://www.li-dev.cn/");
+        
+        script = new ScriptProgram();
+        String scripts[] = { "generic" };
+        for(String s : scripts) {
+            script.loadScript(new ResourceLocation("dawn47:scripts/" + s + ".r"));
+        }
+        
+        netHandler = NetworkRegistry.INSTANCE.newSimpleChannel(DWGeneralProps.NET_CHANNEL);
+        MinecraftForge.EVENT_BUS.register(new DWEventListener());
+        
+        RegistrationManager.INSTANCE.registerAll(this, "PreInit");
+    }
+    
+    /**
+     * 加载（方块、物品、网络处理、其他)
+     * 
+     * @param Init
+     */
+    @EventHandler
+    public void init(FMLInitializationEvent Init) {
+        RegistrationManager.INSTANCE.registerAll(this, "Init");
+    }
+     
+    private int nextEntityID = -1;
+    
+    protected void registerEntity(Class<? extends Entity> entClass, String entName) {
+        EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, 48, 3, true);
+    }
+    
+    protected void registerEntity(Class<? extends Entity> entClass, String entName, int trackingRange, int updateFreq, boolean velUpdate) {
+        EntityRegistry.registerModEntity(entClass, entName, ++nextEntityID, this, trackingRange, updateFreq, velUpdate);
+    }
+    
+    private static int nextId = 0;
+    public static int getNextNetID() {
+        return nextId++;
+    }
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent Init) {
+        RegistrationManager.INSTANCE.registerAll(this, "PostInit");
+    }
+    
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        CommandHandler commandManager = (CommandHandler) event.getServer()
+                .getCommandManager();
+        RegistrationManager.INSTANCE.registerAll(this, "StartServer");
+    }
 
-	
+    
 }

@@ -25,36 +25,36 @@ import net.minecraft.world.World;
  */
 public abstract class LIEntityMob extends EntityMob {
 
-	public LIEntityMob(World par1World) {
-		super(par1World);
-	}
+    public LIEntityMob(World par1World) {
+        super(par1World);
+    }
 
-	/**
-	 * Change attributes
-	 */
-	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getMaxHealth2()); // Max Health
-		if (getFollowRange() != 0)
-			this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(getFollowRange()); // Follow Range
-		if (getKnockBackResistance() != 0)
-			this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(getKnockBackResistance()); // knockbackResistance
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed()); // Move Speed
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackDamage()); // Attack Damage
-	}
+    /**
+     * Change attributes
+     */
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getMaxHealth2()); // Max Health
+        if (getFollowRange() != 0)
+            this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(getFollowRange()); // Follow Range
+        if (getKnockBackResistance() != 0)
+            this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(getKnockBackResistance()); // knockbackResistance
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed()); // Move Speed
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackDamage()); // Attack Damage
+    }
 
-	abstract protected double getMaxHealth2();
+    abstract protected double getMaxHealth2();
 
-	abstract protected double getFollowRange();
+    abstract protected double getFollowRange();
 
-	abstract protected double getMoveSpeed();
+    abstract protected double getMoveSpeed();
 
-	abstract protected double getKnockBackResistance();
+    abstract protected double getKnockBackResistance();
 
-	abstract protected double getAttackDamage();
+    abstract protected double getAttackDamage();
 
-	@SideOnly(Side.CLIENT)
-	public abstract ResourceLocation getTexture();
+    @SideOnly(Side.CLIENT)
+    public abstract ResourceLocation getTexture();
 
 }

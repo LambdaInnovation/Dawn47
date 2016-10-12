@@ -31,62 +31,62 @@ import cn.liutils.util.client.RenderUtils;
  *
  */
 public class RendererSpore extends TileEntitySpecialRenderer {
-	
-	IModelCustom model, modelReleased;
-	ResourceLocation textures[], textureWeb;
-	
-	Material materialWeb;
-	Mesh ground;
-	
-	public RendererSpore() {
-		model = DWResources.loadModel("spore");
-		modelReleased = DWResources.loadModel("spore_released");
-		textures = DWResources.getMdlMultiTexture("spore", 2);
-		textureWeb = DWResources.getMdlTexture("spore_web");
-		materialWeb = new SimpleMaterial(textureWeb);
-		
-		ground = new Mesh();
-		ground.setVertices(new double[][] {
-				{0, 0, 0},
-				{1, 0, 0},
-				{1, 0, 1},
-				{0, 0, 1}
-		});
-		ground.setAllNormals(new float[] { 0, 1, 0 });
-		ground.setUVs(new double[][] {
-				{0, 0},
-				{1, 0},
-				{1, 1},
-				{0, 1}
-		});
-		ground.setQuads(new int[] { 3, 2, 1, 0 });
-	}
+    
+    IModelCustom model, modelReleased;
+    ResourceLocation textures[], textureWeb;
+    
+    Material materialWeb;
+    Mesh ground;
+    
+    public RendererSpore() {
+        model = DWResources.loadModel("spore");
+        modelReleased = DWResources.loadModel("spore_released");
+        textures = DWResources.getMdlMultiTexture("spore", 2);
+        textureWeb = DWResources.getMdlTexture("spore_web");
+        materialWeb = new SimpleMaterial(textureWeb);
+        
+        ground = new Mesh();
+        ground.setVertices(new double[][] {
+                {0, 0, 0},
+                {1, 0, 0},
+                {1, 0, 1},
+                {0, 0, 1}
+        });
+        ground.setAllNormals(new float[] { 0, 1, 0 });
+        ground.setUVs(new double[][] {
+                {0, 0},
+                {1, 0},
+                {1, 1},
+                {0, 1}
+        });
+        ground.setQuads(new int[] { 3, 2, 1, 0 });
+    }
 
-	@Override
-	public void renderTileEntityAt(TileEntity tile, 
-			double x, double y, double z, float partialTicks) {
-		TileSpore spore = (TileSpore) tile;
-		
-		IModelCustom mdl = spore.isReleased() ? modelReleased : model;
-		
-		GL11.glPushMatrix();
-		GL11.glColor4d(1, 1, 1, 1);
-		
-		GL11.glTranslated(x + 0.5, y, z + 0.5);
-		
-		GL11.glPushMatrix();
-		GL11.glRotated(spore.rot2, 0, 1, 0);
-		GL11.glTranslated(-0.5, 0.01, -0.5);
-		ground.draw(materialWeb);
-		GL11.glPopMatrix();
-		
-		GL11.glPushMatrix();
-		RenderUtils.loadTexture(textures[spore.textureID]);
-		GL11.glRotated(spore.rot1, 0, 1, 0);
-		mdl.renderAll();
-		GL11.glPopMatrix();
-		
-		GL11.glPopMatrix();
-	}
+    @Override
+    public void renderTileEntityAt(TileEntity tile, 
+            double x, double y, double z, float partialTicks) {
+        TileSpore spore = (TileSpore) tile;
+        
+        IModelCustom mdl = spore.isReleased() ? modelReleased : model;
+        
+        GL11.glPushMatrix();
+        GL11.glColor4d(1, 1, 1, 1);
+        
+        GL11.glTranslated(x + 0.5, y, z + 0.5);
+        
+        GL11.glPushMatrix();
+        GL11.glRotated(spore.rot2, 0, 1, 0);
+        GL11.glTranslated(-0.5, 0.01, -0.5);
+        ground.draw(materialWeb);
+        GL11.glPopMatrix();
+        
+        GL11.glPushMatrix();
+        RenderUtils.loadTexture(textures[spore.textureID]);
+        GL11.glRotated(spore.rot1, 0, 1, 0);
+        mdl.renderAll();
+        GL11.glPopMatrix();
+        
+        GL11.glPopMatrix();
+    }
 
 }

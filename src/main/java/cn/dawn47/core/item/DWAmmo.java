@@ -27,27 +27,27 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class DWAmmo extends DWGenericItem {
 
-	/**
-	 * @param par1
-	 */
-	public DWAmmo() {
-		super();
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	/**
-	 * allows items to add custom lines of information to the mouseover description
-	 */
-	public void addInformation(ItemStack par1ItemStack,
-			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if(this.getMaxDamage() > 1)
-		par3List.add(StatCollector.translateToLocal("dw.ammocap.name")
-				+ " : "
-				+ (par1ItemStack.getMaxDamage() - 1 - par1ItemStack
-						.getItemDamage()) + "/"
-				+ (par1ItemStack.getMaxDamage() - 1));
+    /**
+     * @param par1
+     */
+    public DWAmmo() {
+        super();
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    /**
+     * allows items to add custom lines of information to the mouseover description
+     */
+    public void addInformation(ItemStack par1ItemStack,
+            EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+        if(this.getMaxDamage() > 1)
+        par3List.add(StatCollector.translateToLocal("dw.ammocap.name")
+                + " : "
+                + (par1ItemStack.getMaxDamage() - 1 - par1ItemStack
+                        .getItemDamage()) + "/"
+                + (par1ItemStack.getMaxDamage() - 1));
 
-	}
+    }
 
 }

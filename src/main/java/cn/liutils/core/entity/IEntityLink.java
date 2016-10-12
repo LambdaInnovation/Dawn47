@@ -22,16 +22,16 @@ import net.minecraft.entity.Entity;
  */
 public interface IEntityLink<T extends Entity> {
 
-	/**
-	 * Get the linked entity.
-	 * @return
-	 */
-	public T getLinkedEntity();
+    /**
+     * Get the linked entity.
+     * @return
+     */
+    public T getLinkedEntity();
 
-	/**
-	 * Set the linked entity.
-	 * @param entity
-	 */
-	public void setLinkedEntity(T entity);
+    /**
+     * Set the linked entity.
+     * @param entity
+     */
+    public void setLinkedEntity(T entity);
 
 }

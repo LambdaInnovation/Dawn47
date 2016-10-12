@@ -16,31 +16,31 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Registrant
 public class MedkitUsage {
 
-	@SideOnly(Side.CLIENT)
-	@RegKeyHandler(name = "UseMedkit", keyID = Keyboard.KEY_F)
-	public static KH keyHandler;
-	
-	static final float HEAL = 5;
-	
-	@RegNetworkCall(side = Side.SERVER)
-	private static void doHeal(@Instance EntityPlayer player) {
-		int mc = BlockMedkit.getMedkitCount(player);
-		
-		if(mc > 0 && player.getHealth() < 20) {
-			BlockMedkit.setMedkitCount(player, mc - 1);
-			
-			player.worldObj.playSoundAtEntity(player, "dawn47:entities.medshot", 0.5f, 1.0f);
-			player.heal(HEAL);
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public static class KH extends KeyHandler {
-		
-		public void onKeyDown() {
-			doHeal(getPlayer());
-		}
-		
-	}
+    @SideOnly(Side.CLIENT)
+    @RegKeyHandler(name = "UseMedkit", keyID = Keyboard.KEY_F)
+    public static KH keyHandler;
+    
+    static final float HEAL = 5;
+    
+    @RegNetworkCall(side = Side.SERVER)
+    private static void doHeal(@Instance EntityPlayer player) {
+        int mc = BlockMedkit.getMedkitCount(player);
+        
+        if(mc > 0 && player.getHealth() < 20) {
+            BlockMedkit.setMedkitCount(player, mc - 1);
+            
+            player.worldObj.playSoundAtEntity(player, "dawn47:entities.medshot", 0.5f, 1.0f);
+            player.heal(HEAL);
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static class KH extends KeyHandler {
+        
+        public void onKeyDown() {
+            doHeal(getPlayer());
+        }
+        
+    }
 
 }

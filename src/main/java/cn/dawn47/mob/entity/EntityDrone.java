@@ -39,137 +39,137 @@ import cpw.mods.fml.relauncher.SideOnly;
 @RegWithName("Drone")
 @RegEntity.HasRender
 public class EntityDrone extends LIEntityMob {
-	
-	@RegEntity.Render
-	@SideOnly(Side.CLIENT)
-	public static RendererDrone renderer;
-	
-	public int tickCharging = 0;
-	public Entity jumpEntity;
-	public int style;
-	private int tID = 0;
-	
-	public boolean updated = false;
+    
+    @RegEntity.Render
+    @SideOnly(Side.CLIENT)
+    public static RendererDrone renderer;
+    
+    public int tickCharging = 0;
+    public Entity jumpEntity;
+    public int style;
+    private int tID = 0;
+    
+    public boolean updated = false;
 
-	/**
-	 * @param par1World
-	 */
-	public EntityDrone(World par1World) {
-		super(par1World);
-		style = rand.nextInt(3);
-		this.setSize(0.8F, 0.7F);
-	}
-	
-	@Override
-	public void entityInit() {
-		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
-		dataWatcher.addObject(18, Byte.valueOf((byte) 0));
-		super.entityInit();
-	}
-
-	/* (non-Javadoc)
-	 * @see net.minecraft.entity.EntityLiving#getMaxHealth()
-	 */
-	@Override
-	public double getMaxHealth2() {
-		return 10D;
-	}
-	
+    /**
+     * @param par1World
+     */
+    public EntityDrone(World par1World) {
+        super(par1World);
+        style = rand.nextInt(3);
+        this.setSize(0.8F, 0.7F);
+    }
+    
     @Override
-	protected boolean isMovementCeased()
+    public void entityInit() {
+        dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        dataWatcher.addObject(18, Byte.valueOf((byte) 0));
+        super.entityInit();
+    }
+
+    /* (non-Javadoc)
+     * @see net.minecraft.entity.EntityLiving#getMaxHealth()
+     */
+    @Override
+    public double getMaxHealth2() {
+        return 10D;
+    }
+    
+    @Override
+    protected boolean isMovementCeased()
     {
         return tickCharging > 0;
     }
-	
-	@Override
-	public void onUpdate() {
-		if(worldObj.isRemote) {
-			style = dataWatcher.getWatchableObjectByte(18);
-			updated = true;
-		} else {
-			dataWatcher.updateObject(18, Byte.valueOf((byte) style));
-		}
-		
-		if(tickCharging > 0) {
-			--tickCharging;
-			if(tickCharging == 0 && jumpEntity != null) {
-				Entity entity = jumpEntity;
-				double d0 = entity.posX - this.posX;
+    
+    @Override
+    public void onUpdate() {
+        if(worldObj.isRemote) {
+            style = dataWatcher.getWatchableObjectByte(18);
+            updated = true;
+        } else {
+            dataWatcher.updateObject(18, Byte.valueOf((byte) style));
+        }
+        
+        if(tickCharging > 0) {
+            --tickCharging;
+            if(tickCharging == 0 && jumpEntity != null) {
+                Entity entity = jumpEntity;
+                double d0 = entity.posX - this.posX;
                 double d1 = entity.posZ - this.posZ;
                 float f2 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
                 this.motionX = d0 / f2 * 0.5D * 1.2D + this.motionX * 0.20000000298023224D;
                 this.motionZ = d1 / f2 * 0.5D * 1.2D + this.motionZ * 0.20000000298023224D;
                 this.motionY = 0.6;
                 jumpEntity = null;
-			}
-		}
-		if(worldObj.isRemote) {
-			if(tickCharging == 0)
-				tickCharging =  dataWatcher.getWatchableObjectByte(16);
-		} else {
-			dataWatcher.updateObject(16, Byte.valueOf((byte) tickCharging));
-		}
-		super.onUpdate();
-	}
-	
+            }
+        }
+        if(worldObj.isRemote) {
+            if(tickCharging == 0)
+                tickCharging =  dataWatcher.getWatchableObjectByte(16);
+        } else {
+            dataWatcher.updateObject(16, Byte.valueOf((byte) tickCharging));
+        }
+        super.onUpdate();
+    }
+    
     public boolean attackEntityFrom(DamageSource ds, float par2)
     {
-    	if(ds.equals(DamageSource.fall)) return false;
-    	return super.attackEntityFrom(ds, par2);
-    }
-	
-    @Override
-	protected void attackEntity(Entity entity, float dist)
-    {
-    	if(dist > 20.0)
-    		entity = null;
-    	else {
-    		if(dist > 2.0F && dist < 6.0F && this.rand.nextInt(10) == 0) {
-    			if(tickCharging <= 0) {
-    				jumpEntity = entity;
-    				tickCharging = 30;
-    				this.motionX *= 0.2;
-    				this.motionY *= 0.2;
-    			}
-    		} else {
-    			super.attackEntity(entity, dist);
-    		}
-    	}
+        if(ds.equals(DamageSource.fall)) return false;
+        return super.attackEntityFrom(ds, par2);
     }
     
     @Override
-	public boolean attackEntityAsMob(Entity par1Entity)
+    protected void attackEntity(Entity entity, float dist)
     {
-    	if(style == 1 && par1Entity instanceof EntityPlayer) {
-    		((EntityPlayer)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100));
-    	}
-    	return super.attackEntityAsMob(par1Entity);
+        if(dist > 20.0)
+            entity = null;
+        else {
+            if(dist > 2.0F && dist < 6.0F && this.rand.nextInt(10) == 0) {
+                if(tickCharging <= 0) {
+                    jumpEntity = entity;
+                    tickCharging = 30;
+                    this.motionX *= 0.2;
+                    this.motionY *= 0.2;
+                }
+            } else {
+                super.attackEntity(entity, dist);
+            }
+        }
+    }
+    
+    @Override
+    public boolean attackEntityAsMob(Entity par1Entity)
+    {
+        if(style == 1 && par1Entity instanceof EntityPlayer) {
+            ((EntityPlayer)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100));
+        }
+        return super.attackEntityAsMob(par1Entity);
     }
 
-	@Override
-	protected double getFollowRange() {
-		return 15;
-	}
+    @Override
+    protected double getFollowRange() {
+        return 15;
+    }
 
-	@Override
-	protected double getMoveSpeed() {
-		return 3;
-	}
+    @Override
+    protected double getMoveSpeed() {
+        return 3;
+    }
 
-	@Override
-	protected double getKnockBackResistance() {
-		return 5;
-	}
+    @Override
+    protected double getKnockBackResistance() {
+        return 5;
+    }
 
-	@Override
-	protected double getAttackDamage() {
-		return 4 + style == 2 ? 4 : 0;
-	}
+    @Override
+    protected double getAttackDamage() {
+        return 4 + style == 2 ? 4 : 0;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ResourceLocation getTexture() {
-		return DWResources.DRONE_PATH[tID];
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ResourceLocation getTexture() {
+        return DWResources.DRONE_PATH[tID];
+    }
 
 }

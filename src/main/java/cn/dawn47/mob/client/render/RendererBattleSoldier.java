@@ -24,16 +24,16 @@ import cn.dawn47.mob.entity.EntityBattleSoldier;
  *
  */
 public class RendererBattleSoldier extends RenderBiped {
-	
-	ResourceLocation[] textures = DWResources.getTextures("entities/mutant", 3);
+    
+    ResourceLocation[] textures = DWResources.getTextures("entities/mutant", 3);
 
-	public RendererBattleSoldier() {
-		super(new ModelBiped(0.0f), 0.5f);
-	}
+    public RendererBattleSoldier() {
+        super(new ModelBiped(0.0f), 0.5f);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(Entity e) {
-		return textures[((EntityBattleSoldier)e).texID];
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(Entity e) {
+        return textures[((EntityBattleSoldier)e).texID];
+    }
 
 }

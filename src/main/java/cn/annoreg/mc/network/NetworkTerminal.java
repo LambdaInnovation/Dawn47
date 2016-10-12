@@ -24,11 +24,11 @@ public final class NetworkTerminal {
     }
     
     public void send(SimpleNetworkWrapper wrapper, IMessage msg) {
-    	
+        
         if (playerName == null) {
             //send to server
             if (!SideHelper.isClient()) {
-            	ARModContainer.log.warn("Can not send to server from server");
+                ARModContainer.log.warn("Can not send to server from server");
             }
             wrapper.sendToServer(msg);
         } else {

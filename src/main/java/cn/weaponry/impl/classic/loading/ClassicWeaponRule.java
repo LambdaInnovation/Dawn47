@@ -30,68 +30,68 @@ import cn.weaponry.impl.generic.action.ScreenUplift;
  * @author WeAthFolD <br/>
  */
 public class ClassicWeaponRule extends ItemLoadRule<WeaponClassic> {
-	
-	static List<Field>
-		ints = new ArrayList(),
-		doubles = new ArrayList(),
-		strs = new ArrayList(),
-		booleans = new ArrayList();
-	
-	static {
-		for(Field f : WeaponClassic.class.getDeclaredFields()) {
-			if((f.getModifiers() & Modifier.PUBLIC) != 0) {
-				if(f.getType() == Integer.TYPE) {
-					ints.add(f);
-				}else if(f.getType() == Double.TYPE){
-					doubles.add(f);
-				}else if(f.getType() == String.class) {
-					strs.add(f);
-				} else if(f.getType() == Boolean.TYPE) {
-					booleans.add(f);
-				}
-			}
-		}
-	}
+    
+    static List<Field>
+        ints = new ArrayList(),
+        doubles = new ArrayList(),
+        strs = new ArrayList(),
+        booleans = new ArrayList();
+    
+    static {
+        for(Field f : WeaponClassic.class.getDeclaredFields()) {
+            if((f.getModifiers() & Modifier.PUBLIC) != 0) {
+                if(f.getType() == Integer.TYPE) {
+                    ints.add(f);
+                }else if(f.getType() == Double.TYPE){
+                    doubles.add(f);
+                }else if(f.getType() == String.class) {
+                    strs.add(f);
+                } else if(f.getType() == Boolean.TYPE) {
+                    booleans.add(f);
+                }
+            }
+        }
+    }
 
-	@Override
-	public void load(WeaponClassic item, ObjectNamespace ns, String name) throws Exception {
-		for(Field f : ints) {
-			Integer i = ns.getInt("weapon", f.getName());
-			if(i != null) {
-				//System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
-				f.set(item, (int)i);
-			}
-		}
-		
-		for(Field f : doubles) {
-			Double d = ns.getDouble("weapon", f.getName());
-			if(d != null) {
-				System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
-				f.set(item, (double)d);
-			}
-		}
-		
-		for(Field f : strs) {
-			String s = ns.getString("weapon", f.getName());
-			if(s != null) {
-				//System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
-				f.set(item, s);
-			}
-		}
-		
-		for(Field f : booleans) {
-			Boolean b = ns.getBoolean("weapon", f.getName());
-			if(b != null) {
-				//System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
-				f.set(item, (boolean)b);
-			}
-		}
-		
-	}
-	
-	@Override
-	public boolean applyFor(Item item, ItemLoader loader, String name) {
-		return item instanceof WeaponClassic;
-	}
+    @Override
+    public void load(WeaponClassic item, ObjectNamespace ns, String name) throws Exception {
+        for(Field f : ints) {
+            Integer i = ns.getInt("weapon", f.getName());
+            if(i != null) {
+                //System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
+                f.set(item, (int)i);
+            }
+        }
+        
+        for(Field f : doubles) {
+            Double d = ns.getDouble("weapon", f.getName());
+            if(d != null) {
+                System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
+                f.set(item, (double)d);
+            }
+        }
+        
+        for(Field f : strs) {
+            String s = ns.getString("weapon", f.getName());
+            if(s != null) {
+                //System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
+                f.set(item, s);
+            }
+        }
+        
+        for(Field f : booleans) {
+            Boolean b = ns.getBoolean("weapon", f.getName());
+            if(b != null) {
+                //System.out.println(String.format("[%s]Updated field %s", f.getName(), name));
+                f.set(item, (boolean)b);
+            }
+        }
+        
+    }
+    
+    @Override
+    public boolean applyFor(Item item, ItemLoader loader, String name) {
+        return item instanceof WeaponClassic;
+    }
 
 }

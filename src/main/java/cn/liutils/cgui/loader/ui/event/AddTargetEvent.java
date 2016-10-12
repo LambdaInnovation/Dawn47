@@ -20,15 +20,15 @@ import cn.liutils.cgui.gui.event.GuiEventHandler;
  * @author WeAthFolD
  */
 public class AddTargetEvent implements GuiEvent {
-	public final Widget widget;
-	
-	public AddTargetEvent(Widget w) {
-		widget = w;
-	}
-	
-	public static abstract class AddTargetHandler extends GuiEventHandler<AddTargetEvent> {
-		public AddTargetHandler() {
-			super(AddTargetEvent.class);
-		}
-	}
+    public final Widget widget;
+    
+    public AddTargetEvent(Widget w) {
+        widget = w;
+    }
+    
+    public static abstract class AddTargetHandler extends GuiEventHandler<AddTargetEvent> {
+        public AddTargetHandler() {
+            super(AddTargetEvent.class);
+        }
+    }
 }

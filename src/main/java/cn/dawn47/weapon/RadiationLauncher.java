@@ -12,25 +12,25 @@ import net.minecraft.world.World;
 
 public class RadiationLauncher extends DawnWeapon{
 
-	@Override 
-	public Entity createBulletEffect(ItemInfo i){
-		return new EntityRadiationBall(i.getPlayer());
-		
-	}
-	
-	@Override
-	public void spawnClientBullet(ItemInfo info, ShootEvent event) {}
-	
-	@Override
-	public void onShootSvr(ItemInfo info, ShootEvent event) {}
-	
-	
-	@WeaponCallback(side = Side.SERVER)
-	public void spawnServerBullet(ItemInfo info, ShootEvent event) {
-		World world = info.getWorld();
-		EntityPlayer player = info.getPlayer();
-		world.spawnEntityInWorld(createBulletEffect(info));
-	}
-	
-	
+    @Override 
+    public Entity createBulletEffect(ItemInfo i){
+        return new EntityRadiationBall(i.getPlayer());
+        
+    }
+    
+    @Override
+    public void spawnClientBullet(ItemInfo info, ShootEvent event) {}
+    
+    @Override
+    public void onShootSvr(ItemInfo info, ShootEvent event) {}
+    
+    
+    @WeaponCallback(side = Side.SERVER)
+    public void spawnServerBullet(ItemInfo info, ShootEvent event) {
+        World world = info.getWorld();
+        EntityPlayer player = info.getPlayer();
+        world.spawnEntityInWorld(createBulletEffect(info));
+    }
+    
+    
 }

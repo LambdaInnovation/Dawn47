@@ -25,105 +25,105 @@ import cn.liutils.loading.Loader.ObjectNamespace;
  */
 class DefaultRules {
 
-	static class UnlName extends ItemLoadRule {
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			String unlName = ns.getString("unlName");
-			if(unlName != null)
-				item.setUnlocalizedName(unlName);
-		}
-	}
-	
-	static class Texture extends ItemLoadRule {
+    static class UnlName extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            String unlName = ns.getString("unlName");
+            if(unlName != null)
+                item.setUnlocalizedName(unlName);
+        }
+    }
+    
+    static class Texture extends ItemLoadRule {
 
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			String texName = ns.getString("textureName");
-			if(texName != null)
-				item.setTextureName(getNamespace(ns) + ":" + texName);
-		}
-		
-	}
-	
-	static class CCT extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            String texName = ns.getString("textureName");
+            if(texName != null)
+                item.setTextureName(getNamespace(ns) + ":" + texName);
+        }
+        
+    }
+    
+    static class CCT extends ItemLoadRule {
 
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			String cctName = ns.getString("creativeTab");
-			if(cctName != null) {
-				try {
-					int dot = cctName.lastIndexOf('.');
-					Class c = Class.forName(cctName.substring(0, dot));
-					CreativeTabs cct = (CreativeTabs) c.getField(cctName.substring(dot + 1)).get(null);
-					if(cct != null) {
-						item.setCreativeTab(cct);
-					} else {
-						throw new RuntimeException();
-					}
-				} catch(Exception e) {
-					LIUtils.log.error("Didn't find CreativeTab " + cctName);
-				}
-			}
-		}
-		
-	}
-	
-	static class MaxDamage extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            String cctName = ns.getString("creativeTab");
+            if(cctName != null) {
+                try {
+                    int dot = cctName.lastIndexOf('.');
+                    Class c = Class.forName(cctName.substring(0, dot));
+                    CreativeTabs cct = (CreativeTabs) c.getField(cctName.substring(dot + 1)).get(null);
+                    if(cct != null) {
+                        item.setCreativeTab(cct);
+                    } else {
+                        throw new RuntimeException();
+                    }
+                } catch(Exception e) {
+                    LIUtils.log.error("Didn't find CreativeTab " + cctName);
+                }
+            }
+        }
+        
+    }
+    
+    static class MaxDamage extends ItemLoadRule {
 
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			try {
-				int md = ns.getInt("maxDamage");
-				item.setMaxDamage(md);
-			} catch(Exception e) {}
-		}
-		
-	}
-	
-	static class MaxSS extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            try {
+                int md = ns.getInt("maxDamage");
+                item.setMaxDamage(md);
+            } catch(Exception e) {}
+        }
+        
+    }
+    
+    static class MaxSS extends ItemLoadRule {
 
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			try {
-				int md = ns.getInt("maxStackSize");
-				item.setMaxStackSize(md);
-			} catch(Exception e) {}
-		}
-		
-	}
-	
-	static class Full3D extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            try {
+                int md = ns.getInt("maxStackSize");
+                item.setMaxStackSize(md);
+            } catch(Exception e) {}
+        }
+        
+    }
+    
+    static class Full3D extends ItemLoadRule {
 
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			try {
-				boolean b = ns.getBoolean("full3D");
-				if(b)
-					item.setFull3D();
-			} catch(Exception e) {}
-		}
-		
-	}
-	
-	static class Renderer extends ItemLoadRule {
-		@Override
-		public void load(Item item, ObjectNamespace ns, String name) {
-			String rendererName = ns.getString("renderer");
-			if(rendererName != null) {
-				try {
-					int dot = rendererName.lastIndexOf('.');
-					Class c = Class.forName(rendererName.substring(0, dot));
-					IItemRenderer renderer = (IItemRenderer) c.getField(rendererName.substring(dot + 1)).get(null);
-					if(renderer != null) {
-						MinecraftForgeClient.registerItemRenderer(item, renderer);
-					} else {
-						throw new RuntimeException();
-					}
-				} catch(Exception e) {
-					LIUtils.log.error("Didn't find item renderer " + rendererName);
-				}
-			}
-		}
-	}
-	
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            try {
+                boolean b = ns.getBoolean("full3D");
+                if(b)
+                    item.setFull3D();
+            } catch(Exception e) {}
+        }
+        
+    }
+    
+    static class Renderer extends ItemLoadRule {
+        @Override
+        public void load(Item item, ObjectNamespace ns, String name) {
+            String rendererName = ns.getString("renderer");
+            if(rendererName != null) {
+                try {
+                    int dot = rendererName.lastIndexOf('.');
+                    Class c = Class.forName(rendererName.substring(0, dot));
+                    IItemRenderer renderer = (IItemRenderer) c.getField(rendererName.substring(dot + 1)).get(null);
+                    if(renderer != null) {
+                        MinecraftForgeClient.registerItemRenderer(item, renderer);
+                    } else {
+                        throw new RuntimeException();
+                    }
+                } catch(Exception e) {
+                    LIUtils.log.error("Didn't find item renderer " + rendererName);
+                }
+            }
+        }
+    }
+    
 }

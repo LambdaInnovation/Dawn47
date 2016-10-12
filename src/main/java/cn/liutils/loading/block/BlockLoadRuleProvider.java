@@ -19,7 +19,7 @@ import java.util.List;
  *
  */
 public interface BlockLoadRuleProvider {
-	
-	List<BlockLoadRule> getLoadRules();
-	
+    
+    List<BlockLoadRule> getLoadRules();
+    
 }

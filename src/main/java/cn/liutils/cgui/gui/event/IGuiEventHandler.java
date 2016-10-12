@@ -4,6 +4,6 @@ import cn.liutils.cgui.gui.Widget;
 
 public interface IGuiEventHandler<T extends GuiEvent> {
 
-	void handleEvent(Widget w, T event);
-	
+    void handleEvent(Widget w, T event);
+    
 }

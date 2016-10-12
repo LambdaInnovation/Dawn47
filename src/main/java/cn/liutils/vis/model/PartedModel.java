@@ -19,22 +19,22 @@ import java.util.Map;
  * @author WeAthFolD
  */
 public class PartedModel implements IModel {
-	
-	Map<String, IModel> childs = new HashMap();
-	
-	public PartedModel() {}
-	
-	public void addChild(String name, IModel child) {
-		childs.put(name, child);
-	}
-	
-	public <T extends IModel> T getChild(String name) {
-		return (T) childs.get(name);
-	}
-	
-	public void draw() {
-		for(IModel model : childs.values())
-			model.draw();
-	}
-	
+    
+    Map<String, IModel> childs = new HashMap();
+    
+    public PartedModel() {}
+    
+    public void addChild(String name, IModel child) {
+        childs.put(name, child);
+    }
+    
+    public <T extends IModel> T getChild(String name) {
+        return (T) childs.get(name);
+    }
+    
+    public void draw() {
+        for(IModel model : childs.values())
+            model.draw();
+    }
+    
 }

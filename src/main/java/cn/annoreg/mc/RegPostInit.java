@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RegPostInit {
-	RegInit.Side side() default RegInit.Side.BOTH;
+    RegInit.Side side() default RegInit.Side.BOTH;
 }

@@ -28,23 +28,23 @@ import cn.liutils.template.block.BlockMulti.SubBlockPos;
  */
 public class ItemBlockMulti extends ItemBlock {
 
-	/**
-	 * @param block
-	 */
-	public ItemBlockMulti(Block block) {
-		super(block);
-	}
-	
+    /**
+     * @param block
+     */
+    public ItemBlockMulti(Block block) {
+        super(block);
+    }
+    
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
-    		float rx, float ry, float rz) {
+            float rx, float ry, float rz) {
         Block block = world.getBlock(x, y, z);
 
         if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) {
             side = 1;
         } else if(block != Blocks.vine && 
-        	block != Blocks.tallgrass && 
-        	block != Blocks.deadbush && 
-        	!block.isReplaceable(world, x, y, z)) {
+            block != Blocks.tallgrass && 
+            block != Blocks.deadbush && 
+            !block.isReplaceable(world, x, y, z)) {
             if (side == 0) --y;
             if (side == 1) ++y;
             if (side == 2) --z;
@@ -65,19 +65,19 @@ public class ItemBlockMulti extends ItemBlock {
             int l = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
             List<SubBlockPos> list = bm.buffer[bm.getRotation(l).ordinal()];
             for(SubBlockPos s : list) {
-            	Block t = world.getBlock(x + s.dx, y + s.dy, z + s.dz);
-            	if(!t.isReplaceable(world, x, y, z)) {
-            		return false;
-            	}
+                Block t = world.getBlock(x + s.dx, y + s.dy, z + s.dz);
+                if(!t.isReplaceable(world, x, y, z)) {
+                    return false;
+                }
             }
             
             if (placeBlockAt(stack, player, world, x, y, z, side, rx, ry, rz, j1))
             {
                 world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), 
-                		(double)((float)z + 0.5F), 
-                		this.field_150939_a.stepSound.func_150496_b(), 
-                		(this.field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, 
-                		this.field_150939_a.stepSound.getPitch() * 0.8F);
+                        (double)((float)z + 0.5F), 
+                        this.field_150939_a.stepSound.func_150496_b(), 
+                        (this.field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, 
+                        this.field_150939_a.stepSound.getPitch() * 0.8F);
                 --stack.stackSize;
             }
 

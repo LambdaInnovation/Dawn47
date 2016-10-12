@@ -19,6 +19,6 @@ import cn.liutils.render.particle.Particle;
  */
 public interface ParticleDecorator {
 
-	void decorate(Particle particle);
+    void decorate(Particle particle);
 
 }

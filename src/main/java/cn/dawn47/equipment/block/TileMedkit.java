@@ -27,11 +27,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @RegTileEntity
 @RegTileEntity.HasRender
 public class TileMedkit extends TileEntity {
-	
-	@RegTileEntity.Render
-	@SideOnly(Side.CLIENT)
-	public static RenderMedkit renderer;
+    
+    @RegTileEntity.Render
+    @SideOnly(Side.CLIENT)
+    public static RenderMedkit renderer;
 
-	public TileMedkit() {}
+    public TileMedkit() {}
 
 }

@@ -17,7 +17,7 @@ package cn.liutils.vis.animation;
  * @author WeAthFolD
  */
 public interface ICurve {
-	
-	double valueAt(double x);
-	
+    
+    double valueAt(double x);
+    
 }

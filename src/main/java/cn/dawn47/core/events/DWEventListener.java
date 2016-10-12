@@ -13,7 +13,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
  *
  */
 public class DWEventListener {
-	   
+       
     @SubscribeEvent
     public void onLivingDeathEvent(LivingDeathEvent event) {
 

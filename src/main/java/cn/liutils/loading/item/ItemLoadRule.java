@@ -19,18 +19,18 @@ import cn.liutils.loading.Loader.ObjectNamespace;
  * @author WeAthFolD
  */
 public abstract class ItemLoadRule<T extends Item> {
-	
-	public abstract void load(T item, ObjectNamespace ns, String name) throws Exception;
-	
-	public void finishedLoad(T item, ObjectNamespace ns, String name) throws Exception {}
-	
-	public boolean applyFor(Item item, ItemLoader loader, String name) {
-		return true;
-	}
-	
-	protected String getNamespace(ObjectNamespace ns) {
-		String name = ns.getString("namespace");
-		return name == null ? "minecraft" : name;
-	}
-	
+    
+    public abstract void load(T item, ObjectNamespace ns, String name) throws Exception;
+    
+    public void finishedLoad(T item, ObjectNamespace ns, String name) throws Exception {}
+    
+    public boolean applyFor(Item item, ItemLoader loader, String name) {
+        return true;
+    }
+    
+    protected String getNamespace(ObjectNamespace ns) {
+        String name = ns.getString("namespace");
+        return name == null ? "minecraft" : name;
+    }
+    
 }

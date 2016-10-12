@@ -36,56 +36,56 @@ import cn.liutils.cgui.gui.component.VerticalDragBar;
  * @author WeAthFolD
  */
 public class CGUIEditor {
-	
-	static Map<String, Component> components = new HashMap();
-	static Map<String, Widget> templates = new HashMap();
-	
-	//Built-ins.
-	static {
-		//Default Properties
-		addComponent(new Transform());
-		addComponent(new TextBox());
-		addComponent(new Draggable());
-		addComponent(new DrawTexture());
-		addComponent(new Tint());
-		addComponent(new ProgressBar());
-		addComponent(new VerticalDragBar());
-		addComponent(new Outline());
-		//addComponent(new ElementList());
-		
-		//Default templates
-		{ //"default"
-			Widget def = new Widget().addComponent(new DrawTexture());
-			addTemplate("Default", def);
-		}
-		
-		{ //"input_box"
-			Widget inp = new Widget().addComponent(new TextBox());
-			addTemplate("TextBox", inp);
-		}
-	}
-	
-	//Template
-	public static void addTemplate(String str, Widget template) {
-		templates.put(str, template);
-	}
-	
-	public static Set<Entry<String, Widget>> getTemplates() {
-		return templates.entrySet();
-	}
-	
-	public static Widget createFromTemplate(String name) {
-		Widget prototype = templates.get(name);
-		return prototype == null ? null : prototype.copy();
-	}
-	
-	//Component
-	public static void addComponent(Component c) {
-		components.put(c.name, c);
-	}
-	
-	public static Collection<Component> getComponents() {
-		return components.values();
-	}
+    
+    static Map<String, Component> components = new HashMap();
+    static Map<String, Widget> templates = new HashMap();
+    
+    //Built-ins.
+    static {
+        //Default Properties
+        addComponent(new Transform());
+        addComponent(new TextBox());
+        addComponent(new Draggable());
+        addComponent(new DrawTexture());
+        addComponent(new Tint());
+        addComponent(new ProgressBar());
+        addComponent(new VerticalDragBar());
+        addComponent(new Outline());
+        //addComponent(new ElementList());
+        
+        //Default templates
+        { //"default"
+            Widget def = new Widget().addComponent(new DrawTexture());
+            addTemplate("Default", def);
+        }
+        
+        { //"input_box"
+            Widget inp = new Widget().addComponent(new TextBox());
+            addTemplate("TextBox", inp);
+        }
+    }
+    
+    //Template
+    public static void addTemplate(String str, Widget template) {
+        templates.put(str, template);
+    }
+    
+    public static Set<Entry<String, Widget>> getTemplates() {
+        return templates.entrySet();
+    }
+    
+    public static Widget createFromTemplate(String name) {
+        Widget prototype = templates.get(name);
+        return prototype == null ? null : prototype.copy();
+    }
+    
+    //Component
+    public static void addComponent(Component c) {
+        components.put(c.name, c);
+    }
+    
+    public static Collection<Component> getComponents() {
+        return components.values();
+    }
 
 }

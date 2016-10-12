@@ -17,10 +17,10 @@ package cn.liutils.render.mesh;
  */
 public enum RenderStage {
 
-	START,
-	TRANSFORM,
-	BEFORE_TESSELLATE,
-	START_TESSELLATE,
-	END
-	
+    START,
+    TRANSFORM,
+    BEFORE_TESSELLATE,
+    START_TESSELLATE,
+    END
+    
 }

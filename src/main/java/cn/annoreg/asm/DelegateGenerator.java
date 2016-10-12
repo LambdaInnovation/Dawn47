@@ -195,7 +195,7 @@ public class DelegateGenerator {
                         throw new RuntimeException("Target annotation can only be used on EntityPlayer.");
                     }
                     if(targetIndex != -1) {
-                    	throw new RuntimeException("You can not specify multiple targets.");
+                        throw new RuntimeException("You can not specify multiple targets.");
                     }
                     options[parameter] = StorageOption.Option.INSTANCE;
                     targetIndex = parameter;
@@ -207,18 +207,18 @@ public class DelegateGenerator {
                         }
                     };
                 } else if(type.equals(Type.getType(StorageOption.RangedTarget.class))) {
-                	if(targetIndex != -1) {
-                    	throw new RuntimeException("You can not specify multiple targets.");
+                    if(targetIndex != -1) {
+                        throw new RuntimeException("You can not specify multiple targets.");
                     }
-                	range = null;
-                	targetIndex = parameter;
-                	return new AnnotationVisitor(this.api, super.visitParameterAnnotation(parameter, desc, visible)) {
-                		@Override
-                	    public void visit(String name, Object value) {
-                			super.visit(name, value);
-                			sendRange = (double) value;
-                	    }
-                	};
+                    range = null;
+                    targetIndex = parameter;
+                    return new AnnotationVisitor(this.api, super.visitParameterAnnotation(parameter, desc, visible)) {
+                        @Override
+                        public void visit(String name, Object value) {
+                            super.visit(name, value);
+                            sendRange = (double) value;
+                        }
+                    };
                 }
                 return super.visitParameterAnnotation(parameter, desc, visible);
             }
@@ -405,7 +405,7 @@ public class DelegateGenerator {
                         throw new RuntimeException("Target annotation can only be used on EntityPlayer.");
                     }
                     if(targetIndex != -1) {
-                    	throw new RuntimeException("You can not specify multiple targets.");
+                        throw new RuntimeException("You can not specify multiple targets.");
                     }
                     options[parameter] = StorageOption.Option.INSTANCE;
                     targetIndex = parameter;
@@ -417,18 +417,18 @@ public class DelegateGenerator {
                         }
                     };
                 } else if(type.equals(Type.getType(StorageOption.RangedTarget.class))) {
-                	if(targetIndex != -1) {
-                    	throw new RuntimeException("You can not specify multiple targets.");
+                    if(targetIndex != -1) {
+                        throw new RuntimeException("You can not specify multiple targets.");
                     }
-                	targetIndex = parameter;
-                	range = null;
-                	return new AnnotationVisitor(this.api, super.visitParameterAnnotation(parameter, desc, visible)) {
-                		@Override
+                    targetIndex = parameter;
+                    range = null;
+                    return new AnnotationVisitor(this.api, super.visitParameterAnnotation(parameter, desc, visible)) {
+                        @Override
                         public void visit(String name, Object value) {
                             super.visit(name, value);
                             sendRange = (double) value;
                         }
-                	};
+                    };
                 }
                 return super.visitParameterAnnotation(parameter, desc, visible);
             }

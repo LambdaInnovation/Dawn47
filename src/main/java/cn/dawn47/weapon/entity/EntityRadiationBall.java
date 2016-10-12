@@ -35,159 +35,159 @@ import cpw.mods.fml.relauncher.SideOnly;
 @RegEntity
 @RegEntity.HasRender
 public class EntityRadiationBall extends EntityAdvanced implements IAssociatePlayer {
-	
-	@SideOnly(Side.CLIENT)
-	@RegEntity.Render
-	public static RendererRadiationBall renderer;
-	
-	EntityPlayer spawner;
+    
+    @SideOnly(Side.CLIENT)
+    @RegEntity.Render
+    public static RendererRadiationBall renderer;
+    
+    EntityPlayer spawner;
 
-	public int splashTick = 0;
-	public boolean isHit;
-	public int ticksAfterHit;
+    public int splashTick = 0;
+    public boolean isHit;
+    public int ticksAfterHit;
 
-	protected double VELOCITY=3;
+    protected double VELOCITY=3;
 
-	public EntityRadiationBall(final EntityPlayer ent) {
+    public EntityRadiationBall(final EntityPlayer ent) {
 super(ent.worldObj);
-		
-		spawner = ent;
-		
-		this.setSize(0.7F, 0.2F);
-		
-		
-		
-		new Motion3D(ent, true).multiplyMotionBy(VELOCITY).applyToEntity(EntityRadiationBall.this);
-		
-		Rigidbody rb = new Rigidbody();
-		addMotionHandler(rb);
-		rb.entitySel = new IEntitySelector() {
+        
+        spawner = ent;
+        
+        this.setSize(0.7F, 0.2F);
+        
+        
+        
+        new Motion3D(ent, true).multiplyMotionBy(VELOCITY).applyToEntity(EntityRadiationBall.this);
+        
+        Rigidbody rb = new Rigidbody();
+        addMotionHandler(rb);
+        rb.entitySel = new IEntitySelector() {
 
-			@Override
-			public boolean isEntityApplicable(Entity entity) {
-				return entity != ent;
-			}
-			
-		};
-		
-		this.regEventHandler(new CollideHandler() {
+            @Override
+            public boolean isEntityApplicable(Entity entity) {
+                return entity != ent;
+            }
+            
+        };
+        
+        this.regEventHandler(new CollideHandler() {
 
-			@Override
-			public void onEvent(CollideEvent event) {
-				
-				isHit = true;
-				
-				MovingObjectPosition res = event.result;
-				if(res.entityHit != null&&res.entityHit != spawner) {
-					res.entityHit.attackEntityFrom(DamageSource.causeMobDamage(ent), 12);
-					EntityRadiationBall.this.setDead();
-					return;
-				}
-				
-				executeAfter(new EntityCallback() {
-					@Override
-					public void execute(Entity target) {
-						setDead();
-					}
-				}, 20);
-				
-				if(res.typeOfHit == MovingObjectType.BLOCK) {
-					Vec3 v = res.hitVec;
-					posX = v.xCoord;
-					posY = v.yCoord;
-					posZ = v.zCoord;
-				}
-			}
-			
-		});
-	}
+            @Override
+            public void onEvent(CollideEvent event) {
+                
+                isHit = true;
+                
+                MovingObjectPosition res = event.result;
+                if(res.entityHit != null&&res.entityHit != spawner) {
+                    res.entityHit.attackEntityFrom(DamageSource.causeMobDamage(ent), 12);
+                    EntityRadiationBall.this.setDead();
+                    return;
+                }
+                
+                executeAfter(new EntityCallback() {
+                    @Override
+                    public void execute(Entity target) {
+                        setDead();
+                    }
+                }, 20);
+                
+                if(res.typeOfHit == MovingObjectType.BLOCK) {
+                    Vec3 v = res.hitVec;
+                    posX = v.xCoord;
+                    posY = v.yCoord;
+                    posZ = v.zCoord;
+                }
+            }
+            
+        });
+    }
 
-	public EntityRadiationBall(World world) {
-		super(world);
-		
-		addMotionHandler(new Rigidbody());
-		
-		regEventHandler(new CollideHandler() {
-			@Override
-			public void onEvent(CollideEvent event) {
-				isHit = true;
-				motionX = motionY = motionZ = 0;
-				
-				//TODO: Spawn particles
-			}
-		});
-	}
-	
-	@Override
-	public void entityInit() {
-		super.entityInit();
-		
-		dataWatcher.addObject(15, Byte.valueOf((byte) 0));
-		dataWatcher.addObject(16, Integer.valueOf(0));
-	}
-	
-	@Override
-	public void onUpdate() {
-		System.out.println("oh");
-		if(isHit) {
-			++ticksAfterHit;
-			if(ticksAfterHit == 20)
-				this.setDead();
-		}
-		syncData();
-		super.onUpdate();
-	}
-	
-	void syncData() {
-		if(worldObj.isRemote) {
-			byte b = dataWatcher.getWatchableObjectByte(15);
-			if(b == 0) {
-				isHit = false;
-				ticksAfterHit = 0;
-			} else {
-				isHit = true;
-				ticksAfterHit = b >> 1;
-			}
-			
-			if(spawner != null) {
-				Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
-				if(e instanceof EntityPlayer) {
-					spawner = (EntityPlayer) e;
-				}
-			}
-		} else {
-			if(isHit)
-				dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
-			else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
-			
-			dataWatcher.updateObject(16, spawner.getEntityId());
-		}
-	}
-	
-	@Override
-	public boolean shouldRenderInPass(int pass){
-		return pass==1;
-		
-	}
+    public EntityRadiationBall(World world) {
+        super(world);
+        
+        addMotionHandler(new Rigidbody());
+        
+        regEventHandler(new CollideHandler() {
+            @Override
+            public void onEvent(CollideEvent event) {
+                isHit = true;
+                motionX = motionY = motionZ = 0;
+                
+                //TODO: Spawn particles
+            }
+        });
+    }
+    
+    @Override
+    public void entityInit() {
+        super.entityInit();
+        
+        dataWatcher.addObject(15, Byte.valueOf((byte) 0));
+        dataWatcher.addObject(16, Integer.valueOf(0));
+    }
+    
+    @Override
+    public void onUpdate() {
+        System.out.println("oh");
+        if(isHit) {
+            ++ticksAfterHit;
+            if(ticksAfterHit == 20)
+                this.setDead();
+        }
+        syncData();
+        super.onUpdate();
+    }
+    
+    void syncData() {
+        if(worldObj.isRemote) {
+            byte b = dataWatcher.getWatchableObjectByte(15);
+            if(b == 0) {
+                isHit = false;
+                ticksAfterHit = 0;
+            } else {
+                isHit = true;
+                ticksAfterHit = b >> 1;
+            }
+            
+            if(spawner != null) {
+                Entity e = worldObj.getEntityByID(dataWatcher.getWatchableObjectInt(16));
+                if(e instanceof EntityPlayer) {
+                    spawner = (EntityPlayer) e;
+                }
+            }
+        } else {
+            if(isHit)
+                dataWatcher.updateObject(15, Byte.valueOf((byte) (1 | (ticksAfterHit << 1))));
+            else dataWatcher.updateObject(15, Byte.valueOf((byte) 0));
+            
+            dataWatcher.updateObject(16, spawner.getEntityId());
+        }
+    }
+    
+    @Override
+    public boolean shouldRenderInPass(int pass){
+        return pass==1;
+        
+    }
 
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
 
-	@Override
-	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-		setDead();
-	}
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
+        setDead();
+    }
 
-	@Override
-	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {}
+    @Override
+    protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {}
 
-	@Override
-	public EntityPlayer getPlayer() {
-		return spawner;
-	}
-	
-	
+    @Override
+    public EntityPlayer getPlayer() {
+        return spawner;
+    }
+    
+    
 
 }

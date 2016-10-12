@@ -27,16 +27,16 @@ import cn.dawn47.core.item.DWGenericItem;
  */
 public class ItemSuperDrink extends DWGenericItem {
 
-	/**
-	 * @param par1
-	 */
-	public ItemSuperDrink() {
-		super();
-		setIAndU("superdrink");
-	}
-	
+    /**
+     * @param par1
+     */
+    public ItemSuperDrink() {
+        super();
+        setIAndU("superdrink");
+    }
+    
     @Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer player)
+    public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer player)
     {
         if (!player.capabilities.isCreativeMode)
         {
@@ -57,7 +57,7 @@ public class ItemSuperDrink extends DWGenericItem {
      * How long it takes to use or consume an item
      */
     @Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
+    public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         return 32;
     }
@@ -66,7 +66,7 @@ public class ItemSuperDrink extends DWGenericItem {
      * returns the action that specifies what animation to play when the items is being used
      */
     @Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
+    public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.drink;
     }
@@ -75,7 +75,7 @@ public class ItemSuperDrink extends DWGenericItem {
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
         return par1ItemStack;

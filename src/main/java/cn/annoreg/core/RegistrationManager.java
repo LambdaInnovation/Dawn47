@@ -26,146 +26,146 @@ import cn.annoreg.mc.BlockRegistration;
 import cpw.mods.fml.common.discovery.ASMDataTable.ASMData;
 
 public class RegistrationManager {
-	
-	public static final RegistrationManager INSTANCE = new RegistrationManager();
-	
-	private Set<String> unloadedClass = new HashSet();
-	private Set<Class<?>> loadedClass = new HashSet();
-	
-	private Set<ASMData> unloadedRegType;
-	private Map<Class<? extends Annotation>, RegistryType> regByClass = new HashMap();
-	private Map<String, RegistryType> regByName = new HashMap();
-	
-	private Map<String, RegModInformation> modMap = new HashMap();
-	private Set<RegModInformation> mods = new HashSet();
-	
-	private Map<String, List<String>> innerClassList = new HashMap();
-	
-	public void annotationList(Set<ASMData> data) {
-		for (ASMData asm : data) {
-			unloadedClass.add(asm.getClassName());
-		}
-	}
-	
-	private void loadClasses() {
-	    loadRegistryTypes();
-		for (String name : unloadedClass) {
-			try {
-				prepareClass(Class.forName(name));
-			} catch (Exception e) {
-				ARModContainer.log.warn("Can not load class {}, maybe a SideOnly class.", name);
-				//TODO check whether it's really caused by sideonly
-			} catch (Throwable e) {
-				ARModContainer.log.fatal("Error on loading class {}. Please check the implementation.", name);
-				e.printStackTrace();
-			}
-		}
-		unloadedClass.clear();
-	}
-	
-	private void prepareClass(Class<?> clazz) {
-		//First check loadedClass to avoid infinite recursion (when extending the enclosing class).
-		if (loadedClass.contains(clazz)) {
-			return;
-		}
-		loadedClass.add(clazz);
-		
-		//Class annotations
-		for (Annotation anno : clazz.getAnnotations()) {
-			Class<? extends Annotation> annoclazz = anno.annotationType();
-			if (regByClass.containsKey(annoclazz)) {
-				regByClass.get(annoclazz).visitClass(clazz);
-			}
-		}
-		
-		//Field annotations
-		for (Field field : clazz.getDeclaredFields()) {
-			for (Annotation anno : field.getAnnotations()) {
-				Class<? extends Annotation> annoclazz = anno.annotationType();
-				if (regByClass.containsKey(annoclazz)) {
-					regByClass.get(annoclazz).visitField(field);
-				}
-			}
-		}
-		
-		//Inner classes
-		if (innerClassList.containsKey(clazz.getName())) {
-		    for (String inner : innerClassList.get(clazz.getName())) {
-		        try {
+    
+    public static final RegistrationManager INSTANCE = new RegistrationManager();
+    
+    private Set<String> unloadedClass = new HashSet();
+    private Set<Class<?>> loadedClass = new HashSet();
+    
+    private Set<ASMData> unloadedRegType;
+    private Map<Class<? extends Annotation>, RegistryType> regByClass = new HashMap();
+    private Map<String, RegistryType> regByName = new HashMap();
+    
+    private Map<String, RegModInformation> modMap = new HashMap();
+    private Set<RegModInformation> mods = new HashSet();
+    
+    private Map<String, List<String>> innerClassList = new HashMap();
+    
+    public void annotationList(Set<ASMData> data) {
+        for (ASMData asm : data) {
+            unloadedClass.add(asm.getClassName());
+        }
+    }
+    
+    private void loadClasses() {
+        loadRegistryTypes();
+        for (String name : unloadedClass) {
+            try {
+                prepareClass(Class.forName(name));
+            } catch (Exception e) {
+                ARModContainer.log.warn("Can not load class {}, maybe a SideOnly class.", name);
+                //TODO check whether it's really caused by sideonly
+            } catch (Throwable e) {
+                ARModContainer.log.fatal("Error on loading class {}. Please check the implementation.", name);
+                e.printStackTrace();
+            }
+        }
+        unloadedClass.clear();
+    }
+    
+    private void prepareClass(Class<?> clazz) {
+        //First check loadedClass to avoid infinite recursion (when extending the enclosing class).
+        if (loadedClass.contains(clazz)) {
+            return;
+        }
+        loadedClass.add(clazz);
+        
+        //Class annotations
+        for (Annotation anno : clazz.getAnnotations()) {
+            Class<? extends Annotation> annoclazz = anno.annotationType();
+            if (regByClass.containsKey(annoclazz)) {
+                regByClass.get(annoclazz).visitClass(clazz);
+            }
+        }
+        
+        //Field annotations
+        for (Field field : clazz.getDeclaredFields()) {
+            for (Annotation anno : field.getAnnotations()) {
+                Class<? extends Annotation> annoclazz = anno.annotationType();
+                if (regByClass.containsKey(annoclazz)) {
+                    regByClass.get(annoclazz).visitField(field);
+                }
+            }
+        }
+        
+        //Inner classes
+        if (innerClassList.containsKey(clazz.getName())) {
+            for (String inner : innerClassList.get(clazz.getName())) {
+                try {
                     prepareClass(Class.forName(inner));
-	            } catch (Exception e) {
-	                ARModContainer.log.warn("Can not load class {}, maybe a SideOnly class.", inner);
+                } catch (Exception e) {
+                    ARModContainer.log.warn("Can not load class {}, maybe a SideOnly class.", inner);
                 } catch (Throwable e) {
                     ARModContainer.log.fatal("Error on loading class {}. Please check the implementation.", inner);
                     e.printStackTrace();
                 }
-		    }
-		}
-		
-	}
-	
-	RegModInformation findMod(AnnotationData data) {
-		for (RegModInformation mod : mods) {
-			Class<?> clazz = data.type == AnnotationData.Type.CLASS ?
-					data.getTheClass() : data.getTheField().getDeclaringClass();
-			if (clazz.getCanonicalName().startsWith(mod.getPackage())) {
-				data.mod = mod;
-				return mod;
-			}
-		}
-		return null;
-	}
-	
-	public void addRegType(RegistryType type) {
-		if (type.annoClass == null) {
-			if (regByName.containsKey(type.name)) {
-				ARModContainer.log.error("Unable to add the registry type {}.", type.name);
-				Thread.dumpStack();
-				return;
-			}
-			regByName.put(type.name, type);
-		} else {
-			if (regByClass.containsKey(type.annoClass) ||
-					regByName.containsKey(type.name)) {
-				ARModContainer.log.error("Unable to add the registry type {}.", type.name);
-				Thread.dumpStack();
-				return;
-			}
-			regByClass.put(type.annoClass, type);
-			regByName.put(type.name, type);
-		}
-	}
-	
-	private RegModInformation createModFromObj(String modClassName) {
-	    if (modMap.containsKey(modClassName)) {
-	        return modMap.get(modClassName);
-	    }
-	    RegModInformation ret = new RegModInformation(modClassName);
-	    modMap.put(modClassName, ret);
-	    return ret;
-	}
+            }
+        }
+        
+    }
+    
+    RegModInformation findMod(AnnotationData data) {
+        for (RegModInformation mod : mods) {
+            Class<?> clazz = data.type == AnnotationData.Type.CLASS ?
+                    data.getTheClass() : data.getTheField().getDeclaringClass();
+            if (clazz.getCanonicalName().startsWith(mod.getPackage())) {
+                data.mod = mod;
+                return mod;
+            }
+        }
+        return null;
+    }
+    
+    public void addRegType(RegistryType type) {
+        if (type.annoClass == null) {
+            if (regByName.containsKey(type.name)) {
+                ARModContainer.log.error("Unable to add the registry type {}.", type.name);
+                Thread.dumpStack();
+                return;
+            }
+            regByName.put(type.name, type);
+        } else {
+            if (regByClass.containsKey(type.annoClass) ||
+                    regByName.containsKey(type.name)) {
+                ARModContainer.log.error("Unable to add the registry type {}.", type.name);
+                Thread.dumpStack();
+                return;
+            }
+            regByClass.put(type.annoClass, type);
+            regByName.put(type.name, type);
+        }
+    }
+    
+    private RegModInformation createModFromObj(String modClassName) {
+        if (modMap.containsKey(modClassName)) {
+            return modMap.get(modClassName);
+        }
+        RegModInformation ret = new RegModInformation(modClassName);
+        modMap.put(modClassName, ret);
+        return ret;
+    }
 
-	public void addAnnotationMod(Set<ASMData> data) {
-		for (ASMData asm : data) {
-		    mods.add(createModFromObj(asm.getClassName()));
-		}
-	}
-	
-	private void registerAll(RegModInformation mod, String type) {
-		//First load all classes that have not been loaded.
-		loadClasses();
-		RegistryType rt = regByName.get(type);
-		if (rt == null) {
-			ARModContainer.log.error("RegistryType {} not found.", type);
-			//TODO side only type go here.
-			return;
-		}
-		rt.registerAll(mod);
-	}
-	
-	public void registerAll(Object mod, String type) {
-		registerAll(createModFromObj(mod.getClass().getName()), type);
-	}
+    public void addAnnotationMod(Set<ASMData> data) {
+        for (ASMData asm : data) {
+            mods.add(createModFromObj(asm.getClassName()));
+        }
+    }
+    
+    private void registerAll(RegModInformation mod, String type) {
+        //First load all classes that have not been loaded.
+        loadClasses();
+        RegistryType rt = regByName.get(type);
+        if (rt == null) {
+            ARModContainer.log.error("RegistryType {} not found.", type);
+            //TODO side only type go here.
+            return;
+        }
+        rt.registerAll(mod);
+    }
+    
+    public void registerAll(Object mod, String type) {
+        registerAll(createModFromObj(mod.getClass().getName()), type);
+    }
 
     public void addRegistryTypes(Set<ASMData> data) {
         unloadedRegType = data;
@@ -184,42 +184,42 @@ public class RegistrationManager {
         }
         unloadedRegType.clear();
     }
-	
-	public void addSideOnlyRegAnnotation(Set<ASMData> data) {
-		for (ASMData asm : data) {
-			try {
-				Class<?> clazz = Class.forName(asm.getClassName());
-			} catch (Exception e) {
-				ARModContainer.log.error("Error on adding registry annotation {}.", asm.getClassName());
-			}
-		}
-	}
-	
-	public void checkLoadState() {
-		for (RegistryType rt : regByName.values()) {
-			rt.checkLoadState();
-		}
-	}
-	
-	public Set<RegModInformation> getMods() {
-		return mods;
-	}
-	
-	public void addDependencyFor(String type, String dep) {
-		regByName.get(type).addDependency(dep);
-	}
-	
-	public void addInnerClassList(String outer, List<String> inner) {
-	    if (innerClassList.containsKey(outer)) {
-	        innerClassList.get(outer).addAll(inner);
-	    } else {
-	        innerClassList.put(outer, inner);
-	    }
-	}
-	
-	static {
-		for (LoadStage ls : LoadStage.values()) {
-			INSTANCE.addRegType(new RegistrationEmpty(ls.name));
-		}
-	}
+    
+    public void addSideOnlyRegAnnotation(Set<ASMData> data) {
+        for (ASMData asm : data) {
+            try {
+                Class<?> clazz = Class.forName(asm.getClassName());
+            } catch (Exception e) {
+                ARModContainer.log.error("Error on adding registry annotation {}.", asm.getClassName());
+            }
+        }
+    }
+    
+    public void checkLoadState() {
+        for (RegistryType rt : regByName.values()) {
+            rt.checkLoadState();
+        }
+    }
+    
+    public Set<RegModInformation> getMods() {
+        return mods;
+    }
+    
+    public void addDependencyFor(String type, String dep) {
+        regByName.get(type).addDependency(dep);
+    }
+    
+    public void addInnerClassList(String outer, List<String> inner) {
+        if (innerClassList.containsKey(outer)) {
+            innerClassList.get(outer).addAll(inner);
+        } else {
+            innerClassList.put(outer, inner);
+        }
+    }
+    
+    static {
+        for (LoadStage ls : LoadStage.values()) {
+            INSTANCE.addRegType(new RegistrationEmpty(ls.name));
+        }
+    }
 }

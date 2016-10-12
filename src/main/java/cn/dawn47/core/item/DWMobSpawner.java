@@ -28,41 +28,41 @@ import cn.dawn47.Dawn47;
  *
  */
 public class DWMobSpawner extends DWGenericItem {
-	
-	protected Class<? extends Entity> spawnEntity = EntityCreeper.class;
-	private Constructor<? extends Entity> constructor;
-	
-	public DWMobSpawner() {
-		super();
-		try {
-			constructor = EntityCreeper.class.getConstructor(World.class);
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
-	}
+    
+    protected Class<? extends Entity> spawnEntity = EntityCreeper.class;
+    private Constructor<? extends Entity> constructor;
+    
+    public DWMobSpawner() {
+        super();
+        try {
+            constructor = EntityCreeper.class.getConstructor(World.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * @param par1
-	 */
-	public DWMobSpawner(Class<? extends Entity> entityToSpawn, String name, int eggID) {
-		super();
-		this.setUnlocalizedName(name);
-		this.setTextureName("dawn47:egg" + eggID);
-		spawnEntity = entityToSpawn;
-		try {
-			constructor = spawnEntity.getConstructor(World.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+    /**
+     * @param par1
+     */
+    public DWMobSpawner(Class<? extends Entity> entityToSpawn, String name, int eggID) {
+        super();
+        this.setUnlocalizedName(name);
+        this.setTextureName("dawn47:egg" + eggID);
+        spawnEntity = entityToSpawn;
+        try {
+            constructor = spawnEntity.getConstructor(World.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         return par1ItemStack;
     }
@@ -72,27 +72,27 @@ public class DWMobSpawner extends DWGenericItem {
      * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
      */
     @Override
-	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y,
-    		int z, int side, float xOffset, float yOffset, float zOffset)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y,
+            int z, int side, float xOffset, float yOffset, float zOffset)
     {
-    	if(!world.isRemote) {
-    		double posX = x + 0.5, posY = y + 0.5, posZ = z + 0.5;
-    		ForgeDirection dir = ForgeDirection.values()[side];
-    		posX += dir.offsetX * 1.5;
-    		posY += dir.offsetY * 1.5;
-    		posZ += dir.offsetZ * 1.5;
-    		if(constructor != null) {
-    			try {
-					Entity e = constructor.newInstance(world);
-					e.setPositionAndRotation(posX, posY, posZ, player.rotationYaw, player.rotationPitch);
-					world.spawnEntityInWorld(e);
-				} catch (Exception e) {
-					Dawn47.log.info("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
-					e.printStackTrace();
-				}
-    			
-    		}
-    	}
+        if(!world.isRemote) {
+            double posX = x + 0.5, posY = y + 0.5, posZ = z + 0.5;
+            ForgeDirection dir = ForgeDirection.values()[side];
+            posX += dir.offsetX * 1.5;
+            posY += dir.offsetY * 1.5;
+            posZ += dir.offsetZ * 1.5;
+            if(constructor != null) {
+                try {
+                    Entity e = constructor.newInstance(world);
+                    e.setPositionAndRotation(posX, posY, posZ, player.rotationYaw, player.rotationPitch);
+                    world.spawnEntityInWorld(e);
+                } catch (Exception e) {
+                    Dawn47.log.info("Fail to find the default constructor for entity " + spawnEntity + " in DWMobSpawner");
+                    e.printStackTrace();
+                }
+                
+            }
+        }
         return false;
     }
     

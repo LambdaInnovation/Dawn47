@@ -28,65 +28,65 @@ import cn.liutils.util.helper.Color;
  * @author WeAthFolD
  */
 public class DrawTexture extends Component {
-	
-	static final ResourceLocation MISSING = new ResourceLocation("liutils:textures/cgui/missing.png");
-	
-	public ResourceLocation texture = MISSING;
-	
-	public Color color = new Color(1, 1, 1, 1);
-	
-	public double zLevel = 0;
-	
-	public boolean writeDepth = true;
-	
-	private int shaderId = 0;
+    
+    static final ResourceLocation MISSING = new ResourceLocation("liutils:textures/cgui/missing.png");
+    
+    public ResourceLocation texture = MISSING;
+    
+    public Color color = new Color(1, 1, 1, 1);
+    
+    public double zLevel = 0;
+    
+    public boolean writeDepth = true;
+    
+    private int shaderId = 0;
 
-	public DrawTexture() {
-		super("DrawTexture");
-		this.addEventHandler(new FrameEventHandler() {
-			@Override
-			public void handleEvent(Widget w, FrameEvent event) {
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glDisable(GL_ALPHA_TEST);
-				glDepthMask(writeDepth);
-				glUseProgram(shaderId);
-				color.bind();
-				double preLevel = HudUtils.zLevel;
-				HudUtils.zLevel = zLevel;
-				if(texture != null && !texture.getResourcePath().equals("<null>")) {
-					RenderUtils.loadTexture(texture);
-					HudUtils.rect(0, 0, w.transform.width, w.transform.height);
-				} else {
-					HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
-				}
-				HudUtils.zLevel = preLevel;
-				glUseProgram(0);
-				glDepthMask(true);
-			}
-		});
-	}
-	
-	public void setShaderId(int id) {
-		shaderId = id;
-	}
-	
-	public DrawTexture setTex(ResourceLocation t) {
-		texture = t;
-		return this;
-	}
-	
-	public DrawTexture setColor4i(int r, int g, int b, int a) {
-		color.setColor4d(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
-		return this;
-	}
-	
-	public DrawTexture setColor4d(double _r, double _g, double _b, double _a) {
-		color.setColor4d(_r, _g, _b, _a);
-		return this;
-	}
-	
-	public static DrawTexture get(Widget w) {
-		return w.getComponent("DrawTexture");
-	}
+    public DrawTexture() {
+        super("DrawTexture");
+        this.addEventHandler(new FrameEventHandler() {
+            @Override
+            public void handleEvent(Widget w, FrameEvent event) {
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glDisable(GL_ALPHA_TEST);
+                glDepthMask(writeDepth);
+                glUseProgram(shaderId);
+                color.bind();
+                double preLevel = HudUtils.zLevel;
+                HudUtils.zLevel = zLevel;
+                if(texture != null && !texture.getResourcePath().equals("<null>")) {
+                    RenderUtils.loadTexture(texture);
+                    HudUtils.rect(0, 0, w.transform.width, w.transform.height);
+                } else {
+                    HudUtils.colorRect(0, 0, w.transform.width, w.transform.height);
+                }
+                HudUtils.zLevel = preLevel;
+                glUseProgram(0);
+                glDepthMask(true);
+            }
+        });
+    }
+    
+    public void setShaderId(int id) {
+        shaderId = id;
+    }
+    
+    public DrawTexture setTex(ResourceLocation t) {
+        texture = t;
+        return this;
+    }
+    
+    public DrawTexture setColor4i(int r, int g, int b, int a) {
+        color.setColor4d(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
+        return this;
+    }
+    
+    public DrawTexture setColor4d(double _r, double _g, double _b, double _a) {
+        color.setColor4d(_r, _g, _b, _a);
+        return this;
+    }
+    
+    public static DrawTexture get(Widget w) {
+        return w.getComponent("DrawTexture");
+    }
 
 }

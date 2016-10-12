@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface WeaponCallback {
-	
-	Side side() default Side.SERVER;
-	
+    
+    Side side() default Side.SERVER;
+    
 }

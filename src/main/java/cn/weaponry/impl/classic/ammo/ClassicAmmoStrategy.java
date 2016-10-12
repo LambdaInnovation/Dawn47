@@ -21,47 +21,47 @@ import cn.weaponry.impl.classic.WeaponClassic;
  * @author WeAthFolD
  */
 public class ClassicAmmoStrategy implements AmmoStrategy {
-	
-	final WeaponClassic weapon;
-	
-	public ClassicAmmoStrategy(WeaponClassic _weapon) {
-		weapon = _weapon;
-	}
+    
+    final WeaponClassic weapon;
+    
+    public ClassicAmmoStrategy(WeaponClassic _weapon) {
+        weapon = _weapon;
+    }
 
-	@Override
-	public int getAmmo(ItemStack stack) {
-		return StackUtils.loadTag(stack).getInteger("ammo");
-	}
+    @Override
+    public int getAmmo(ItemStack stack) {
+        return StackUtils.loadTag(stack).getInteger("ammo");
+    }
 
-	@Override
-	public void setAmmo(ItemStack stack, int n) {
-		StackUtils.loadTag(stack).setInteger("ammo", n);
-	}
-	
-	@Override
-	public int getMaxAmmo(ItemStack stack) {
-		return weapon.maxAmmo;
-	}
+    @Override
+    public void setAmmo(ItemStack stack, int n) {
+        StackUtils.loadTag(stack).setInteger("ammo", n);
+    }
+    
+    @Override
+    public int getMaxAmmo(ItemStack stack) {
+        return weapon.maxAmmo;
+    }
 
-	@Override
-	public boolean consumeAmmo(EntityPlayer player, ItemStack stack, int amt) {
-		if(player.capabilities.isCreativeMode)
-			return true;
-		int ammo = getAmmo(stack);
-		if(ammo < amt)
-			return false;
-		setAmmo(stack, ammo - amt);
-		return true;
-	}
+    @Override
+    public boolean consumeAmmo(EntityPlayer player, ItemStack stack, int amt) {
+        if(player.capabilities.isCreativeMode)
+            return true;
+        int ammo = getAmmo(stack);
+        if(ammo < amt)
+            return false;
+        setAmmo(stack, ammo - amt);
+        return true;
+    }
 
-	@Override
-	public String getDescription(ItemStack stack) {
-		return getAmmo(stack) + "/" + getMaxAmmo(stack);
-	}
+    @Override
+    public String getDescription(ItemStack stack) {
+        return getAmmo(stack) + "/" + getMaxAmmo(stack);
+    }
 
-	@Override
-	public boolean canConsume(EntityPlayer player, ItemStack stack, int amt) {
-		return player.capabilities.isCreativeMode || getAmmo(stack) >= amt;
-	}
+    @Override
+    public boolean canConsume(EntityPlayer player, ItemStack stack, int amt) {
+        return player.capabilities.isCreativeMode || getAmmo(stack) >= amt;
+    }
 
 }

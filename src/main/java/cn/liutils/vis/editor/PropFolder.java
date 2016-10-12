@@ -22,28 +22,28 @@ import net.minecraft.util.ResourceLocation;
  * @author WeAthFolD
  */
 public final class PropFolder implements IEditorProp {
-	
-	private List<IEditorProp> childs;
+    
+    private List<IEditorProp> childs;
 
-	@Override
-	public Widget createPropEditor(Object object) {
-		return null;
-	}
+    @Override
+    public Widget createPropEditor(Object object) {
+        return null;
+    }
 
-	public void addChild(IEditorProp object) {
-		if(childs == null)
-			childs = new ArrayList();
-		childs.add(object);
-	}
-	
-	@Override
-	public List<IEditorProp> getChilds() {
-		return childs;
-	}
+    public void addChild(IEditorProp object) {
+        if(childs == null)
+            childs = new ArrayList();
+        childs.add(object);
+    }
+    
+    @Override
+    public List<IEditorProp> getChilds() {
+        return childs;
+    }
 
-	@Override
-	public ResourceLocation getIcon() {
-		return null;
-	}
+    @Override
+    public ResourceLocation getIcon() {
+        return null;
+    }
 
 }

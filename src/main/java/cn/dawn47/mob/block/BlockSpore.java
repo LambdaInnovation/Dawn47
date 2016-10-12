@@ -25,33 +25,33 @@ import cn.liutils.template.client.render.block.RenderEmptyBlock;
  */
 public class BlockSpore extends BlockContainer {
 
-	public BlockSpore() {
-		super(Material.craftedSnow);
-		this.setStepSound(soundTypeSnow);
-		this.setBlockTextureName("dawn47:spore");
-		this.setBlockName("dw_spore");
-		setCreativeTab(Dawn47.cct);
-		
-		this.setBlockBounds(0, 0, 0, 1, 0.2f, 1);
-	}
-	
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
-	
+    public BlockSpore() {
+        super(Material.craftedSnow);
+        this.setStepSound(soundTypeSnow);
+        this.setBlockTextureName("dawn47:spore");
+        this.setBlockName("dw_spore");
+        setCreativeTab(Dawn47.cct);
+        
+        this.setBlockBounds(0, 0, 0, 1, 0.2f, 1);
+    }
+    
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+    
     public int getRenderType() {
         return RenderEmptyBlock.id;
     }
-	
-	@Override
-	public int getRenderBlockPass() {
-		return -1;
-	}
+    
+    @Override
+    public int getRenderBlockPass() {
+        return -1;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileSpore();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileSpore();
+    }
 
 }

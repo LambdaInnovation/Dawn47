@@ -26,73 +26,73 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class ScreenUplift extends Action {
-	
-	//TODO: Open up the rad limit?
-	public double upliftRadius = 4; //Expected uplift radius. For better experience use RangeRandom(rad*0.8, rad*1.2).
-	
-	public double upliftSpeed = 2.5; //Uplift speed, unit: deg/tick
-	public double recoverSpeed = 0.9; //Angle recover speed, unit: deg/tick
-	
-	public double degreeFrom = 50, degreeTo = 130; //The allowed "uplift" vector scatter range, in degrees.
-	
-	private Vector2d dir;
-	private double uplift;
-	
-	private double changedAngles = 0.0;
+    
+    //TODO: Open up the rad limit?
+    public double upliftRadius = 4; //Expected uplift radius. For better experience use RangeRandom(rad*0.8, rad*1.2).
+    
+    public double upliftSpeed = 2.5; //Uplift speed, unit: deg/tick
+    public double recoverSpeed = 0.9; //Angle recover speed, unit: deg/tick
+    
+    public double degreeFrom = 50, degreeTo = 130; //The allowed "uplift" vector scatter range, in degrees.
+    
+    private Vector2d dir;
+    private double uplift;
+    
+    private double changedAngles = 0.0;
 
-	@Override
-	public String getName() {
-		return "Uplift";
-	}
-	
-	boolean recovering = false;
-	
-	@Override
-	public void onStart() {
-		double rad = RandUtils.ranged(degreeFrom, degreeTo) * Math.PI / 180;
-		dir = new Vector2d(Math.sin(rad), Math.cos(rad));
-		
-		uplift = RandUtils.ranged(0.8, 1.2) * upliftRadius;
-		
-		EntityPlayer player = getPlayer();
-		
-		//lastRecoverTime = Minecraft.getSystemTime();
-	}
-	
-	@Override
-	public void onRenderTick() {
-		EntityPlayer player = getPlayer();
-		long dt = itemInfo.getDeltaTime();
-		
-		if(!recovering) {
-			double change = upliftSpeed * dt / 50.0;
-			if(changedAngles + change > uplift) {
-				change = uplift - changedAngles;
-//				System.out.println("UE" + change + " " + changedAngles);
-				
-				player.rotationYaw += dir.y * change;
-				player.rotationPitch -= dir.x * change;
-				
-				changedAngles = 0;
-				recovering = true;
-			} else {
-//				System.out.println("U " + change + " " + changedAngles);
-				player.rotationYaw += dir.y * change;
-				player.rotationPitch -= dir.x * change;
-				changedAngles += change;
-			}
-			
-		} else {
-			double change = recoverSpeed * dt / 50.0;
-			if(changedAngles + change > uplift) {
-				change = uplift - changedAngles;
-				disposed = true;
-//				System.out.println("RE" + change + " " + changedAngles);
-			}
-			player.rotationYaw -= dir.y * change;
-			player.rotationPitch += dir.x * change;
-			changedAngles += change;
-		}
-	}
+    @Override
+    public String getName() {
+        return "Uplift";
+    }
+    
+    boolean recovering = false;
+    
+    @Override
+    public void onStart() {
+        double rad = RandUtils.ranged(degreeFrom, degreeTo) * Math.PI / 180;
+        dir = new Vector2d(Math.sin(rad), Math.cos(rad));
+        
+        uplift = RandUtils.ranged(0.8, 1.2) * upliftRadius;
+        
+        EntityPlayer player = getPlayer();
+        
+        //lastRecoverTime = Minecraft.getSystemTime();
+    }
+    
+    @Override
+    public void onRenderTick() {
+        EntityPlayer player = getPlayer();
+        long dt = itemInfo.getDeltaTime();
+        
+        if(!recovering) {
+            double change = upliftSpeed * dt / 50.0;
+            if(changedAngles + change > uplift) {
+                change = uplift - changedAngles;
+//              System.out.println("UE" + change + " " + changedAngles);
+                
+                player.rotationYaw += dir.y * change;
+                player.rotationPitch -= dir.x * change;
+                
+                changedAngles = 0;
+                recovering = true;
+            } else {
+//              System.out.println("U " + change + " " + changedAngles);
+                player.rotationYaw += dir.y * change;
+                player.rotationPitch -= dir.x * change;
+                changedAngles += change;
+            }
+            
+        } else {
+            double change = recoverSpeed * dt / 50.0;
+            if(changedAngles + change > uplift) {
+                change = uplift - changedAngles;
+                disposed = true;
+//              System.out.println("RE" + change + " " + changedAngles);
+            }
+            player.rotationYaw -= dir.y * change;
+            player.rotationPitch += dir.x * change;
+            changedAngles += change;
+        }
+    }
 
 }
