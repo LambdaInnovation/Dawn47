@@ -12,6 +12,8 @@
  */
 package cn.weaponry.core;
 
+import cn.weaponry.core.ctrl.HarvestBreaker;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
@@ -61,6 +63,8 @@ public class Weaponry {
         RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_CONFIGURABLE);
         RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_KEYHANDLER);
         RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_RENDER_HOOK);
+
+        FMLCommonHandler.instance().bus().register(new HarvestBreaker());
     }
     
     @EventHandler
