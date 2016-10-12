@@ -68,6 +68,7 @@ public class RendererSpore extends TileEntitySpecialRenderer {
         TileSpore spore = (TileSpore) tile;
         
         IModelCustom mdl = spore.isReleased() ? modelReleased : model;
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
         GL11.glPushMatrix();
         GL11.glColor4d(1, 1, 1, 1);
