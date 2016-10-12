@@ -18,21 +18,24 @@
         "id": "ar",
         "ammo": "ar_ammo",
         "maxAmmo": 30,
-        "shootInterval": 3,
-        "shootDamage": 4,
-        "shootScatter": 0.08,
+        "shootInterval": 2,
+        "shootDamage": 3.5,
+        "shootScatterMin": 0.05,
+        "shootScatterIncrement": 0.25,
+        "shootScatterStability": 3,
+        "movingScatterIncrement":0.8,
         "reloadTime": 30,
         "stockDamage": 4,
         "uplift": {
-            "upliftRadius": 1.4,
-            "recoverSpeed": 0.5
+            "upliftRadius": 5.0,
+            "upliftSpeed":2.5,
+            "recoverSpeed": 2.0
         }
     },
     "render": {
-        "texture": "dawn47:textures/models/ar1.png",
-        "t_std": {
-            "transform": [0.2, 0, -0.1],
-            "rotation": [0, -5, 0]
+        "t_firstPerson": {
+            "transform": [-0.55, 0.1, -0.8],
+            "rotation": [3, -4, -10]
         },
         "muzzleflash": {
             "offset": [0.58, 0.29, -0.01]
@@ -47,23 +50,27 @@
         "maxAmmo": 12,
         "shootInterval": 4,
         "shootDamage": 3,
-        "shootScatter": 0.2,
+        "shootScatterMin": 0.2,
+        "shootScatterIncrement": 0.3,
+        "shootScatterStability": 4,
+        "movingScatterIncrement":0.2,
         "reloadTime": 30,
         "stockDamage": 3,
         "uplift": {
-            "upliftRadius": 2
+            "upliftRadius": 8.0,
+            "upliftSpeed":6.0,
+            "recoverSpeed": 1.8
         }
     },
     "render": {
-        "texture": "dawn47:textures/models/handgun1.png",
         "t_std": {
             "scale": 0.8,
             "transform": [0.2, 0.1, 0]
         },
         "t_firstPerson": {
             "scale": 0.9,
-            "transform": [0.16, -0.03, -0.1],
-            "rotation": [0, 5, 0]
+            "transform": [-0.55, 0.15, -0.8],
+            "rotation": [3, -4, -10]
         },
         "muzzleflash": {
             "offset": [0.55, 0.38, 0]
@@ -73,5 +80,4 @@
         }
     }
 }
-
 }

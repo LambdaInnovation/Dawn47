@@ -8,6 +8,7 @@ import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import cn.annoreg.core.RegWithName;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.DamageUtils;
@@ -19,6 +20,7 @@ import cn.dawn47.core.DamageUtils;
  *
  */
 @Registrant
+@RegWithName("SeedSpit")
 @RegEntity	
 public class EntitySeedSpit extends EntityLargeFireball {
 

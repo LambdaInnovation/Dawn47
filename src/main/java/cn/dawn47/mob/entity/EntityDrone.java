@@ -21,6 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import cn.annoreg.core.RegWithName;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.dawn47.core.proxy.DWResources;
@@ -35,6 +36,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @Registrant
 @RegEntity
+@RegWithName("Drone")
 @RegEntity.HasRender
 public class EntityDrone extends LIEntityMob {
 	

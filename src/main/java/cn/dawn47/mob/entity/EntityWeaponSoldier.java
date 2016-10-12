@@ -15,6 +15,7 @@ package cn.dawn47.mob.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.annoreg.core.RegWithName;
 import cn.annoreg.core.Registrant;
 import cn.annoreg.mc.RegEntity;
 import cn.annoreg.mc.network.RegNetworkCall;
@@ -62,6 +63,7 @@ import net.minecraft.world.World;
  *
  */
 @Registrant
+@RegWithName("WeaponSoldier")
 @RegEntity
 @RegEntity.HasRender
 public class EntityWeaponSoldier extends LIEntityMob implements IRangedAttackMob {

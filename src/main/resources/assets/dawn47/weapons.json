@@ -18,14 +18,18 @@
     "weapon": {
         "ammo": "ar_ammo",
         "maxAmmo": 30,
-        "shootInterval": 1,
-        "shootDamage": 4,
-        "shootScatter": 0.08,
+        "shootInterval": 2,
+        "shootDamage": 3.5,
+        "shootScatterMin": 0.05,
+        "shootScatterIncrement": 0.25,
+        "shootScatterStability": 3,
+        "movingScatterIncrement":0.8,
         "reloadTime": 30,
         "stockDamage": 4,
         "uplift": {
-            "upliftRadius": 1.4,
-            "recoverSpeed": 0.5
+            "upliftRadius": 5.0,
+            "upliftSpeed":2.5,
+            "recoverSpeed": 2.0
         }
     },
     "render": {
@@ -46,7 +50,10 @@
         "maxAmmo": 30,
         "shootInterval": 20,
         "shootDamage": 10,
-        "shootScatter": 0,
+        "shootScatterMin": 0,
+        "shootScatterIncrement": 0,
+        "shootScatterStability": 0,
+        "movingScatterIncrement":0,
         "reloadTime": 30,
         "stockDamage": 5
     },
@@ -71,11 +78,16 @@
         "maxAmmo": 12,
         "shootInterval": 4,
         "shootDamage": 3,
-        "shootScatter": 0.2,
+        "shootScatterMin": 0.2,
+        "shootScatterIncrement": 0.3,
+        "shootScatterStability": 4,
+        "movingScatterIncrement":0.2,
         "reloadTime": 30,
         "stockDamage": 3,
         "uplift": {
-            "upliftRadius": 2
+            "upliftRadius": 8.0,
+            "upliftSpeed":6.0,
+            "recoverSpeed": 1.8
         }
     },
     "render": {
@@ -102,14 +114,18 @@
         "maxAmmo": 5,
         "shootInterval": 20,
         "shootDamage": 4,
-        "shootScatter": 1,
+        "shootScatterMin": 0.8,
+        "shootScatterIncrement": 0.1,
+        "shootScatterStability": 6,
+        "movingScatterIncrement":0.1,
         "reloadTime": 15,
         "shootBucks": 6,
         "stockDamage": 6,
         "isBuckReload": true,
         "uplift": {
             "upliftRadius": 9,
-            "recoverSpeed": 0.9
+            "upliftSpeed":6.0,
+            "recoverSpeed": 1.0
         }
     },
     "render": {
