@@ -32,5 +32,11 @@
         "unlName": "shotgun_ammo",
         "textureName": "shotgun_ammo",
         "maxStackSize": 64
+    },
+    "super_ar_ammo": {
+        "parent": "ammo",
+        "unlName": "super_ar_ammo",
+        "textureName": "super_ar_ammo",
+        "maxDamage": 60
     }
 }

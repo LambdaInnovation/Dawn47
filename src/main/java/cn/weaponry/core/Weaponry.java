@@ -57,7 +57,6 @@ public class Weaponry {
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        
         RegistrationManager.INSTANCE.registerAll(this, "PreInit");
         
         RegistrationManager.INSTANCE.registerAll(this, LIUtils.REGISTER_TYPE_CONFIGURABLE);

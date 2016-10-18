@@ -14,6 +14,36 @@
     }
 },
 
+  "super_ar": {
+    "weapon": {
+      "ammo": "super_ar_ammo",
+      "maxAmmo": 60,
+      "shootInterval": 2,
+      "shootDamage": 4.5,
+      "shootScatterMin": 0.05,
+      "shootScatterIncrement": 0.25,
+      "shootScatterStability": 3,
+      "movingScatterIncrement":0.8,
+      "reloadTime": 30,
+      "stockDamage": 4,
+      "uplift": {
+        "upliftRadius": 5.0,
+        "upliftSpeed":2.5,
+        "recoverSpeed": 2.0
+      }
+    },
+    "render": {
+      "t_firstPerson": {
+        "transform": [-0.55, 0.1, -0.8],
+        "rotation": [3, -4, -10]
+      },
+      "muzzleflash": {
+        "offset": [0.58, 0.29, -0.01],
+        "size": 0.5
+      }
+    }
+  },
+
 "ar": {
     "weapon": {
         "ammo": "ar_ammo",

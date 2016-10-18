@@ -14,6 +14,7 @@ public class DWResources {
     //public paths
     public static final String 
             TEX_ENTITIES = "dawn47:textures/entities/",
+            TEX_RADBALL_SEQ = TEX_ENTITIES + "/radiation_ball_end/",
             TEX_BLOCKS = "dawn47:textures/blocks/",
             TEX_ITEMS = "dawn47:textures/items/",
             TEX_MUZZLE = "dawn47:textures/muz/",
@@ -43,13 +44,13 @@ public class DWResources {
         BLANK = src(TEX_ENTITIES + "blank.png"),
         EFFECT_DEMON_SPIT = src(TEX_ENTITIES + "dsegg.png"),
         EFFECT_RADBALL_END[] = {
-            src(TEX_ENTITIES + "radiation_ball_end0.png"),
-            src(TEX_ENTITIES + "radiation_ball_end1.png"),
-            src(TEX_ENTITIES + "radiation_ball_end2.png"),
-            src(TEX_ENTITIES + "radiation_ball_end3.png"),
-            src(TEX_ENTITIES + "radiation_ball_end4.png"),
-            src(TEX_ENTITIES + "radiation_ball_end5.png"),
-            src(TEX_ENTITIES + "radiation_ball_end6.png")
+            src(TEX_RADBALL_SEQ + "radiation_ball_end0.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end1.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end2.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end3.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end4.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end5.png"),
+            src(TEX_RADBALL_SEQ + "radiation_ball_end6.png")
         },
         RADIT_MUZZLEFLASH[] = {
             src(TEX_MUZZLE + "muz_radit.png")

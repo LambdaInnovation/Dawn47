@@ -8,6 +8,8 @@ import cn.dawn47.core.proxy.DWResources;
 import cn.dawn47.weapon.entity.EntityRadiationBall;
 import cn.liutils.template.client.render.entity.RenderIcon;
 
+import static org.lwjgl.opengl.GL11.*;
+
 /**
  * @author WeathFolD
  *
@@ -26,7 +28,10 @@ public class RendererRadiationBall extends RenderIcon {
             double par6, float par8, float par9) {
         EntityRadiationBall rad = (EntityRadiationBall) par1Entity;
         icon = rad.isHit ? DWResources.EFFECT_RADBALL_END[rad.ticksAfterHit/3] : DWResources.EFFECT_RADBALL;
+
+        glDisable(GL_DEPTH_TEST);
         super.doRender(par1Entity, par2, par4, par6, par8, par9);
+        glEnable(GL_DEPTH_TEST);
     }
 
 }

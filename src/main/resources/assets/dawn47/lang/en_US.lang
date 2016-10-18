@@ -1,5 +1,4 @@
 ﻿# Dawn47 language file
-# 2015/6/10
 
 itemGroup.dawn47=Dawn 47
 
@@ -20,11 +19,14 @@ item.shotgun_ammo.name=Shotgun Ammo
 item.laser_rifle_ammo.name=Laser Rifle Ammo
 item.handgun_ammo.name=Handgun Ammo
 item.ar_ammo.name=Assault Rifle Ammo
+item.dw_super_ar_ammo.name=Super AR Ammo
 
 item.dw_handgun.name=Handgun
 item.dw_shotgun.name=Shotgun
 item.dw_laser_rifle.name=Laser Rifle
 item.dw_ar.name=Assault Rifle
+item.dw_super_ar.name=Super Assault Rifle
+item.dw_radiation_launcher.name=Radiation Launcher
 
 item.electronic_balancer.name=Electronic Shield Balancer
 

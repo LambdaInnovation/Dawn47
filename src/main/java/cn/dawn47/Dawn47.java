@@ -74,7 +74,7 @@ public class Dawn47 {
         config = new Configuration(event.getSuggestedConfigurationFile());
         
         log.info("Starting Dawn47 " + VERSION);
-        log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2015");
+        log.info("Copyright (c) Lambda Innovation & The Ancient Stone, 2013-2016");
         log.info("http://www.li-dev.cn/");
         
         script = new ScriptProgram();

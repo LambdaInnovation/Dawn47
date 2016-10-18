@@ -1,5 +1,4 @@
 # Dawn47 language file
-# 2015/6/10
 
 itemGroup.dawn47=曙光47
 
@@ -20,11 +19,14 @@ item.shotgun_ammo.name=霰弹枪弹药
 item.laser_rifle_ammo.name=激光步枪弹药
 item.handgun_ammo.name=手枪弹药
 item.ar_ammo.name=步枪弹药
+item.dw_super_ar_ammo.name=超级步枪弹药
 
 item.dw_handgun.name=手枪
 item.dw_shotgun.name=霰弹枪
 item.dw_laser_rifle.name=激光步枪
 item.dw_ar.name=步枪
+item.dw_super_ar.name=超级步枪
+item.dw_radiation_launcher.name=辐射炮
 
 item.electronic_balancer.name=护盾电子平衡器
 
